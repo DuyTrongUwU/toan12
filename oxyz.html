@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Ôn tập: Tọa độ Oxyz | Vectơ, Mặt cầu, Mặt phẳng, Đường thẳng, Góc & Khoảng cách</title>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f7fc;
+      color: #1a2b3c;
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 0 0 30px 0;
+    }
+    header {
+      background: linear-gradient(135deg, #0f2b4c, #1b4f7a);
+      color: white;
+      padding: 30px 30px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 2px solid #e9edf4;
+      padding: 0 20px;
+      justify-content: center;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 16px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4a5b6e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      border-radius: 12px 12px 0 0;
+    }
+    .tab-btn:hover {
+      color: #0f2b4c;
+      background: #e6f0fa;
+    }
+    .tab-btn.active {
+      color: #0f2b4c;
+      border-bottom-color: #1b4f7a;
+      background: #e1edf9;
+      font-weight: 700;
+    }
+    .tab-content {
+      display: none;
+      padding: 30px 30px 20px 30px;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      font-size: 1.9rem;
+      color: #0f2b4c;
+      margin-bottom: 18px;
+      border-left: 6px solid #1b4f7a;
+      padding-left: 20px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #1a3a5c;
+      margin: 28px 0 14px 0;
+    }
+    .card {
+      background: #f8faff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border: 1px solid #dce3ec;
+    }
+    .formula-box {
+      background: #eaf1fa;
+      border-left: 5px solid #1b4f7a;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .example {
+      background: #fff9ed;
+      border-left: 5px solid #e67e22;
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .example strong {
+      color: #b45f06;
+    }
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    th {
+      background: #1b4f7a;
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+    }
+    td, th {
+      border: 1px solid #dce3ec;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 14px 12px;
+        font-size: 0.9rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .highlight {
+      background: #fef9e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .exercise {
+      background: #ffffff;
+      border: 1px solid #dce3ec;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .exercise p {
+      margin: 0 0 10px 0;
+    }
+    .toggle-solution {
+      background: #1b4f7a;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .toggle-solution:hover {
+      background: #0f2b4c;
+    }
+    .solution {
+      display: none;
+      margin-top: 12px;
+      background: #eaf1fa;
+      border-left: 4px solid #1b4f7a;
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🌐 Tọa độ Oxyz trong không gian</h1>
+    <p>Vectơ • Mặt cầu • Mặt phẳng • Đường thẳng • Góc & Khoảng cách • Mô hình thực tế</p>
+  </header>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" data-tab="vecto">📊 Vectơ & Tọa độ</button>
+    <button class="tab-btn" data-tab="matcau">🔮 Mặt cầu</button>
+    <button class="tab-btn" data-tab="matphangDt">📐 Mặt phẳng & Đường thẳng</button>
+    <button class="tab-btn" data-tab="gocKhoangCach">📏 Góc & Khoảng cách</button>
+    <button class="tab-btn" data-tab="thucTe">🏠 Mô hình thực tế</button>
+  </div>
+
+  <!-- TAB VECTƠ & TỌA ĐỘ -->
+  <div class="tab-content active" id="vecto">
+    <h2>Vectơ và Hệ tọa độ</h2>
+    <div class="card">
+      <h3>🔹 Các phép toán cơ bản</h3>
+      <p>Cho $\vec{a}=(a_1,a_2,a_3), \vec{b}=(b_1,b_2,b_3)$:</p>
+      <ul>
+        <li>$\vec{a} \pm \vec{b} = (a_1\pm b_1, a_2\pm b_2, a_3\pm b_3)$</li>
+        <li>$k\vec{a} = (ka_1,ka_2,ka_3)$</li>
+        <li>Tích vô hướng: $\vec{a}.\vec{b} = a_1b_1+a_2b_2+a_3b_3$</li>
+        <li>Độ dài: $|\vec{a}| = \sqrt{a_1^2+a_2^2+a_3^2}$</li>
+        <li>Góc: $\cos(\vec{a},\vec{b}) = \dfrac{\vec{a}.\vec{b}}{|\vec{a}||\vec{b}|}$</li>
+      </ul>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Đề minh họa HN):</strong> Trong không gian $Oxyz$, cho hai điểm $A(2; -1; 3)$ và $B(0; 3; -1)$. Tìm tọa độ vectơ $\overrightarrow{AB}$ và độ dài đoạn $AB$.</p>
+      <button class="toggle-solution" data-target="sol-v1">Xem lời giải</button>
+      <div id="sol-v1" class="solution">
+        $\overrightarrow{AB} = (-2; 4; -4)$. Độ dài $AB = \sqrt{(-2)^2+4^2+(-4)^2} = \sqrt{4+16+16} = \sqrt{36} = 6$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Cho $\vec{u} = (1; 2; -2)$, $\vec{v} = (2; -1; 2)$. Tính $\vec{u}.\vec{v}$ và góc giữa hai vectơ.</p>
+      <button class="toggle-solution" data-target="sol-v2">Xem lời giải</button>
+      <div id="sol-v2" class="solution">
+        $\vec{u}.\vec{v} = 1.2 + 2.(-1) + (-2).2 = 2 - 2 - 4 = -4$. <br>
+        $|\vec{u}| = \sqrt{1+4+4}=3$, $|\vec{v}| = \sqrt{4+1+4}=3$. <br>
+        $\cos(\vec{u},\vec{v}) = \dfrac{-4}{9} \Rightarrow$ góc khoảng $116^\circ$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Tìm $m$ để hai vectơ $\vec{a}=(m;1;2)$ và $\vec{b}=(4;2;2m)$ vuông góc.</p>
+      <button class="toggle-solution" data-target="sol-v3">Xem lời giải</button>
+      <div id="sol-v3" class="solution">
+        $\vec{a}.\vec{b}=0 \Leftrightarrow 4m + 2 + 4m = 0 \Leftrightarrow 8m = -2 \Rightarrow m = -\frac14$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB MẶT CẦU -->
+  <div class="tab-content" id="matcau">
+    <h2>Phương trình mặt cầu</h2>
+    <div class="card">
+      <h3>🔹 Dạng chính tắc & khai triển</h3>
+      <p>Mặt cầu tâm $I(a;b;c)$, bán kính $R$: $(x-a)^2+(y-b)^2+(z-c)^2=R^2$.</p>
+      <p>Khai triển: $x^2+y^2+z^2 -2ax -2by -2cz +d=0$ với $d = a^2+b^2+c^2 - R^2$.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở HCM):</strong> Viết phương trình mặt cầu tâm $I(1;-2;3)$ và đi qua điểm $A(2;0;1)$.</p>
+      <button class="toggle-solution" data-target="sol-mc1">Xem lời giải</button>
+      <div id="sol-mc1" class="solution">
+        Bán kính $R = IA = \sqrt{(2-1)^2+(0+2)^2+(1-3)^2} = \sqrt{1+4+4} = 3$.<br>
+        Phương trình: $(x-1)^2 + (y+2)^2 + (z-3)^2 = 9$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Cho mặt cầu $(S): x^2+y^2+z^2 -4x +6y -2z -2=0$. Tìm tâm và bán kính.</p>
+      <button class="toggle-solution" data-target="sol-mc2">Xem lời giải</button>
+      <div id="sol-mc2" class="solution">
+        Tâm $I(2; -3; 1)$, bán kính $R = \sqrt{2^2+(-3)^2+1^2 - (-2)} = \sqrt{4+9+1+2} = \sqrt{16}=4$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề thi thử):</strong> Lập phương trình mặt cầu đường kính $AB$ với $A(1;3;-2), B(5;-1;4)$.</p>
+      <button class="toggle-solution" data-target="sol-mc3">Xem lời giải</button>
+      <div id="sol-mc3" class="solution">
+        Tâm $I$ là trung điểm $AB$: $I(3;1;1)$. Bán kính $R = \dfrac{AB}{2} = \dfrac{\sqrt{4^2+(-4)^2+6^2}}{2} = \dfrac{\sqrt{16+16+36}}{2} = \dfrac{\sqrt{68}}{2} = \sqrt{17}$.<br>
+        PT: $(x-3)^2+(y-1)^2+(z-1)^2=17$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB MẶT PHẲNG & ĐƯỜNG THẲNG -->
+  <div class="tab-content" id="matphangDt">
+    <h2>Mặt phẳng & Đường thẳng</h2>
+    <div class="card">
+      <h3>🔹 Phương trình mặt phẳng</h3>
+      <p>Qua $M_0(x_0;y_0;z_0)$, VTPT $\vec{n}=(A;B;C)$: $A(x-x_0)+B(y-y_0)+C(z-z_0)=0$.</p>
+      <p>Mặt phẳng theo đoạn chắn: $\dfrac{x}{a}+\dfrac{y}{b}+\dfrac{z}{c}=1$.</p>
+    </div>
+    <div class="card">
+      <h3>🔸 Phương trình đường thẳng</h3>
+      <p>Qua $M_0$, VTCP $\vec{u}=(a;b;c)$: tham số $\begin{cases}x=x_0+at \\ y=y_0+bt \\ z=z_0+ct \end{cases}$.</p>
+      <p>Chính tắc: $\dfrac{x-x_0}{a}=\dfrac{y-y_0}{b}=\dfrac{z-z_0}{c}$.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Viết phương trình mặt phẳng đi qua $A(1;2;-1)$ và có VTPT $\vec{n}=(2;-1;3)$.</p>
+      <button class="toggle-solution" data-target="sol-mp1">Xem lời giải</button>
+      <div id="sol-mp1" class="solution">$2(x-1) -1(y-2) +3(z+1)=0 \Leftrightarrow 2x - y + 3z + 3 = 0$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Viết phương trình đường thẳng đi qua $M(2;0;-3)$ và có VTCP $\vec{u}=(-1;3;2)$.</p>
+      <button class="toggle-solution" data-target="sol-dt1">Xem lời giải</button>
+      <div id="sol-dt1" class="solution">Phương trình tham số: $\begin{cases}x=2-t \\ y=3t \\ z=-3+2t \end{cases}$ hoặc chính tắc: $\dfrac{x-2}{-1}=\dfrac{y}{3}=\dfrac{z+3}{2}$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Vị trí tương đối):</strong> Xét vị trí tương đối của mặt phẳng $(P): x-2y+3z-5=0$ và đường thẳng $d: \dfrac{x-1}{2}=\dfrac{y+1}{-1}=\dfrac{z}{3}$.</p>
+      <button class="toggle-solution" data-target="sol-vttd1">Xem lời giải</button>
+      <div id="sol-vttd1" class="solution">
+        VTCP của $d$: $\vec{u}=(2;-1;3)$, VTPT của $(P)$: $\vec{n}=(1;-2;3)$. $\vec{u}.\vec{n} = 2 + 2 + 9 = 13 \neq 0$ nên $d$ cắt $(P)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB GÓC & KHOẢNG CÁCH -->
+  <div class="tab-content" id="gocKhoangCach">
+    <h2>Góc và Khoảng cách</h2>
+    <div class="card">
+      <h3>🔹 Góc</h3>
+      <p>• Góc giữa hai đường thẳng: $\cos(d_1,d_2) = \dfrac{|\vec{u}_1.\vec{u}_2|}{|\vec{u}_1||\vec{u}_2|}$.</p>
+      <p>• Góc giữa đường và mặt: $\sin(d,(P)) = \dfrac{|\vec{u}.\vec{n}|}{|\vec{u}||\vec{n}|}$.</p>
+      <p>• Góc giữa hai mặt: $\cos((P),(Q)) = \dfrac{|\vec{n}_P.\vec{n}_Q|}{|\vec{n}_P||\vec{n}_Q|}$.</p>
+    </div>
+    <div class="card">
+      <h3>🔸 Khoảng cách</h3>
+      <p>• Điểm $M(x_0;y_0;z_0)$ đến $(P): Ax+By+Cz+D=0$: $d(M,(P)) = \dfrac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}$.</p>
+      <p>• Giữa hai đường chéo nhau, điểm đến đường, … dùng công thức.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở HN):</strong> Tính khoảng cách từ $M(1;2;-3)$ đến mặt phẳng $(P): 2x - y + 2z + 4 = 0$.</p>
+      <button class="toggle-solution" data-target="sol-kc1">Xem lời giải</button>
+      <div id="sol-kc1" class="solution">
+        $d = \dfrac{|2\cdot1 -1\cdot2 +2\cdot(-3)+4|}{\sqrt{2^2+(-1)^2+2^2}} = \dfrac{|2-2-6+4|}{3} = \dfrac{2}{3}$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Góc giữa đường thẳng $d: \dfrac{x}{2}=\dfrac{y-1}{-1}=\dfrac{z+2}{1}$ và mặt phẳng $(Oxy)$.</p>
+      <button class="toggle-solution" data-target="sol-goc1">Xem lời giải</button>
+      <div id="sol-goc1" class="solution">
+        $(Oxy)$ có VTPT $\vec{k}=(0;0;1)$. VTCP của $d$ là $\vec{u}=(2;-1;1)$. $\sin\alpha = \dfrac{|\vec{u}.\vec{k}|}{|\vec{u}||\vec{k}|} = \dfrac{|1|}{\sqrt{6}\cdot1} = \dfrac{1}{\sqrt{6}} \Rightarrow \alpha \approx 24^\circ$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Tính góc giữa hai mặt phẳng $(P): x+y+z-3=0$ và $(Q): x-2y+z-1=0$.</p>
+      <button class="toggle-solution" data-target="sol-goc2">Xem lời giải</button>
+      <div id="sol-goc2" class="solution">
+        $\vec{n}_P=(1;1;1), \vec{n}_Q=(1;-2;1)$. $\cos\phi = \dfrac{|1 -2 +1|}{\sqrt{3}\sqrt{6}} = 0 \Rightarrow \phi = 90^\circ$. Hai mặt phẳng vuông góc.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB MÔ HÌNH THỰC TẾ -->
+  <div class="tab-content" id="thucTe">
+    <h2>Mô hình hóa thực tế</h2>
+    <div class="card">
+      <h3>🏠 Gắn hệ trục Oxyz vào không gian thực</h3>
+      <p>Chọn gốc $O$ là một góc phòng, trục $Ox, Oy$ dọc theo hai mép tường vuông góc, $Oz$ hướng lên trần. Khi đó mỗi điểm trong phòng có tọa độ $(x;y;z)$.</p>
+    </div>
+
+    <h3>📝 Bài tập thực tế</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Căn phòng):</strong> Một căn phòng dạng hình hộp chữ nhật có chiều dài $4m$, rộng $3m$, cao $2.8m$. Chọn hệ trục $Oxyz$ sao cho $O$ là góc dưới bên trái, $Ox$ dọc theo chiều dài, $Oy$ dọc theo chiều rộng, $Oz$ hướng lên. Một con ruồi đậu tại điểm cách tường bên trái $1m$, cách tường trước mặt $2m$ và cách sàn $1.5m$. Xác định tọa độ con ruồi.</p>
+      <button class="toggle-solution" data-target="sol-tt1">Xem lời giải</button>
+      <div id="sol-tt1" class="solution">
+        Theo cách chọn: $x$ là khoảng cách đến tường bên trái (dọc $Ox$) → $x=1$; $y$ là khoảng cách đến tường trước (dọc $Oy$) → $y=2$; $z$ là độ cao so với sàn → $z=1.5$. Vậy tọa độ $(1; 2; 1.5)$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Mái nhà):</strong> Một mái nhà nghiêng là mặt phẳng $(P)$ đi qua ba điểm: chân mái $A(0;0;3)$, đỉnh mái $B(2;0;5)$ và điểm $C(0;2;4)$. Viết phương trình mặt phẳng $(P)$.</p>
+      <button class="toggle-solution" data-target="sol-tt2">Xem lời giải</button>
+      <div id="sol-tt2" class="solution">
+        Vectơ $\overrightarrow{AB}=(2;0;2)$, $\overrightarrow{AC}=(0;2;1)$. VTPT $\vec{n} = [\overrightarrow{AB},\overrightarrow{AC}] = (0\cdot1 - 2\cdot2; 2\cdot0 - 2\cdot1; 2\cdot2 - 0\cdot0) = (-4; -2; 4)$. Chọn $\vec{n}=(2;1;-2)$.<br>
+        Phương trình $(P)$ qua $A(0;0;3)$: $2(x-0)+1(y-0)-2(z-3)=0 \Leftrightarrow 2x + y - 2z + 6 = 0$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đèn chiếu sáng):</strong> Một bóng đèn đặt tại điểm $D(2;1;2.5)$ trong phòng ở Bài 1. Tính khoảng cách từ bóng đèn đến mặt sàn (mặt phẳng $z=0$) và đến bức tường $x=4$ (tường bên phải).</p>
+      <button class="toggle-solution" data-target="sol-tt3">Xem lời giải</button>
+      <div id="sol-tt3" class="solution">
+        Khoảng cách đến sàn $(z=0)$: $|z_D| = 2.5\,m$.<br>
+        Khoảng cách đến tường $x=4$: $|4 - x_D| = |4-2| = 2\,m$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Camera an ninh – Đề tham khảo):</strong> Một camera được đặt tại $C(1; 2; 3)$ quan sát một khu vực. Góc quay của camera bao phủ một mặt phẳng $(Q)$ có phương trình $x - y + z - 4 = 0$. Tính góc giữa tia nhìn thẳng đứng (hướng lên, vectơ $(0;0;1)$) và mặt phẳng $(Q)$.</p>
+      <button class="toggle-solution" data-target="sol-tt4">Xem lời giải</button>
+      <div id="sol-tt4" class="solution">
+        Góc giữa đường thẳng (phương $\vec{u}=(0;0;1)$) và mặt phẳng $(Q)$ có $\sin \alpha = \dfrac{|\vec{u}.\vec{n}_Q|}{|\vec{u}||\vec{n}_Q|} = \dfrac{|1|}{\sqrt{1^2+(-1)^2+1^2}} = \dfrac{1}{\sqrt{3}}$. Vậy $\alpha \approx 35.26^\circ$.
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
+    <hr>
+</div>
+
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+      contents.forEach(c => c.classList.remove('active'));
+      tabs.forEach(b => b.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) activeContent.classList.add('active');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        switchTab(tabId);
+        history.replaceState(null, null, '#' + tabId);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('vecto');
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    document.querySelectorAll('.toggle-solution').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const solutionDiv = document.getElementById(targetId);
+        if (!solutionDiv) return;
+        const isHidden = solutionDiv.style.display === 'none' || solutionDiv.style.display === '';
+        if (isHidden) {
+          solutionDiv.style.display = 'block';
+          this.textContent = 'Ẩn lời giải';
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([solutionDiv]).catch(err => console.log(err));
+          }
+        } else {
+          solutionDiv.style.display = 'none';
+          this.textContent = 'Xem lời giải';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

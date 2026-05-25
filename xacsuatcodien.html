@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Ôn tập: Đại số tổ hợp & Xác suất cổ điển | Quy tắc đếm, Nhị thức Newton</title>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f3f6fd;
+      color: #1a2838;
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 0 0 30px 0;
+    }
+    header {
+      background: linear-gradient(135deg, #1a3b5c, #2e5984);
+      color: white;
+      padding: 30px 30px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 2px solid #e0e8f0;
+      padding: 0 20px;
+      justify-content: center;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #3a4f66;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      border-radius: 12px 12px 0 0;
+    }
+    .tab-btn:hover {
+      color: #1a3b5c;
+      background: #e6f0fa;
+    }
+    .tab-btn.active {
+      color: #1a3b5c;
+      border-bottom-color: #2e5984;
+      background: #e2ecf7;
+      font-weight: 700;
+    }
+    .tab-content {
+      display: none;
+      padding: 30px 30px 20px 30px;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      font-size: 1.9rem;
+      color: #1a3b5c;
+      margin-bottom: 18px;
+      border-left: 6px solid #2e5984;
+      padding-left: 20px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #1f3e57;
+      margin: 28px 0 14px 0;
+    }
+    .card {
+      background: #f8fafd;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border: 1px solid #dce3ec;
+    }
+    .formula-box {
+      background: #eaf1fb;
+      border-left: 5px solid #2e5984;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .example {
+      background: #fff9ed;
+      border-left: 5px solid #e67e22;
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .example strong {
+      color: #b45f06;
+    }
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    th {
+      background: #2e5984;
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+    }
+    td, th {
+      border: 1px solid #d2dce8;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 14px 14px;
+        font-size: 0.9rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .highlight {
+      background: #fef9e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .exercise {
+      background: #ffffff;
+      border: 1px solid #d2dce8;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid #2e5984;
+    }
+    .exercise p {
+      margin: 0 0 10px 0;
+    }
+    .toggle-solution {
+      background: #2e5984;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .toggle-solution:hover {
+      background: #1a3b5c;
+    }
+    .solution {
+      display: none;
+      margin-top: 12px;
+      background: #eaf1fb;
+      border-left: 4px solid #2e5984;
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+    .level-tag {
+      display: inline-block;
+      background: #d2dce8;
+      color: #1a3b5c;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🧮 Đại số Tổ hợp & Xác suất cổ điển</h1>
+    <p>Quy tắc đếm • Hoán vị - Chỉnh hợp - Tổ hợp • Nhị thức Newton • Xác suất cổ điển</p>
+  </header>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" data-tab="dem">🔢 Quy tắc đếm</button>
+    <button class="tab-btn" data-tab="hvc">📊 Hoán vị - Chỉnh hợp - Tổ hợp</button>
+    <button class="tab-btn" data-tab="newton">📈 Nhị thức Newton</button>
+    <button class="tab-btn" data-tab="xacsuat">🎯 Xác suất cổ điển</button>
+    <button class="tab-btn" data-tab="tonghop">📝 Tổng hợp đề thi</button>
+  </div>
+
+  <!-- TAB QUY TẮC ĐẾM -->
+  <div class="tab-content active" id="dem">
+    <h2>Các quy tắc đếm cơ bản</h2>
+    <div class="card">
+      <h3>🔹 Quy tắc cộng</h3>
+      <p>Một công việc được thực hiện theo một trong $k$ phương án, phương án $i$ có $n_i$ cách. Tổng số cách: $n_1 + n_2 + \dots + n_k$.</p>
+    </div>
+    <div class="card">
+      <h3>🔸 Quy tắc nhân</h3>
+      <p>Một công việc gồm $k$ giai đoạn nối tiếp, giai đoạn $i$ có $n_i$ cách. Tổng số cách: $n_1 \cdot n_2 \cdots n_k$.</p>
+    </div>
+    <div class="card">
+      <h3>🌳 Sơ đồ hình cây</h3>
+      <p>Liệt kê trực quan các lựa chọn qua từng bước, giúp tránh bỏ sót hoặc trùng lặp.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Một bó hoa có 5 hoa hồng và 4 hoa cúc. Cần chọn ra 1 bông để tặng. Hỏi có bao nhiêu cách chọn?</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-q1">Xem lời giải</button>
+      <div id="sol-q1" class="solution">Quy tắc cộng: $5 + 4 = 9$ cách.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Để đi từ Hà Nội vào TP.HCM có thể đi máy bay (3 hãng) hoặc tàu hỏa (2 chuyến). Hỏi có bao nhiêu cách lựa chọn phương tiện?</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-q2">Xem lời giải</button>
+      <div id="sol-q2" class="solution">Quy tắc cộng: $3 + 2 = 5$ cách.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề minh họa):</strong> Một người có 3 áo sơ mi, 2 quần tây và 2 đôi giày. Hỏi có bao nhiêu cách chọn trang phục (áo, quần, giày)?</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-q3">Xem lời giải</button>
+      <div id="sol-q3" class="solution">Quy tắc nhân: $3 \times 2 \times 2 = 12$ cách.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Sở TP.HCM):</strong> Từ các chữ số 1,2,3,4,5 lập được bao nhiêu số tự nhiên có 3 chữ số khác nhau?</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-q4">Xem lời giải</button>
+      <div id="sol-q4" class="solution">Chọn chữ số hàng trăm: 5 cách, hàng chục: 4 cách, hàng đơn vị: 3 cách → $5 \times 4 \times 3 = 60$ số.</div>
+    </div>
+  </div>
+
+  <!-- TAB HOÁN VỊ - CHỈNH HỢP - TỔ HỢP -->
+  <div class="tab-content" id="hvc">
+    <h2>Hoán vị, Chỉnh hợp, Tổ hợp</h2>
+    <div class="card">
+      <h3>📌 Phân biệt & Công thức</h3>
+      <table>
+        <thead><tr><th>Khái niệm</th><th>Kí hiệu</th><th>Công thức</th><th>Thứ tự</th></tr></thead>
+        <tbody>
+          <tr><td>Hoán vị của $n$ phần tử</td><td>$P_n$</td><td>$P_n = n! = 1.2\cdots n$</td><td>Có</td></tr>
+          <tr><td>Chỉnh hợp chập $k$ của $n$</td><td>$A_n^k$</td><td>$A_n^k = \frac{n!}{(n-k)!}$</td><td>Có</td></tr>
+          <tr><td>Tổ hợp chập $k$ của $n$</td><td>$C_n^k$</td><td>$C_n^k = \frac{n!}{k!(n-k)!}$</td><td>Không</td></tr>
+        </tbody>
+      </table>
+      <p>Quy ước: $0! = 1$, $C_n^0 = 1$.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Có bao nhiêu cách xếp 5 học sinh A, B, C, D, E thành một hàng dọc?</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-h1">Xem lời giải</button>
+      <div id="sol-h1" class="solution">$5! = 120$ cách.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Một lớp có 30 học sinh, cần chọn 3 bạn vào ban cán sự (lớp trưởng, lớp phó, bí thư). Có bao nhiêu cách chọn?</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-h2">Xem lời giải</button>
+      <div id="sol-h2" class="solution">Có phân công thứ tự → Chỉnh hợp: $A_{30}^3 = 30 \cdot 29 \cdot 28 = 24360$ cách.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề TP.HCM):</strong> Một tổ có 7 nam và 5 nữ. Cần chọn 4 người đi lao động. Hỏi có bao nhiêu cách chọn nếu phải có ít nhất 1 nữ?</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-h3">Xem lời giải</button>
+      <div id="sol-h3" class="solution">
+        Tổng số cách chọn 4 người bất kì: $C_{12}^4 = 495$.<br>
+        Số cách chọn toàn nam (không có nữ): $C_{7}^4 = 35$.<br>
+        Vậy số cách có ít nhất 1 nữ = $495 - 35 = 460$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Bộ GD):</strong> Từ các chữ số 0,1,2,3,4,5 có thể lập được bao nhiêu số chẵn gồm 4 chữ số khác nhau?</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-h4">Xem lời giải</button>
+      <div id="sol-h4" class="solution">
+        Gọi số là $\overline{abcd}$, $d$ chẵn. Trường hợp $d=0$: chọn $a,b,c$ từ 1-5: $A_5^3=60$.<br>
+        Trường hợp $d \in \{2,4\}$ (2 cách). Chọn $a \neq 0,d$: 4 cách. Sau đó chọn $b,c$ từ 4 chữ số còn lại: $A_4^2=12$.<br>
+        Tổng = $60 + 2 \cdot 4 \cdot 12 = 60 + 96 = 156$ số.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB NHỊ THỨC NEWTON -->
+  <div class="tab-content" id="newton">
+    <h2>Nhị thức Newton</h2>
+    <div class="card">
+      <h3>🔹 Công thức khai triển</h3>
+      <div class="formula-box">
+        $$(a+b)^n = \sum_{k=0}^{n} C_n^k a^{n-k} b^k = C_n^0 a^n + C_n^1 a^{n-1}b + \dots + C_n^n b^n$$
+      </div>
+      <p>Số hạng tổng quát thứ $k+1$: $T_{k+1} = C_n^k a^{n-k} b^k$.</p>
+      <p>Tính chất: $C_n^k = C_n^{n-k}$; tổng số mũ của $a$ và $b$ bằng $n$.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Khai triển $(x+2)^4$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-n1">Xem lời giải</button>
+      <div id="sol-n1" class="solution">
+        $(x+2)^4 = C_4^0 x^4 + C_4^1 x^3 \cdot 2 + C_4^2 x^2 \cdot 2^2 + C_4^3 x \cdot 2^3 + C_4^4 2^4 = x^4 + 8x^3 + 24x^2 + 32x + 16$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tìm hệ số của $x^3$ trong khai triển $(1+x)^5$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-n2">Xem lời giải</button>
+      <div id="sol-n2" class="solution">$T_{4} = C_5^3 x^3 = 10 x^3$. Hệ số là $10$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề TP.HCM):</strong> Tính tổng $S = C_5^0 + C_5^1 + C_5^2 + C_5^3 + C_5^4 + C_5^5$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-n3">Xem lời giải</button>
+      <div id="sol-n3" class="solution">$(1+1)^5 = 2^5 = 32$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4:</strong> Tìm số hạng không chứa $x$ trong khai triển $\left(x^2 + \frac{2}{x}\right)^6$.</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-n4">Xem lời giải</button>
+      <div id="sol-n4" class="solution">
+        Số hạng tổng quát: $T_{k+1} = C_6^k (x^2)^{6-k} \left(\frac{2}{x}\right)^k = C_6^k 2^k x^{12-3k}$.<br>
+        Không chứa $x \Rightarrow 12-3k=0 \Rightarrow k=4$. Vậy số hạng cần tìm: $C_6^4 2^4 = 15 \cdot 16 = 240$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB XÁC SUẤT CỔ ĐIỂN -->
+  <div class="tab-content" id="xacsuat">
+    <h2>Xác suất cổ điển</h2>
+    <div class="card">
+      <h3>🎯 Công thức</h3>
+      <p>Giả sử phép thử có không gian mẫu $\Omega$ gồm $n(\Omega)$ kết quả đồng khả năng. Xác suất của biến cố $A$:</p>
+      <div class="formula-box">
+        $$P(A) = \frac{n(A)}{n(\Omega)}$$
+      </div>
+      <p>$0 \le P(A) \le 1$; $P(\Omega)=1$; $P(\overline{A}) = 1 - P(A)$.</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Gieo một con xúc xắc cân đối. Tính xác suất xuất hiện mặt chẵn chấm.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-x1">Xem lời giải</button>
+      <div id="sol-x1" class="solution">$n(\Omega)=6$, $n(A)=3$ (mặt 2,4,6) → $P(A)=3/6=0.5$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Gieo hai con xúc xắc. Tính xác suất tổng số chấm bằng 7.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-x2">Xem lời giải</button>
+      <div id="sol-x2" class="solution">$n(\Omega)=36$. Các cặp tổng 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) → $n(A)=6$. $P=6/36=1/6$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề TP.HCM):</strong> Hộp đựng 7 viên bi xanh và 5 viên bi đỏ. Lấy ngẫu nhiên 3 viên. Tính xác suất để lấy được ít nhất 1 viên xanh.</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-x3">Xem lời giải</button>
+      <div id="sol-x3" class="solution">
+        $n(\Omega)=C_{12}^3=220$. Biến cố đối "toàn đỏ": $C_5^3=10$. $P = 1 - 10/220 = 21/22$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Bộ GD):</strong> Nhóm 4 nam, 3 nữ. Chọn ngẫu nhiên 3 người. Xác suất để có đúng 1 nữ.</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-x4">Xem lời giải</button>
+      <div id="sol-x4" class="solution">$n(\Omega)=C_7^3=35$. Chọn 1 nữ từ 3 nữ: 3 cách; 2 nam từ 4 nam: $C_4^2=6$. $n(A)=18$. $P=18/35$.</div>
+    </div>
+  </div>
+
+  <!-- TAB TỔNG HỢP ĐỀ THI -->
+  <div class="tab-content" id="tonghop">
+    <h2>Bài tập tổng hợp từ đề thi thử</h2>
+    <p style="margin-bottom:20px;">Các câu hỏi được trích từ đề thi thử THPT của Sở GD&ĐT Hà Nội, TP.HCM và Bộ Giáo dục.</p>
+
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội 2024):</strong> Có 15 học sinh gồm 9 nam và 6 nữ. Chọn ngẫu nhiên 5 học sinh. Tính xác suất để trong 5 học sinh được chọn có ít nhất 2 nữ.</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th1">Xem lời giải</button>
+      <div id="sol-th1" class="solution">
+        $n(\Omega)=C_{15}^5=3003$. Biến cố đối: 0 nữ hoặc 1 nữ.<br>
+        - 0 nữ (toàn nam): $C_9^5=126$.<br>
+        - 1 nữ: $C_6^1 C_9^4 = 6 \times 126 = 756$.<br>
+        $P = 1 - \frac{126+756}{3003} = \frac{2121}{3003} = \frac{707}{1001} \approx 0.706$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Sở TP.HCM 2024):</strong> Từ tập $A=\{0,1,2,3,4,5,6\}$ lập một số tự nhiên có 4 chữ số khác nhau. Chọn ngẫu nhiên một số vừa lập. Tính xác suất để số được chọn là số chẵn.</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th2">Xem lời giải</button>
+      <div id="sol-th2" class="solution">
+        Tổng số tự nhiên 4 chữ số khác nhau từ A (a≠0): $6 \times A_6^3 = 6 \times 120 = 720$ số.<br>
+        Số chẵn: xét chữ số cuối $d \in \{0,2,4,6\}$.<br>
+        - $d=0$: chọn 3 chữ số đầu $A_6^3=120$.<br>
+        - $d=2,4,6$ (3 cách): chọn a≠0,d (5 cách), chọn 2 chữ số giữa $A_5^2=20$. Số lượng = $3 \times 5 \times 20 = 300$.<br>
+        Tổng số chẵn = $120+300=420$. Xác suất = $420/720 = 7/12$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề tham khảo Bộ GD):</strong> Cho tập $S=\{1,2,3,...,30\}$, chọn ngẫu nhiên 3 số. Tính xác suất để tổng 3 số được chọn chia hết cho 3.</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th3">Xem lời giải</button>
+      <div id="sol-th3" class="solution">
+        $n(\Omega)=C_{30}^3=4060$. Phân hoạch S theo số dư khi chia 3: dư 0 (10 số), dư 1 (10), dư 2 (10).<br>
+        Tổng 3 số chia hết cho 3 khi: 3 số cùng dư (3 trường hợp) hoặc 1 số mỗi loại.<br>
+        - 3 cùng dư: $3 \times C_{10}^3 = 3 \times 120 = 360$.<br>
+        - 1 mỗi loại: $10 \times 10 \times 10 = 1000$.<br>
+        Tổng thuận lợi = $1360$. $P = 1360/4060 = 68/203 \approx 0.335$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Sở Nam Định):</strong> Một hộp chứa 20 viên bi gồm 12 bi đỏ và 8 bi xanh. Lấy ngẫu nhiên 4 viên. Tính xác suất để số bi đỏ nhiều hơn số bi xanh.</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th4">Xem lời giải</button>
+      <div id="sol-th4" class="solution">
+        $n(\Omega)=C_{20}^4=4845$. "Đỏ nhiều hơn xanh" → 3 đỏ 1 xanh hoặc 4 đỏ.<br>
+        - 3 đỏ 1 xanh: $C_{12}^3 \cdot C_{8}^1 = 220 \times 8 = 1760$.<br>
+        - 4 đỏ: $C_{12}^4 = 495$. Tổng = $2255$. $P = 2255/4845 = 451/969 \approx 0.465$.
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
+    <hr>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+      contents.forEach(c => c.classList.remove('active'));
+      tabs.forEach(b => b.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) activeContent.classList.add('active');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        switchTab(tabId);
+        history.replaceState(null, null, '#' + tabId);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('dem');
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    document.querySelectorAll('.toggle-solution').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const solutionDiv = document.getElementById(targetId);
+        if (!solutionDiv) return;
+        const isHidden = solutionDiv.style.display === 'none' || solutionDiv.style.display === '';
+        if (isHidden) {
+          solutionDiv.style.display = 'block';
+          this.textContent = 'Ẩn lời giải';
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([solutionDiv]).catch(err => console.log(err));
+          }
+        } else {
+          solutionDiv.style.display = 'none';
+          this.textContent = 'Xem lời giải';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

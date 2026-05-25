@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Ôn tập: Nguyên hàm & Tích phân | Bảng công thức đầy đủ</title>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f7fc;
+      color: #1a2b3c;
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 0 0 30px 0;
+    }
+    header {
+      background: linear-gradient(135deg, #1e4b3c, #2a6b54);
+      color: white;
+      padding: 30px 30px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 2px solid #e9edf4;
+      padding: 0 20px;
+      justify-content: center;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 16px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4a5b6e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      border-radius: 12px 12px 0 0;
+    }
+    .tab-btn:hover {
+      color: #1e4b3c;
+      background: #eaf5f0;
+    }
+    .tab-btn.active {
+      color: #1e4b3c;
+      border-bottom-color: #1e4b3c;
+      background: #e6f4ec;
+      font-weight: 700;
+    }
+    .tab-content {
+      display: none;
+      padding: 30px 30px 20px 30px;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      font-size: 1.9rem;
+      color: #1e4b3c;
+      margin-bottom: 18px;
+      border-left: 6px solid #2a6b54;
+      padding-left: 20px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #1e4b3c;
+      margin: 28px 0 14px 0;
+    }
+    h4 {
+      font-weight: 600;
+      margin: 20px 0 8px;
+      color: #2c3e50;
+    }
+    .card {
+      background: #f8faff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border: 1px solid #e1e8f0;
+    }
+    .formula-box {
+      background: #eef7f2;
+      border-left: 5px solid #2a6b54;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+    }
+    .example {
+      background: #fff9ed;
+      border-left: 5px solid #e67e22;
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .example strong {
+      color: #b45f06;
+    }
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    th {
+      background: #2a6b54;
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+    }
+    td, th {
+      border: 1px solid #dce3ec;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 14px 14px;
+        font-size: 0.9rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .highlight {
+      background: #fef9e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .exercise {
+      background: #ffffff;
+      border: 1px solid #dce3ec;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .exercise p {
+      margin: 0 0 10px 0;
+    }
+    .toggle-solution {
+      background: #2a6b54;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .toggle-solution:hover {
+      background: #1e4b3c;
+    }
+    .solution {
+      display: none;
+      margin-top: 12px;
+      background: #eef7f2;
+      border-left: 4px solid #2a6b54;
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+    /* Bảng công thức */
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin: 12px 0;
+    }
+    .formula-table th {
+      background: #2a6b54;
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    .formula-table td {
+      padding: 10px 12px;
+      border: 1px solid #dce3ec;
+      vertical-align: middle;
+    }
+    .formula-table tr:nth-child(even) td {
+      background: #f9fdfb;
+    }
+    .formula-section-title {
+      background: #e6f4ec;
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 18px 0 8px;
+      color: #1e4b3c;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📚 Nguyên hàm & Tích phân</h1>
+    <p>Nguyên hàm • Tích phân • Ứng dụng diện tích, thể tích, vật lý</p>
+  </header>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" data-tab="nguyenHam">🧮 Nguyên hàm</button>
+    <button class="tab-btn" data-tab="tichPhan">📐 Tích phân</button>
+    <button class="tab-btn" data-tab="ungDung">⚙️ Ứng dụng</button>
+  </div>
+
+  <!-- TAB NGUYÊN HÀM -->
+  <div class="tab-content active" id="nguyenHam">
+    <h2>Nguyên hàm – Bảng công thức đầy đủ</h2>
+
+    <div class="formula-section-title">🔹 Hàm lũy thừa & căn thức</div>
+    <table class="formula-table">
+      <thead><tr><th>Hàm số $f(x)$</th><th>Nguyên hàm $F(x) = \int f(x)\,dx$</th></tr></thead>
+      <tbody>
+        <tr><td>$x^n$ ($n \neq -1$)</td><td>$\dfrac{x^{n+1}}{n+1} + C$</td></tr>
+        <tr><td>$\dfrac{1}{x}$</td><td>$\ln |x| + C$</td></tr>
+        <tr><td>$\dfrac{1}{x^n}$ ($n>0$)</td><td>$-\dfrac{1}{(n-1)x^{n-1}} + C$</td></tr>
+        <tr><td>$\sqrt{x}$</td><td>$\dfrac{2}{3}x\sqrt{x} + C$</td></tr>
+        <tr><td>$\sqrt[n]{x}$</td><td>$\dfrac{n}{n+1} x^{\frac{n+1}{n}} + C$</td></tr>
+        <tr><td>$\dfrac{1}{\sqrt{x}}$</td><td>$2\sqrt{x} + C$</td></tr>
+      </tbody>
+    </table>
+
+    <div class="formula-section-title">🔸 Hàm mũ & logarit</div>
+    <table class="formula-table">
+      <thead><tr><th>Hàm số $f(x)$</th><th>Nguyên hàm $F(x)$</th></tr></thead>
+      <tbody>
+        <tr><td>$e^x$</td><td>$e^x + C$</td></tr>
+        <tr><td>$a^x$ ($0 < a \neq 1$)</td><td>$\dfrac{a^x}{\ln a} + C$</td></tr>
+        <tr><td>$e^{kx}$</td><td>$\dfrac{1}{k} e^{kx} + C$</td></tr>
+        <tr><td>$\ln x$</td><td>$x\ln x - x + C$</td></tr>
+        <tr><td>$\log_a x$</td><td>$\dfrac{x\ln x - x}{\ln a} + C$</td></tr>
+        <tr><td>$\dfrac{1}{x\ln x}$</td><td>$\ln |\ln x| + C$</td></tr>
+      </tbody>
+    </table>
+
+    <div class="formula-section-title">🔹 Hàm lượng giác</div>
+    <table class="formula-table">
+      <thead><tr><th>Hàm số $f(x)$</th><th>Nguyên hàm $F(x)$</th></tr></thead>
+      <tbody>
+        <tr><td>$\sin x$</td><td>$-\cos x + C$</td></tr>
+        <tr><td>$\cos x$</td><td>$\sin x + C$</td></tr>
+        <tr><td>$\tan x$</td><td>$-\ln |\cos x| + C$</td></tr>
+        <tr><td>$\cot x$</td><td>$\ln |\sin x| + C$</td></tr>
+        <tr><td>$\dfrac{1}{\cos^2 x}$</td><td>$\tan x + C$</td></tr>
+        <tr><td>$\dfrac{1}{\sin^2 x}$</td><td>$-\cot x + C$</td></tr>
+        <tr><td>$\sec x$</td><td>$\ln |\sec x + \tan x| + C$</td></tr>
+        <tr><td>$\csc x$</td><td>$\ln |\csc x - \cot x| + C$</td></tr>
+        <tr><td>$\sin(kx)$</td><td>$-\dfrac{1}{k}\cos(kx) + C$</td></tr>
+        <tr><td>$\cos(kx)$</td><td>$\dfrac{1}{k}\sin(kx) + C$</td></tr>
+        <tr><td>$\sin^2 x$</td><td>$\dfrac{x}{2} - \dfrac{\sin 2x}{4} + C$</td></tr>
+        <tr><td>$\cos^2 x$</td><td>$\dfrac{x}{2} + \dfrac{\sin 2x}{4} + C$</td></tr>
+      </tbody>
+    </table>
+
+    <div class="formula-section-title">🔸 Hàm lượng giác ngược</div>
+    <table class="formula-table">
+      <thead><tr><th>Hàm số $f(x)$</th><th>Nguyên hàm $F(x)$</th></tr></thead>
+      <tbody>
+        <tr><td>$\dfrac{1}{\sqrt{1-x^2}}$</td><td>$\arcsin x + C$</td></tr>
+        <tr><td>$\dfrac{-1}{\sqrt{1-x^2}}$</td><td>$\arccos x + C$</td></tr>
+        <tr><td>$\dfrac{1}{1+x^2}$</td><td>$\arctan x + C$</td></tr>
+        <tr><td>$\dfrac{1}{\sqrt{a^2 - x^2}}$</td><td>$\arcsin \dfrac{x}{a} + C$</td></tr>
+        <tr><td>$\dfrac{1}{a^2 + x^2}$</td><td>$\dfrac{1}{a} \arctan \dfrac{x}{a} + C$</td></tr>
+      </tbody>
+    </table>
+
+    <div class="formula-section-title">🔹 Dạng phân thức & căn thức đặc biệt</div>
+    <table class="formula-table">
+      <thead><tr><th>Hàm số $f(x)$</th><th>Nguyên hàm $F(x)$</th></tr></thead>
+      <tbody>
+        <tr><td>$\dfrac{1}{x^2 - a^2}$</td><td>$\dfrac{1}{2a} \ln \left| \dfrac{x-a}{x+a} \right| + C$</td></tr>
+        <tr><td>$\dfrac{1}{a^2 - x^2}$</td><td>$\dfrac{1}{2a} \ln \left| \dfrac{a+x}{a-x} \right| + C$</td></tr>
+        <tr><td>$\dfrac{1}{\sqrt{x^2 + a^2}}$</td><td>$\ln |x + \sqrt{x^2 + a^2}| + C$</td></tr>
+        <tr><td>$\dfrac{1}{\sqrt{x^2 - a^2}}$</td><td>$\ln |x + \sqrt{x^2 - a^2}| + C$</td></tr>
+        <tr><td>$\sqrt{a^2 - x^2}$</td><td>$\dfrac{x}{2}\sqrt{a^2 - x^2} + \dfrac{a^2}{2} \arcsin \dfrac{x}{a} + C$</td></tr>
+        <tr><td>$\dfrac{1}{x\sqrt{x^2-1}}$</td><td>$\text{arcsec} |x| + C$</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Phương pháp đổi biến & từng phần</h3>
+    <div class="card">
+      <p><strong>Đổi biến:</strong> Đặt $u = u(x) \Rightarrow du = u'(x)dx$.</p>
+      <p><strong>Từng phần:</strong> $\int u\,dv = uv - \int v\,du$ (ưu tiên u: nhất lô, nhì đa, tam lượng, tứ mũ).</p>
+    </div>
+
+    <h3>📝 Bài tập nguyên hàm</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Tìm $\int (5x^4 - \frac{3}{x} + e^x) dx$.</p>
+      <button class="toggle-solution" data-target="sol-nh1">Xem lời giải</button>
+      <div id="sol-nh1" class="solution">$= x^5 - 3\ln|x| + e^x + C$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (đổi biến):</strong> $\int x\sqrt{x^2+9}\,dx$.</p>
+      <button class="toggle-solution" data-target="sol-nh2">Xem lời giải</button>
+      <div id="sol-nh2" class="solution">Đặt $u=x^2+9 \Rightarrow du=2xdx$. Nguyên hàm $=\frac12 \int \sqrt{u} du = \frac13 u^{3/2} + C = \frac{(x^2+9)^{3/2}}{3} + C$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (từng phần):</strong> $\int x\ln x\,dx$.</p>
+      <button class="toggle-solution" data-target="sol-nh3">Xem lời giải</button>
+      <div id="sol-nh3" class="solution">$u=\ln x, dv=xdx \Rightarrow$ kết quả $\frac{x^2}{2}\ln x - \frac{x^2}{4} + C$.</div>
+    </div>
+  </div>
+
+  <!-- TAB TÍCH PHÂN giữ nguyên -->
+  <div class="tab-content" id="tichPhan">
+    <h2>Tích phân</h2>
+    <div class="card">
+      <h3>🔹 Định nghĩa & Tính chất</h3>
+      <p>$\int_a^b f(x)dx = F(b) - F(a)$ với $F$ là một nguyên hàm của $f$.</p>
+      <p>Tính chất: $\int_a^b [f(x) \pm g(x)] dx = \int_a^b f dx \pm \int_a^b g dx$; $\int_a^b kf(x)dx = k\int_a^b f dx$; $\int_a^b f dx = \int_a^c f dx + \int_c^b f dx$.</p>
+    </div>
+    <div class="card">
+      <h3>🔸 Phương pháp tính tích phân</h3>
+      <p>• <strong>Đổi biến:</strong> Đặt $u = u(x)$, đổi cận. <br>
+      • <strong>Từng phần:</strong> $\int_a^b u dv = uv \big|_a^b - \int_a^b v du$.</p>
+    </div>
+    <div class="example">
+      <strong>Ví dụ 1:</strong> $\int_0^1 (3x^2 + 1) dx = [x^3 + x]_0^1 = 2$.
+    </div>
+    <div class="example">
+      <strong>Ví dụ 2 (đổi biến):</strong> $\int_0^{\sqrt{\pi}} x \cos(x^2) dx$. Đặt $u=x^2 \Rightarrow du=2xdx$. Khi $x=0, u=0$; $x=\sqrt{\pi}, u=\pi$. Tích phân $= \frac12 \int_0^\pi \cos u \, du = 0$.
+    </div>
+    <div class="example">
+      <strong>Ví dụ 3 (từng phần):</strong> $\int_1^e \ln x \, dx = [x\ln x]_1^e - \int_1^e dx = e - (e-1) = 1$.
+    </div>
+
+    <h3>📝 Bài tập tích phân</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Tính $I = \int_0^2 (x^2 - 2x + 3) dx$.</p>
+      <button class="toggle-solution" data-target="sol-tp1">Xem lời giải</button>
+      <div id="sol-tp1" class="solution">$= [\frac{x^3}{3} - x^2 + 3x]_0^2 = \frac{8}{3} - 4 + 6 = \frac{14}{3}$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (đổi biến):</strong> Tính $J = \int_1^2 \frac{1}{(2x+1)^2} dx$.</p>
+      <button class="toggle-solution" data-target="sol-tp2">Xem lời giải</button>
+      <div id="sol-tp2" class="solution">Đặt $u=2x+1 \Rightarrow du=2dx$. Đổi cận: $x=1 \to u=3$, $x=2 \to u=5$. $J = \frac12 \int_3^5 u^{-2} du = \frac12 [-\frac1u]_3^5 = \frac12 (-\frac15 + \frac13) = \frac{1}{15}$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (từng phần):</strong> Tính $K = \int_0^{\pi/2} x \sin x \, dx$.</p>
+      <button class="toggle-solution" data-target="sol-tp3">Xem lời giải</button>
+      <div id="sol-tp3" class="solution">Đặt $u=x, dv=\sin x dx \Rightarrow du=dx, v=-\cos x$. $K = [-x\cos x]_0^{\pi/2} + \int_0^{\pi/2} \cos x dx = 0 + [\sin x]_0^{\pi/2} = 1$.</div>
+    </div>
+  </div>
+
+  <!-- TAB ỨNG DỤNG giữ nguyên -->
+  <<!-- TAB ỨNG DỤNG (phiên bản mới với câu hỏi thực tế từ đề thi HN, HCM) -->
+<div class="tab-content" id="ungDung">
+  <h2>Ứng dụng của tích phân – Câu hỏi thực tế</h2>
+
+  <div class="card">
+    <h3>📐 Diện tích hình phẳng</h3>
+    <p>$S = \int_a^b |f(x)-g(x)| dx$</p>
+  </div>
+  <div class="card">
+    <h3>🔄 Thể tích khối tròn xoay</h3>
+    <p>$V = \pi \int_a^b [f(x)]^2 dx$ (quanh $Ox$).</p>
+  </div>
+  <div class="card">
+    <h3>🚀 Bài toán chuyển động (quãng đường, vận tốc)</h3>
+    <p>Quãng đường $s = \int v(t) dt$, vận tốc $v(t) = \int a(t) dt$.</p>
+  </div>
+
+  <h3>📝 Bài tập thực tế từ đề thi thử Hà Nội & TP. Hồ Chí Minh</h3>
+
+  <!-- Câu 1: Quãng đường chất điểm -->
+  <div class="exercise">
+    <p><strong>Bài 1 (Chất điểm chuyển động):</strong> Một chất điểm chuyển động thẳng với vận tốc $v(t) = t^2 + 3$ (m/s). Tính quãng đường (m) chất điểm đi được trong khoảng thời gian từ giây thứ nhất đến giây thứ năm.</p>
+    <button class="toggle-solution" data-target="sol-tt1">Xem lời giải</button>
+    <div id="sol-tt1" class="solution">
+      Quãng đường $s = \int_1^5 (t^2+3) dt = \left[\frac{t^3}{3}+3t\right]_1^5 = \left(\frac{125}{3}+15\right) - \left(\frac13+3\right) = \frac{124}{3} + 12 = \frac{160}{3} \approx 53,33$ m.
+    </div>
+  </div>
+
+  <!-- Câu 2: Va chạm hai xe -->
+  <div class="exercise">
+    <p><strong>Bài 2 (Va chạm giao thông):</strong> Hai người A và B đang chạy xe ngược chiều thì va chạm. Sau va chạm, xe A tiếp tục di chuyển với vận tốc $v_1(t) = 6 - 3t$ (m/s), xe B di chuyển với vận tốc $v_2(t) = 12 - 4t$ (m/s). Tính khoảng cách (m) giữa hai xe khi cả hai đã dừng hẳn.</p>
+    <button class="toggle-solution" data-target="sol-tt2">Xem lời giải</button>
+    <div id="sol-tt2" class="solution">
+      Xe A dừng khi $v_1=0 \Rightarrow t=2$, quãng đường $s_1 = \int_0^2 (6-3t) dt = [6t - \frac{3}{2}t^2]_0^2 = 12 - 6 = 6$ m.<br>
+      Xe B dừng khi $v_2=0 \Rightarrow t=3$, quãng đường $s_2 = \int_0^3 (12-4t) dt = [12t - 2t^2]_0^3 = 36 - 18 = 18$ m.<br>
+      Do hai xe đi ngược chiều, khoảng cách lúc dừng = $6 + 18 = 24$ m.
+    </div>
+  </div>
+
+  <!-- Câu 3: Máy bay cất cánh -->
+  <div class="exercise">
+    <p><strong>Bài 3 (Máy bay trên đường băng):</strong> Một máy bay chuyển động trên đường băng với vận tốc $v(t) = t^2 + 10t$ (m/s). Biết máy bay đạt vận tốc $200$ m/s thì rời đường băng. Quãng đường máy bay đã di chuyển trên đường băng là bao nhiêu mét? (làm tròn đến hàng đơn vị).</p>
+    <button class="toggle-solution" data-target="sol-tt3">Xem lời giải</button>
+    <div id="sol-tt3" class="solution">
+      Tìm thời điểm cất cánh: $v(t)=200 \Rightarrow t^2+10t-200=0 \Rightarrow t \approx 10,77$ s (lấy $t>0$).<br>
+      Quãng đường $s = \int_0^{10,77} (t^2+10t) dt = \left[\frac{t^3}{3}+5t^2\right]_0^{10,77} \approx \frac{1250}{3} + 580 \approx 416,7 + 580 \approx 997$ m.
+    </div>
+  </div>
+
+  <!-- Câu 4: Ô tô phanh gấp -->
+  <div class="exercise">
+    <p><strong>Bài 4 (Ô tô phanh gấp):</strong> Một ô tô đang chạy với vận tốc $20$ m/s thì người lái đạp phanh. Sau khi đạp phanh, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -4t + 20$ (m/s). Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được bao nhiêu mét?</p>
+    <button class="toggle-solution" data-target="sol-tt4">Xem lời giải</button>
+    <div id="sol-tt4" class="solution">
+      Thời điểm dừng hẳn: $v(t)=0 \Rightarrow t=5$ s.<br>
+      Quãng đường $s = \int_0^5 (-4t+20) dt = [-2t^2+20t]_0^5 = -50 + 100 = 50$ m.
+    </div>
+  </div>
+
+  <!-- Câu 5: Vận động viên F1 tăng tốc -->
+  <div class="exercise">
+    <p><strong>Bài 5 (Xe F1 tăng tốc):</strong> Một vận động viên đua xe F1 đang chạy với vận tốc $10$ m/s thì tăng tốc với gia tốc $a(t) = 6t$ (m/s²). Hỏi quãng đường xe đi được trong $10$ giây kể từ lúc bắt đầu tăng tốc là bao nhiêu mét?</p>
+    <button class="toggle-solution" data-target="sol-tt5">Xem lời giải</button>
+    <div id="sol-tt5" class="solution">
+      Vận tốc $v(t) = \int a(t) dt = \int 6t dt = 3t^2 + C$. Tại $t=0, v=10 \Rightarrow C=10$. Vậy $v(t)=3t^2+10$.<br>
+      Quãng đường $s = \int_0^{10} (3t^2+10) dt = [t^3+10t]_0^{10} = 1000 + 100 = 1100$ m.
+    </div>
+  </div>
+
+  <!-- Câu 6: Thể tích bể chứa (trích đề Sở) -->
+  <div class="exercise">
+    <p><strong>Bài 6 (Thể tích bể chứa):</strong> Một bể chứa nước có đáy là hình phẳng giới hạn bởi $y = \sqrt{x}$ và $y=0$, $0 \le x \le 4$. Mặt cắt vuông góc với trục $Ox$ là hình vuông. Tính thể tích của bể (đơn vị $m^3$).</p>
+    <button class="toggle-solution" data-target="sol-tt6">Xem lời giải</button>
+    <div id="sol-tt6" class="solution">
+      Diện tích mặt cắt tại $x$ là $S(x) = (\sqrt{x})^2 = x$.<br>
+      Thể tích $V = \int_0^4 S(x) dx = \int_0^4 x dx = \frac{x^2}{2}\Big|_0^4 = 8 \, m^3$.
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+      contents.forEach(content => content.classList.remove('active'));
+      tabs.forEach(btn => btn.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) activeContent.classList.add('active');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        switchTab(tabId);
+        history.replaceState(null, null, '#' + tabId);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('nguyenHam');
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    // Toggle lời giải + re‑typeset
+    document.querySelectorAll('.toggle-solution').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const solutionDiv = document.getElementById(targetId);
+        if (!solutionDiv) return;
+        const isHidden = solutionDiv.style.display === 'none' || solutionDiv.style.display === '';
+        if (isHidden) {
+          solutionDiv.style.display = 'block';
+          this.textContent = 'Ẩn lời giải';
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([solutionDiv]).catch(err => console.log(err));
+          }
+        } else {
+          solutionDiv.style.display = 'none';
+          this.textContent = 'Xem lời giải';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

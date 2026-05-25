@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Ôn tập: Ứng dụng đạo hàm khảo sát hàm số | Đơn điệu, Cực trị, GTLN-GTNN, Tiệm cận, Tối ưu</title>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f7fc;
+      color: #1a2b3c;
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 0 0 30px 0;
+    }
+    header {
+      background: linear-gradient(135deg, #0b2b5e, #1b4a7a);
+      color: white;
+      padding: 30px 30px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 2px solid #e9edf4;
+      padding: 0 20px;
+      justify-content: center;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4a5b6e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      border-radius: 12px 12px 0 0;
+    }
+    .tab-btn:hover {
+      color: #0b2b5e;
+      background: #f0f4fe;
+    }
+    .tab-btn.active {
+      color: #0b2b5e;
+      border-bottom-color: #0b2b5e;
+      background: #f0f6ff;
+      font-weight: 700;
+    }
+    .tab-content {
+      display: none;
+      padding: 30px 30px 20px 30px;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      font-size: 1.9rem;
+      color: #0b2b5e;
+      margin-bottom: 18px;
+      border-left: 6px solid #1b4a7a;
+      padding-left: 20px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #1e3b5a;
+      margin: 28px 0 14px 0;
+    }
+    h4 {
+      font-weight: 600;
+      margin: 20px 0 8px;
+      color: #2c3e50;
+    }
+    .card {
+      background: #f8faff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border: 1px solid #e1e8f0;
+    }
+    .formula-box {
+      background: #eef3ff;
+      border-left: 5px solid #1b4a7a;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+    }
+    .example {
+      background: #fff9ed;
+      border-left: 5px solid #f0a500;
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .example strong {
+      color: #b45f06;
+    }
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    th {
+      background: #1b4a7a;
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+    }
+    td, th {
+      border: 1px solid #dce3ec;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 14px 14px;
+        font-size: 0.9rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .btn-back {
+      display: inline-block;
+      margin-top: 10px;
+      background: #1b4a7a;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-back:hover {
+      background: #0b2b5e;
+    }
+    hr {
+      margin: 25px 0 15px;
+      border: 0.5px solid #dce3ec;
+    }
+    .highlight {
+      background: #fef9e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* style cho bài tập */
+    .exercise {
+      background: #ffffff;
+      border: 1px solid #dce3ec;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .exercise p {
+      margin: 0 0 10px 0;
+    }
+    .toggle-solution {
+      background: #1b4a7a;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .toggle-solution:hover {
+      background: #0b2b5e;
+    }
+    .solution {
+      display: none;
+      margin-top: 12px;
+      background: #f0f6ff;
+      border-left: 4px solid #1b4a7a;
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📐 Ứng dụng đạo hàm khảo sát hàm số</h1>
+    <p>Tính đơn điệu • Cực trị • GTLN / GTNN • Tiệm cận • Bài toán tối ưu thực tế</p>
+  </header>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" data-tab="donDieu">📈 Đơn điệu & Cực trị</button>
+    <button class="tab-btn" data-tab="gtlnGtnn">📊 GTLN & GTNN</button>
+    <button class="tab-btn" data-tab="tiemCan">〰️ Đường tiệm cận</button>
+    <button class="tab-btn" data-tab="khaoSat">🔍 Khảo sát hàm số</button>
+    <button class="tab-btn" data-tab="toiUu">🏭 Bài toán tối ưu thực tế</button>
+  </div>
+
+  <!-- TAB ĐƠN ĐIỆU & CỰC TRỊ -->
+  <div class="tab-content active" id="donDieu">
+    <h2>Tính đơn điệu và Cực trị</h2>
+    <div class="card">
+      <h3>🔹 Tính đơn điệu</h3>
+      <p>Cho hàm số $y = f(x)$ xác định trên $K$.</p>
+      <ul>
+        <li>$f'(x) > 0$ trên $(a,b) \Rightarrow$ hàm số <strong>đồng biến</strong>.</li>
+        <li>$f'(x) < 0$ trên $(a,b) \Rightarrow$ hàm số <strong>nghịch biến</strong>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🔸 Cực trị</h3>
+      <p><strong>Điều kiện cần:</strong> $f'(x_0)=0$.</p>
+      <p><strong>Dấu hiệu 1:</strong> $f'$ đổi dấu qua $x_0$.</p>
+      <p><strong>Dấu hiệu 2:</strong> $f'(x_0)=0, f''(x_0)>0 \Rightarrow$ CT; $f''(x_0)<0 \Rightarrow$ CĐ.</p>
+    </div>
+    <div class="example">
+      <strong>Ví dụ:</strong> $f(x)=x^3-3x+2$. CĐ tại $x=-1$, CT tại $x=1$.
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Tìm khoảng đồng biến, nghịch biến của hàm số $y = -x^3 + 3x^2 + 9x - 5$.</p>
+      <button class="toggle-solution" data-target="sol-dd1">Xem lời giải</button>
+      <div id="sol-dd1" class="solution">
+        <p>$y' = -3x^2 + 6x + 9 = -3(x^2 - 2x - 3) = -3(x+1)(x-3)$.</p>
+        <p>$y' = 0 \Leftrightarrow x = -1$ hoặc $x = 3$.</p>
+        <p>Bảng xét dấu: $y' > 0$ trên $(-1;3)$; $y' < 0$ trên $(-\infty;-1)$ và $(3;+\infty)$.</p>
+        <p>Vậy hàm số đồng biến trên $(-1;3)$, nghịch biến trên các khoảng $(-\infty;-1)$ và $(3;+\infty)$.</p>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tìm cực trị của hàm số $y = x^4 - 2x^2 + 3$.</p>
+      <button class="toggle-solution" data-target="sol-dd2">Xem lời giải</button>
+      <div id="sol-dd2" class="solution">
+        <p>$y' = 4x^3 - 4x = 4x(x^2-1) = 4x(x-1)(x+1)$. $y'=0 \Leftrightarrow x=0, x=1, x=-1$.</p>
+        <p>Bảng biến thiên: $y'$ đổi dấu từ âm sang dương tại $x=-1$ và $x=1$ → hai điểm cực tiểu; đổi dấu từ dương sang âm tại $x=0$ → cực đại.</p>
+        <p>$y_{CT} = y(\pm 1) = 2$, $y_{CĐ} = y(0) = 3$.</p>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Cho hàm số $y = \dfrac{x+2}{x-1}$. Xét tính đơn điệu và tìm cực trị (nếu có).</p>
+      <button class="toggle-solution" data-target="sol-dd3">Xem lời giải</button>
+      <div id="sol-dd3" class="solution">
+        <p>Tập xác định: $D=\mathbb{R}\setminus\{1\}$.</p>
+        <p>$y' = \dfrac{-3}{(x-1)^2} < 0, \forall x \neq 1$.</p>
+        <p>Hàm số nghịch biến trên từng khoảng $(-\infty;1)$ và $(1;+\infty)$. Hàm số không có cực trị.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB GTLN & GTNN -->
+  <div class="tab-content" id="gtlnGtnn">
+    <h2>Giá trị lớn nhất & Giá trị nhỏ nhất</h2>
+    <div class="card">
+      <h3>🔹 Trên đoạn $[a;b]$</h3>
+      <p>1. Tìm $x_i \in (a;b)$ sao cho $f'(x_i)=0$ hoặc không xác định.<br>
+      2. So sánh $f(a), f(b), f(x_i)$.</p>
+    </div>
+    <div class="example">
+      <strong>Ví dụ:</strong> $f(x)=x^3-3x+1$ trên $[0;2]$, $\max=3$, $\min=-1$.
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Tìm GTLN, GTNN của hàm số $y = x^3 - 3x + 4$ trên đoạn $[-2;2]$.</p>
+      <button class="toggle-solution" data-target="sol-gt1">Xem lời giải</button>
+      <div id="sol-gt1" class="solution">
+        <p>$y' = 3x^2 - 3 = 3(x-1)(x+1)$. $y'=0 \Rightarrow x=1, x=-1 \in [-2;2]$.</p>
+        <p>Tính: $f(-2)=2$, $f(-1)=6$, $f(1)=2$, $f(2)=6$.</p>
+        <p>Vậy $\max_{[-2;2]} y = 6$ tại $x=-1, x=2$; $\min_{[-2;2]} y = 2$ tại $x=-2, x=1$.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tìm GTNN của hàm số $y = x + \dfrac{4}{x}$ trên khoảng $(0;+\infty)$.</p>
+      <button class="toggle-solution" data-target="sol-gt2">Xem lời giải</button>
+      <div id="sol-gt2" class="solution">
+        <p>$y' = 1 - \dfrac{4}{x^2} = \dfrac{x^2-4}{x^2}$. $y'=0 \Rightarrow x=2$ (do $x>0$).</p>
+        <p>Bảng biến thiên: hàm số giảm trên $(0;2)$, tăng trên $(2;+\infty)$. Vậy GTNN là $y(2)=4$.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Một chất điểm chuyển động có vận tốc $v(t) = -t^2 + 8t + 20$ (m/s). Tìm vận tốc lớn nhất trong 10 giây đầu tiên.</p>
+      <button class="toggle-solution" data-target="sol-gt3">Xem lời giải</button>
+      <div id="sol-gt3" class="solution">
+        <p>$v'(t) = -2t + 8 = 0 \Rightarrow t = 4 \in [0;10]$.</p>
+        <p>$v(0)=20, v(4)=36, v(10)=0$. Vận tốc lớn nhất là $36$ m/s tại $t=4$.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB TIỆM CẬN -->
+  <div class="tab-content" id="tiemCan">
+    <h2>Đường tiệm cận</h2>
+    <div class="grid-2col">
+      <div class="card"><h3>Tiệm cận ngang</h3><p>$\lim_{x\to \pm\infty} f(x) = y_0$.</p></div>
+      <div class="card"><h3>Tiệm cận đứng</h3><p>$\lim_{x\to x_0^\pm} f(x) = \pm\infty$.</p></div>
+    </div>
+    <div class="card"><h3>Tiệm cận xiên</h3><p>$y = ax+b$ với $a = \lim \frac{f(x)}{x}, b = \lim [f(x)-ax]$.</p></div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Tìm các đường tiệm cận của đồ thị hàm số $y = \dfrac{3x-1}{x+2}$.</p>
+      <button class="toggle-solution" data-target="sol-tc1">Xem lời giải</button>
+      <div id="sol-tc1" class="solution">
+        <p>$\lim_{x\to \pm\infty} y = 3 \Rightarrow$ TCN $y=3$.</p>
+        <p>$\lim_{x\to -2^\pm} y = \mp\infty \Rightarrow$ TCĐ $x=-2$.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tìm tiệm cận của đồ thị hàm số $y = \dfrac{x^2 - 4x + 5}{x-2}$.</p>
+      <button class="toggle-solution" data-target="sol-tc2">Xem lời giải</button>
+      <div id="sol-tc2" class="solution">
+        <p>Viết lại: $y = x - 2 + \dfrac{1}{x-2}$.</p>
+        <p>TCĐ: $x=2$; TCX: $y = x-2$ (vì $\lim_{x\to \pm\infty} \frac{1}{x-2}=0$).</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Hàm số $y = \sqrt{x^2+2x}$ có tiệm cận xiên không? Tìm nếu có.</p>
+      <button class="toggle-solution" data-target="sol-tc3">Xem lời giải</button>
+      <div id="sol-tc3" class="solution">
+        <p>Khi $x\to +\infty$: $a = \lim_{x\to +\infty} \frac{\sqrt{x^2+2x}}{x} = 1$; $b = \lim_{x\to +\infty} (\sqrt{x^2+2x} - x) = \lim \frac{2x}{\sqrt{x^2+2x}+x} = 1$. TCX phải: $y = x+1$.</p>
+        <p>Khi $x\to -\infty$: $a = \lim_{x\to -\infty} \frac{\sqrt{x^2+2x}}{x} = -1$; $b = \lim_{x\to -\infty} (\sqrt{x^2+2x} + x) = -1$. TCX trái: $y = -x-1$.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB KHẢO SÁT HÀM SỐ -->
+  <div class="tab-content" id="khaoSat">
+    <h2>Khảo sát hàm số</h2>
+    <div class="card">
+      <h3>📋 Sơ đồ khảo sát</h3>
+      <ol>
+        <li>Tập xác định.</li>
+        <li>Sự biến thiên: $y'$, nghiệm, dấu.</li>
+        <li>Giới hạn, tiệm cận.</li>
+        <li>Bảng biến thiên.</li>
+        <li>Vẽ đồ thị (giao điểm, điểm đặc biệt).</li>
+      </ol>
+    </div>
+    <div class="example">
+      <strong>Ví dụ:</strong> Khảo sát $y = -x^3 + 3x^2 - 1$ (đã có trong lý thuyết).
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Khảo sát sự biến thiên và vẽ đồ thị hàm số $y = x^3 - 3x + 1$.</p>
+      <button class="toggle-solution" data-target="sol-ks1">Xem lời giải</button>
+      <div id="sol-ks1" class="solution">
+        <p>• TXĐ: $D=\mathbb{R}$.</p>
+        <p>• $y' = 3x^2 - 3 = 3(x-1)(x+1)$. $y'=0 \Leftrightarrow x=1, x=-1$.</p>
+        <p>• Hàm số ĐB trên $(-\infty;-1)$ và $(1;+\infty)$, NB trên $(-1;1)$. CĐ tại $x=-1, y=3$; CT tại $x=1, y=-1$.</p>
+        <p>• Giới hạn: $\lim_{x\to -\infty} y = -\infty$, $\lim_{x\to +\infty} y = +\infty$.</p>
+        <p>• Đồ thị cắt trục tung tại $(0,1)$, có hai điểm cực trị, tâm đối xứng $(0,1)$.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Khảo sát hàm số $y = \dfrac{x+1}{x-2}$.</p>
+      <button class="toggle-solution" data-target="sol-ks2">Xem lời giải</button>
+      <div id="sol-ks2" class="solution">
+        <p>• TXĐ: $D=\mathbb{R}\setminus\{2\}$.</p>
+        <p>• $y' = \dfrac{-3}{(x-2)^2} < 0$ → hàm số nghịch biến trên từng khoảng.</p>
+        <p>• TCĐ: $x=2$; TCN: $y=1$.</p>
+        <p>• Giao trục tung: $(0,-\frac12)$, giao trục hoành: $(-1,0)$.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB TỐI ƯU THỰC TẾ -->
+  <div class="tab-content" id="toiUu">
+    <h2>Bài toán tối ưu thực tế</h2>
+    <p><span class="highlight">Phương pháp:</span> Gọi biến, lập hàm mục tiêu, tìm GTLN/GTNN trên miền thực tế.</p>
+    <div class="example">
+      <strong>Ví dụ 1:</strong> Bể nước hình hộp chữ nhật không nắp, đáy vuông, thể tích $36m^3$. Chi phí đáy $200/m^2$, thành $150/m^2$. Tìm kích thước tối ưu (xấp xỉ $3.78m$).
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Hộp không nắp):</strong> Một tấm bìa hình vuông cạnh $60cm$, cắt bốn góc các hình vuông bằng nhau cạnh $x$ rồi gấp thành hộp không nắp. Tìm $x$ để thể tích hộp lớn nhất.</p>
+      <button class="toggle-solution" data-target="sol-toi1">Xem lời giải</button>
+      <div id="sol-toi1" class="solution">
+        <p>Cạnh đáy hộp: $60-2x$ (cm), chiều cao $x$, $0 < x < 30$.</p>
+        <p>Thể tích $V = x(60-2x)^2 = 4x(30-x)^2$.</p>
+        <p>$V'(x) = 4[(30-x)^2 - 2x(30-x)] = 4(30-x)(30-x - 2x) = 4(30-x)(30-3x)$.</p>
+        <p>$V'=0 \Rightarrow x=10$ (nhận) hoặc $x=30$ (loại).</p>
+        <p>Lập bảng biến thiên, $V$ đạt max tại $x=10$ cm, thể tích $V=16000$ cm³.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Lợi nhuận):</strong> Một doanh nghiệp bán $x$ sản phẩm với giá $p=200-0.5x$ (USD). Chi phí sản xuất $C(x)=40x+3000$. Tìm số sản phẩm để lợi nhuận lớn nhất.</p>
+      <button class="toggle-solution" data-target="sol-toi2">Xem lời giải</button>
+      <div id="sol-toi2" class="solution">
+        <p>Doanh thu $R(x) = xp = 200x - 0.5x^2$.</p>
+        <p>Lợi nhuận $L(x) = R(x) - C(x) = -0.5x^2 + 160x - 3000$.</p>
+        <p>$L'(x) = -x + 160 = 0 \Rightarrow x=160$. $L''(160) = -1 < 0$ → cực đại.</p>
+        <p>Lợi nhuận tối đa $L(160) = 10\,400$ USD khi bán $160$ sản phẩm.</p>
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Khoảng cách):</strong> Một người muốn đi từ A đến bờ sông rồi đến B (cùng phía). Tìm vị trí trên bờ để tổng đường đi ngắn nhất. (Bài toán phản xạ).</p>
+      <button class="toggle-solution" data-target="sol-toi3">Xem lời giải</button>
+      <div id="sol-toi3" class="solution">
+        <p>Giả sử A cách bờ $d_1$, B cách bờ $d_2$, khoảng cách hình chiếu là $L$. Gọi $x$ là khoảng cách từ hình chiếu A đến điểm cần tìm. Tổng đường đi $S = \sqrt{x^2+d_1^2} + \sqrt{(L-x)^2+d_2^2}$.</p>
+        <p>$S' = 0 \Rightarrow \dfrac{x}{\sqrt{x^2+d_1^2}} = \dfrac{L-x}{\sqrt{(L-x)^2+d_2^2}}$ (định luật phản xạ).</p>
+        <p>Đây là bài toán tối ưu cổ điển, nghiệm $x$ thỏa mãn góc tới bằng góc phản xạ.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
+    <hr>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+      contents.forEach(content => content.classList.remove('active'));
+      tabs.forEach(btn => btn.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) activeContent.classList.add('active');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        switchTab(tabId);
+        history.replaceState(null, null, '#' + tabId);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('donDieu');
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    // Xử lý ẩn/hiện lời giải bài tập + MathJax typeset
+    document.querySelectorAll('.toggle-solution').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const solutionDiv = document.getElementById(targetId);
+        if (!solutionDiv) return;
+        const isHidden = solutionDiv.style.display === 'none' || solutionDiv.style.display === '';
+        if (isHidden) {
+          solutionDiv.style.display = 'block';
+          this.textContent = 'Ẩn lời giải';
+          // Gọi MathJax để render các công thức mới xuất hiện
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([solutionDiv]).catch(err => console.log(err));
+          }
+        } else {
+          solutionDiv.style.display = 'none';
+          this.textContent = 'Xem lời giải';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

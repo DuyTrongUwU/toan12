@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Ôn tập: Hàm số mũ & Logarit | Biến đổi, Phương trình, Toán thực tế</title>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f2f7f9;
+      color: #1a2b3a;
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 0 0 30px 0;
+    }
+    header {
+      background: linear-gradient(135deg, #0a4b5c, #167d8f);
+      color: white;
+      padding: 30px 30px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 2px solid #dde8ec;
+      padding: 0 20px;
+      justify-content: center;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #3a5a6e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      border-radius: 12px 12px 0 0;
+    }
+    .tab-btn:hover {
+      color: #0a4b5c;
+      background: #e0f0f5;
+    }
+    .tab-btn.active {
+      color: #0a4b5c;
+      border-bottom-color: #167d8f;
+      background: #d5ecf5;
+      font-weight: 700;
+    }
+    .tab-content {
+      display: none;
+      padding: 30px 30px 20px 30px;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      font-size: 1.9rem;
+      color: #0a4b5c;
+      margin-bottom: 18px;
+      border-left: 6px solid #167d8f;
+      padding-left: 20px;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #1b4a5a;
+      margin: 28px 0 14px 0;
+    }
+    .card {
+      background: #f8fcfd;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 18px 0;
+      border: 1px solid #d2e2e8;
+    }
+    .formula-box {
+      background: #e6f4f8;
+      border-left: 5px solid #167d8f;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .example {
+      background: #fff9ed;
+      border-left: 5px solid #e67e22;
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .example strong {
+      color: #b45f06;
+    }
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    th {
+      background: #167d8f;
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+    }
+    td, th {
+      border: 1px solid #c8dbe4;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 14px 14px;
+        font-size: 0.9rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .highlight {
+      background: #fef9e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .exercise {
+      background: #ffffff;
+      border: 1px solid #c8dbe4;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid #167d8f;
+    }
+    .exercise p {
+      margin: 0 0 10px 0;
+    }
+    .toggle-solution {
+      background: #167d8f;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .toggle-solution:hover {
+      background: #0a4b5c;
+    }
+    .solution {
+      display: none;
+      margin-top: 12px;
+      background: #e6f4f8;
+      border-left: 4px solid #167d8f;
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+    .level-tag {
+      display: inline-block;
+      background: #c8dbe4;
+      color: #0a4b5c;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📈 Hàm số Mũ & Hàm số Logarit</h1>
+    <p>Biến đổi biểu thức • Hàm số • Phương trình & Bất phương trình • Toán thực tế</p>
+  </header>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" data-tab="biendo">🔢 Biến đổi biểu thức</button>
+    <button class="tab-btn" data-tab="hamso">📊 Hàm số Mũ & Logarit</button>
+    <button class="tab-btn" data-tab="ptbpt">🧮 Phương trình & Bất PT</button>
+    <button class="tab-btn" data-tab="thucte">🏦 Toán thực tế</button>
+    <button class="tab-btn" data-tab="tonghop">📝 Tổng hợp đề thi</button>
+  </div>
+
+  <!-- TAB BIẾN ĐỔI BIỂU THỨC -->
+  <div class="tab-content active" id="biendo">
+    <h2>Biến đổi biểu thức mũ & logarit</h2>
+    <div class="card">
+      <h3>🔹 Tính chất lũy thừa</h3>
+      <p>Cho $a,b>0$; $m,n \in \mathbb{R}$:</p>
+      <ul>
+        <li>$a^m \cdot a^n = a^{m+n}$</li>
+        <li>$\dfrac{a^m}{a^n} = a^{m-n}$</li>
+        <li>$(a^m)^n = a^{mn}$</li>
+        <li>$(ab)^m = a^m b^m$; $\left(\dfrac{a}{b}\right)^m = \dfrac{a^m}{b^m}$</li>
+        <li>$a^{-n} = \dfrac{1}{a^n}$; $a^{\frac{m}{n}} = \sqrt[n]{a^m}$</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🔸 Tính chất logarit</h3>
+      <p>Cho $a>0, a\neq 1, b>0$:</p>
+      <ul>
+        <li>$\log_a 1 = 0$; $\log_a a = 1$</li>
+        <li>$\log_a (bc) = \log_a b + \log_a c$</li>
+        <li>$\log_a \left(\dfrac{b}{c}\right) = \log_a b - \log_a c$</li>
+        <li>$\log_a b^n = n\log_a b$; $\log_{a^k} b = \dfrac{1}{k}\log_a b$</li>
+        <li>$\log_a b = \dfrac{\log_c b}{\log_c a}$ (đổi cơ số)</li>
+        <li>$a^{\log_a b} = b$; $\log_a a^b = b$</li>
+      </ul>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Rút gọn biểu thức $P = \sqrt[3]{x \sqrt{x \sqrt[5]{x^2}}}$ với $x>0$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-bd1">Xem lời giải</button>
+      <div id="sol-bd1" class="solution">
+        $P = \left(x \cdot x^{1/2} \cdot x^{2/5} \right)^{1/3} = \left(x^{1 + 1/2 + 2/5}\right)^{1/3} = \left(x^{19/10}\right)^{1/3} = x^{19/30}$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tính giá trị biểu thức $A = \log_2 8 + \log_3 27 - \log_5 125$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-bd2">Xem lời giải</button>
+      <div id="sol-bd2" class="solution">$A = 3 + 3 - 3 = 3$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề TP.HCM):</strong> Cho $\log_2 5 = a$. Tính $\log_{16} 125$ theo $a$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-bd3">Xem lời giải</button>
+      <div id="sol-bd3" class="solution">
+        $\log_{16} 125 = \dfrac{\log_2 125}{\log_2 16} = \dfrac{3\log_2 5}{4} = \dfrac{3a}{4}$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB HÀM SỐ MŨ & LOGARIT -->
+  <div class="tab-content" id="hamso">
+    <h2>Hàm số Mũ & Logarit</h2>
+    <div class="grid-2col">
+      <div class="card">
+        <h3>📌 Hàm số mũ $y=a^x$</h3>
+        <p>• Tập xác định: $D=\mathbb{R}$.</p>
+        <p>• Đạo hàm: $y' = a^x \ln a$. Đặc biệt $(e^x)' = e^x$.</p>
+        <p>• Đồ thị nhận trục $Ox$ làm tiệm cận ngang.</p>
+        <p>• Đồng biến nếu $a>1$, nghịch biến nếu $0<a<1$.</p>
+      </div>
+      <div class="card">
+        <h3>📌 Hàm số logarit $y=\log_a x$</h3>
+        <p>• Tập xác định: $D=(0;+\infty)$.</p>
+        <p>• Đạo hàm: $y' = \dfrac{1}{x \ln a}$. Đặc biệt $(\ln x)' = \dfrac{1}{x}$.</p>
+        <p>• Đồ thị nhận trục $Oy$ làm tiệm cận đứng.</p>
+        <p>• Đồng biến nếu $a>1$, nghịch biến nếu $0<a<1$.</p>
+      </div>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội):</strong> Tìm tập xác định của hàm số $y = \ln(2x - 4)$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-hs1">Xem lời giải</button>
+      <div id="sol-hs1" class="solution">$2x-4>0 \Leftrightarrow x>2$. Tập xác định: $D=(2;+\infty)$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2:</strong> Tính đạo hàm của $y = e^{2x} + 3^x$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-hs2">Xem lời giải</button>
+      <div id="sol-hs2" class="solution">$y' = 2e^{2x} + 3^x \ln 3$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Đề TP.HCM):</strong> Cho hàm số $y = \log_2 (x^2 - 3x + 2)$. Tìm tập xác định.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-hs3">Xem lời giải</button>
+      <div id="sol-hs3" class="solution">
+        $x^2 - 3x + 2 > 0 \Leftrightarrow (x-1)(x-2) > 0 \Rightarrow x<1$ hoặc $x>2$. $D=(-\infty;1) \cup (2;+\infty)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB PHƯƠNG TRÌNH & BẤT PHƯƠNG TRÌNH -->
+  <div class="tab-content" id="ptbpt">
+    <h2>Phương trình & Bất phương trình Mũ - Logarit</h2>
+    <div class="card">
+      <h3>🔹 Phương trình cơ bản</h3>
+      <p>• $a^{f(x)} = a^{g(x)} \Leftrightarrow f(x)=g(x)$ (với $a>0, a\neq 1$).</p>
+      <p>• $\log_a f(x) = \log_a g(x) \Leftrightarrow f(x)=g(x)>0$.</p>
+      <p>• Phương pháp đặt ẩn phụ: đưa về dạng bậc hai, bậc ba, …</p>
+    </div>
+
+    <h3>📝 Bài tập vận dụng</h3>
+    <div class="exercise">
+      <p><strong>Bài 1:</strong> Giải phương trình $2^{x+1} = 8$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-pt1">Xem lời giải</button>
+      <div id="sol-pt1" class="solution">$2^{x+1}=2^3 \Rightarrow x+1=3 \Rightarrow x=2$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Sở Hà Nội):</strong> Giải $\log_3 (x-1) = 2$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-pt2">Xem lời giải</button>
+      <div id="sol-pt2" class="solution">ĐK: $x>1$. $x-1=3^2=9 \Rightarrow x=10$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3:</strong> Giải $4^x - 3 \cdot 2^x + 2 = 0$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-pt3">Xem lời giải</button>
+      <div id="sol-pt3" class="solution">
+        Đặt $t=2^x>0$: $t^2 - 3t + 2 =0 \Rightarrow t=1$ hoặc $t=2$. Với $t=1 \Rightarrow x=0$; $t=2 \Rightarrow x=1$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Đề TP.HCM):</strong> Giải bất phương trình $\log_{0.5} (x+3) > 1$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-pt4">Xem lời giải</button>
+      <div id="sol-pt4" class="solution">
+        Cơ số $0<0.5<1$ nên BPT đảo chiều: $0 < x+3 < 0.5^1 = 0.5 \Rightarrow -3 < x < -2.5$.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB TOÁN THỰC TẾ -->
+  <div class="tab-content" id="thucte">
+    <h2>Toán thực tế Mũ & Logarit</h2>
+    <div class="card">
+      <h3>🏦 Lãi suất ngân hàng</h3>
+      <p>Gửi $A$ đồng, lãi suất $r$ mỗi kì, sau $n$ kì nhận $A(1+r)^n$ (lãi kép).</p>
+    </div>
+    <div class="card">
+      <h3>🧫 Tăng trưởng vi khuẩn</h3>
+      <p>$N(t) = N_0 e^{kt}$, $N_0$ ban đầu, $k$ là hằng số tăng trưởng.</p>
+    </div>
+    <div class="card">
+      <h3>🔊 Cường độ âm thanh (dB)</h3>
+      <p>$L = 10 \log \dfrac{I}{I_0}$ với $I_0 = 10^{-12} W/m^2$.</p>
+    </div>
+    <div class="card">
+      <h3>🌍 Thang Richter</h3>
+      <p>$M = \log \dfrac{E}{E_0}$, với $E$ là năng lượng giải phóng.</p>
+    </div>
+
+    <h3>📝 Bài tập thực tế</h3>
+    <div class="exercise">
+      <p><strong>Bài 1 (Lãi suất - Sở Hà Nội):</strong> Ông A gửi 100 triệu đồng vào ngân hàng với lãi suất 6%/năm theo thể thức lãi kép. Sau 3 năm ông có bao nhiêu tiền? (làm tròn đến triệu đồng).</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-tt1">Xem lời giải</button>
+      <div id="sol-tt1" class="solution">$100 \times (1+0.06)^3 = 100 \times 1.191016 = 119.1$ triệu. Làm tròn: 119 triệu đồng.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Vi khuẩn - Đề Bộ GD):</strong> Số lượng vi khuẩn ban đầu là 100, sau 2 giờ tăng lên 400 con. Giả sử tăng trưởng theo quy luật mũ $N(t)=N_0 e^{kt}$. Tìm $k$.</p>
+      <span class="level-tag">Trung bình</span>
+      <button class="toggle-solution" data-target="sol-tt2">Xem lời giải</button>
+      <div id="sol-tt2" class="solution">
+        $400 = 100 e^{2k} \Rightarrow e^{2k}=4 \Rightarrow 2k = \ln 4 \Rightarrow k = \frac{\ln 4}{2} = \ln 2 \approx 0.693$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Âm thanh - Sở TP.HCM):</strong> Cường độ âm tại một điểm gấp 1000 lần cường độ âm chuẩn. Tính mức cường độ âm (dB).</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-tt3">Xem lời giải</button>
+      <div id="sol-tt3" class="solution">$L = 10 \log \dfrac{I}{I_0} = 10 \log 1000 = 10 \times 3 = 30$ dB.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 4 (Động đất - Đề tham khảo):</strong> Trận động đất Richter 6.0 giải phóng năng lượng gấp bao nhiêu lần trận 5.0?</p>
+      <span class="level-tag">Vận dụng</span>
+      <button class="toggle-solution" data-target="sol-tt4">Xem lời giải</button>
+      <div id="sol-tt4" class="solution">
+        $\log \dfrac{E_1}{E_0} - \log \dfrac{E_2}{E_0} = 6 - 5 \Rightarrow \log \dfrac{E_1}{E_2} = 1 \Rightarrow \dfrac{E_1}{E_2} = 10^1 = 10$ lần.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB TỔNG HỢP ĐỀ THI -->
+  <div class="tab-content" id="tonghop">
+    <h2>Bài tập tổng hợp từ đề thi thử</h2>
+    <div class="exercise">
+      <p><strong>Bài 1 (Sở Hà Nội 2024):</strong> Giải phương trình $3^{2x-1} = \frac{1}{27}$.</p>
+      <span class="level-tag">Dễ</span>
+      <button class="toggle-solution" data-target="sol-th1">Xem lời giải</button>
+      <div id="sol-th1" class="solution">$3^{2x-1}=3^{-3} \Rightarrow 2x-1=-3 \Rightarrow x=-1$.</div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 2 (Sở TP.HCM):</strong> Tìm $m$ để phương trình $4^x - m \cdot 2^{x+1} + 3m - 2 = 0$ có hai nghiệm trái dấu.</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th2">Xem lời giải</button>
+      <div id="sol-th2" class="solution">
+        Đặt $t=2^x>0$, PT: $t^2 - 2m t + 3m - 2 =0$. Cần hai nghiệm $t_1, t_2$ thỏa $0<t_1<1<t_2$ hoặc ngược lại. Điều kiện tương đương $af(1)<0$ với $f(t)=t^2-2mt+3m-2$. $f(1)=1-2m+3m-2=m-1 \Rightarrow 1\cdot(m-1)<0 \Rightarrow m<1$. Kết hợp $\Delta'>0, S>0, P>0$ cho nghiệm dương phân biệt, cuối cùng được $2/3 < m < 1$.
+      </div>
+    </div>
+    <div class="exercise">
+      <p><strong>Bài 3 (Bộ GD tham khảo):</strong> Một người vay ngân hàng 500 triệu đồng với lãi suất 1%/tháng theo hình thức lãi kép, mỗi tháng trả 10 triệu đồng. Hỏi sau bao nhiêu tháng người đó trả hết nợ? (làm tròn).</p>
+      <span class="level-tag">Vận dụng cao</span>
+      <button class="toggle-solution" data-target="sol-th3">Xem lời giải</button>
+      <div id="sol-th3" class="solution">
+        Bài toán trả góp: $A_n = A(1+r)^n - M\frac{(1+r)^n -1}{r}$. Tìm $n$ để $A_n=0$. $500\times1.01^n = 10\frac{1.01^n-1}{0.01}$. Giải ra $1.01^n = 2 \Rightarrow n = \log_{1.01}2 \approx 69.66$. Vậy cần khoảng 70 tháng.
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
+    <hr>
+</div>
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+      contents.forEach(c => c.classList.remove('active'));
+      tabs.forEach(b => b.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) activeContent.classList.add('active');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        switchTab(tabId);
+        history.replaceState(null, null, '#' + tabId);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('biendo');
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    document.querySelectorAll('.toggle-solution').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const solutionDiv = document.getElementById(targetId);
+        if (!solutionDiv) return;
+        const isHidden = solutionDiv.style.display === 'none' || solutionDiv.style.display === '';
+        if (isHidden) {
+          solutionDiv.style.display = 'block';
+          this.textContent = 'Ẩn lời giải';
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([solutionDiv]).catch(err => console.log(err));
+          }
+        } else {
+          solutionDiv.style.display = 'none';
+          this.textContent = 'Xem lời giải';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
