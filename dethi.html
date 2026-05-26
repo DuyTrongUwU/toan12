@@ -446,7 +446,16 @@ nav button:hover, nav button.active {
     background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
     color: #1e40af;
 }
-
+#timerBox {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent2);
+  background: rgba(75,158,232,0.1);
+  border: 1px solid rgba(75,158,232,0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -456,7 +465,8 @@ nav button:hover, nav button.active {
   <div class="header-inner">
     <div class="logo">TOÁN<span>THPT</span> 2026</div>
     <nav id="navBtns"></nav>
-    <div class="score-badge" id="globalScore">0 / 0 câu</div>
+    <div class="score-badge" id="globalScore">Đã làm 0 / 0 câu</div>
+    <div id="timerBox" style="display:none;">⏱ --:--</div>
   </div>
 </header>
 
@@ -829,6 +839,8 @@ function openExam(id) {
 
 function startTimer(thoiGianStr) {
   if(examTimer) clearInterval(examTimer);
+  document.getElementById("timerBox").style.display = "block"; // thêm dòng này
+  if(examTimer) clearInterval(examTimer);
   // Parse "90 phút" hoặc "120 phút"
   const match = thoiGianStr.match(/(\d+)/);
   const minutes = match ? parseInt(match[1]) : 90;
@@ -857,6 +869,8 @@ function updateTimerDisplay() {
   else box.style.color = "var(--accent2)";
 }
 function goHome() {
+  if(examTimer) clearInterval(examTimer);
+  document.getElementById("timerBox").style.display = "none"; // thêm dòng này
   if(examTimer) clearInterval(examTimer); // thêm dòng này
   document.getElementById("examPage").classList.add("hidden");2025
   document.getElementById("examPage").classList.add("hidden");
@@ -879,7 +893,7 @@ function renderExam() {
     <h2>KỲ THI TỐT NGHIỆP THPT NĂM ${ex.nam}</h2>
     <div class="subtitle">Môn thi: TOÁN &nbsp;|&nbsp; Thời gian làm bài: ${ex.thoiGian}</div>
     <div class="subtitle" style="margin-top:0.3rem;font-size:0.8rem;">${ex.nguon}</div>
-    <div id="timerBox" style="margin-top:0.8rem;font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent2);background:rgba(75,158,232,0.1);border:1px solid rgba(75,158,232,0.3);display:inline-block;padding:0.3rem 1.2rem;border-radius:8px;">⏱ Đang tải...</div>
+    <div id="timerBox">⏱ Đang tải...</div>
     <div class="ma-de-box">Mã đề: ${ex.maDe}</div>
     <div class="exam-info">
       <span><strong>12 TN</strong> (0,25đ/câu)</span>
