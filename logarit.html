@@ -243,10 +243,33 @@
       margin-left: 10px;
       vertical-align: middle;
     }
+    /* Nút trở về trên cùng */
+.btn-back {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 18px;
+    background-color: #e2e8f0; /* Màu nền xám nhạt */
+    color: #334155;            /* Màu chữ */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
+    color: #1e40af;
+}
+
   </style>
 </head>
 <body>
 <div class="container">
+  <button onclick="history.back()" class="btn-back">⬅ Quay lại trang trước</button>
   <header>
     <h1>📈 Hàm số Mũ & Hàm số Logarit</h1>
     <p>Biến đổi biểu thức • Hàm số • Phương trình & Bất phương trình • Toán thực tế</p>
@@ -473,9 +496,13 @@
       </div>
     </div>
   </div>
+
   <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
     <hr>
+    <p style="color: #3a5a6e;">✨ Nắm vững lũy thừa & logarit – chinh phục mọi bài toán biến đổi, phương trình và ứng dụng thực tế! ✨</p>
+  </div>
 </div>
+
 <script>
   (function() {
     const tabs = document.querySelectorAll('.tab-btn');

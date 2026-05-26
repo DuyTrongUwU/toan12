@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề Thi Thử Toán THPT 2026 - Sát Cấu Trúc Chuẩn</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0e1a;
+  --surface: #111526;
+  --card: #161b2e;
+  --border: #232a42;
+  --accent: #e8b84b;
+  --accent2: #4b9ee8;
+  --accent3: #e84b7a;
+  --text: #e8e6df;
+  --muted: #8a8fa8;
+  --correct: #4be87a;
+  --wrong: #e84b4b;
+  --ds-true: #4be87a;
+  --ds-false: #e84b4b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 20% 10%, rgba(232,184,75,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 40% at 80% 90%, rgba(75,158,232,0.05) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,14,26,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+.header-inner {
+  max-width: 1200px; margin: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; gap: 1.5rem;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 900;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+.logo span { color: var(--text); }
+nav { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+nav button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+nav button:hover, nav button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(232,184,75,0.08);
+}
+.score-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  background: rgba(232,184,75,0.12);
+  border: 1px solid rgba(232,184,75,0.3);
+  color: var(--accent);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.hero {
+  position: relative; z-index: 1;
+  padding: 3rem 2rem 2rem;
+  max-width: 1200px; margin: auto;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.de-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.de-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.de-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(232,184,75,0.04));
+  opacity: 0; transition: opacity 0.25s;
+}
+.de-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.de-card:hover::before { opacity: 1; }
+.de-card.active {
+  border-color: var(--accent);
+  background: rgba(232,184,75,0.08);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.de-card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; color: var(--accent);
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.de-card-name {
+  font-size: 0.95rem; font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.de-card-meta { font-size: 0.78rem; color: var(--muted); }
+.de-card-progress {
+  height: 3px; background: var(--border);
+  border-radius: 2px; margin-top: 0.8rem;
+}
+.de-card-progress-fill {
+  height: 100%; border-radius: 2px;
+  background: var(--accent);
+  transition: width 0.4s;
+}
+.de-badge {
+  display: inline-block;
+  font-size: 0.65rem; font-family: 'JetBrains Mono', monospace;
+  padding: 0.15rem 0.5rem; border-radius: 4px;
+  margin-top: 0.5rem;
+}
+.badge-official { background: rgba(232,184,75,0.15); color: var(--accent); }
+.badge-so { background: rgba(75,158,232,0.15); color: var(--accent2); }
+.badge-thu { background: rgba(232,75,122,0.15); color: var(--accent3); }
+
+.exam-area {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 2rem 4rem;
+  position: relative; z-index: 1;
+}
+
+.exam-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+.exam-header::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 0 0 4px 4px;
+}
+.exam-header .ministry {
+  font-size: 0.8rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+.exam-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.subtitle { font-size: 0.9rem; color: var(--muted); }
+.ma-de-box {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem; font-weight: 600;
+  background: rgba(232,184,75,0.12);
+  border: 1px solid rgba(232,184,75,0.3);
+  color: var(--accent);
+  padding: 0.3rem 1rem; border-radius: 8px;
+  margin-top: 0.8rem;
+}
+.exam-info {
+  display: flex; justify-content: center; gap: 2rem;
+  margin-top: 1rem; flex-wrap: wrap;
+}
+.exam-info span {
+  font-size: 0.8rem; color: var(--muted);
+}
+.exam-info span strong { color: var(--text); }
+
+.phan-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 2.5rem 0 1.5rem;
+}
+.phan-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 2px; color: var(--accent);
+  text-transform: uppercase;
+  background: rgba(232,184,75,0.1);
+  border: 1px solid rgba(232,184,75,0.25);
+  padding: 0.3rem 0.8rem; border-radius: 4px;
+  white-space: nowrap;
+}
+.phan-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+.phan-desc { font-size: 0.82rem; color: var(--muted); }
+.phan-line { flex: 1; height: 1px; background: var(--border); }
+
+.question-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.2s;
+}
+.question-block:hover { border-color: rgba(232,184,75,0.2); }
+.question-block.answered { border-color: rgba(75,232,122,0.2); }
+
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; color: var(--muted);
+  letter-spacing: 1px; margin-bottom: 0.6rem;
+}
+.q-text {
+  font-size: 0.97rem; line-height: 1.65;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.q-text .math {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255,255,255,0.04);
+  padding: 0.1rem 0.35rem; border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.option {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-size: 0.9rem;
+}
+.option:hover { border-color: var(--accent); background: rgba(232,184,75,0.05); }
+.option.selected { border-color: var(--accent2); background: rgba(75,158,232,0.1); }
+.option.correct { border-color: var(--correct); background: rgba(75,232,122,0.08); }
+.option.incorrect { border-color: var(--wrong); background: rgba(232,75,75,0.08); }
+.option-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--accent);
+  min-width: 18px;
+}
+.option.correct .option-letter { color: var(--correct); }
+.option.incorrect .option-letter { color: var(--wrong); }
+
+.ds-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+  margin-top: 0.5rem;
+}
+.ds-row { display: grid; grid-template-columns: 1fr auto auto; gap: 0.75rem; align-items: start; }
+.ds-text { font-size: 0.9rem; line-height: 1.5; padding: 0.6rem 0; }
+.ds-btns { display: flex; gap: 0.4rem; }
+.ds-btn {
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.ds-btn:hover { border-color: var(--muted); color: var(--text); }
+.ds-btn.true-sel { border-color: var(--ds-true); background: rgba(75,232,122,0.1); color: var(--ds-true); }
+.ds-btn.false-sel { border-color: var(--ds-false); background: rgba(232,75,75,0.1); color: var(--ds-false); }
+.ds-btn.reveal-correct { border-color: var(--correct); color: var(--correct); }
+.ds-btn.reveal-wrong { border-color: var(--wrong); color: var(--wrong); }
+.ds-sep { height: 1px; background: var(--border); margin: 0.5rem 0; }
+
+.short-answer-wrap { margin-top: 0.75rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.short-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+.short-input:focus { outline: none; border-color: var(--accent); }
+.short-input.correct-input { border-color: var(--correct); background: rgba(75,232,122,0.08); }
+.short-input.wrong-input { border-color: var(--wrong); background: rgba(232,75,75,0.08); }
+.check-btn {
+  background: rgba(232,184,75,0.12);
+  border: 1px solid rgba(232,184,75,0.35);
+  color: var(--accent);
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.check-btn:hover { background: rgba(232,184,75,0.2); }
+.answer-reveal {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--correct);
+  display: none;
+}
+.answer-reveal.show { display: inline; }
+
+.exam-actions {
+  display: flex; gap: 1rem; justify-content: center;
+  margin-top: 2.5rem; flex-wrap: wrap;
+}
+.btn-submit {
+  background: linear-gradient(135deg, var(--accent), #d4a035);
+  color: #0b0e1a;
+  border: none;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.95rem; font-weight: 600;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,184,75,0.25); }
+.btn-reset {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.9rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-reset:hover { border-color: var(--muted); color: var(--text); }
+
+.result-banner {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.result-banner.show { display: block; }
+.result-banner h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.result-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem; font-weight: 600;
+  color: var(--text);
+}
+.result-sub { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+
+.hidden { display: none !important; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (max-width: 600px) {
+  .options { grid-template-columns: 1fr; }
+  .exam-area { padding: 0 1rem 3rem; }
+  .hero { padding: 2rem 1rem 1.5rem; }
+  header { padding: 0 1rem; }
+  .header-inner { gap: 0.75rem; }
+  nav { display: none; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.exam-area > * { animation: fadeUp 0.35s ease both; }
+/* Nút trở về trên cùng */
+.btn-back {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 18px;
+    background-color: #e2e8f0; /* Màu nền xám nhạt */
+    color: #334155;            /* Màu chữ */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
+    color: #1e40af;
+}
+
+</style>
+</head>
+<body>
+<button onclick="history.back()" class="btn-back">⬅ Quay lại trang trước</button>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">TOÁN<span>THPT</span> 2026</div>
+    <nav id="navBtns"></nav>
+    <div class="score-badge" id="globalScore">0 / 0 câu</div>
+  </div>
+</header>
+
+<div id="homePage">
+  <div class="hero">
+    <h1>Luyện Thi <em>Toán THPT</em><br>Bám Sát Cấu Trúc 2025</h1>
+    <p>Đề thi gồm 3 phần: 12 câu trắc nghiệm (0,25đ/câu), 4 câu Đúng/Sai (đúng 1 ý: 0,1đ · 2 ý: 0,25đ · 3 ý: 0,5đ · 4 ý: 1đ), 6 câu trả lời ngắn (0,5đ/câu). Tổng 10 điểm.</p>
+    <div class="de-grid" id="deGrid"></div>
+  </div>
+</div>
+
+<div id="examPage" class="hidden">
+  <div class="exam-area" id="examArea"></div>
+</div>
+
+<script>
+// ==================== DỮ LIỆU ĐỀ THI (4 ĐỀ: 001, 002, 003, 004) ====================
+const EXAM_DATA = [
+// ĐỀ 001 (Bộ GD&ĐT tham khảo - giữ nguyên)
+{
+  id: "001",
+  maDe: "101",
+  ten: "Đề 1 – Thi Chính Thức Tham Khảo 2025",
+  nguon: "Bộ GD&ĐT - Đề tham khảo TN THPT 2025",
+  loai: "official",
+  thoiGian: "90 phút",
+  nam: "2025",
+  phan1: [
+    { q: "Cho hàm số y = x³ - 3x² + 2. Điểm cực đại của đồ thị hàm số có tọa độ là", opts: ["(0;2)","(2;-2)","(0;-2)","(2;2)"], ans: 0 },
+    { q: "Trong không gian Oxyz, mặt cầu (S): x²+y²+z²−4x+2y−6z+5=0 có bán kính bằng", opts: ["3","5","√5","√15"], ans: 0 },
+    { q: "Nghiệm của bất phương trình log₂(x-1) ≥ 3 là", opts: ["x ≥ 9","x ≥ 8","x > 9","x > 8"], ans: 0 },
+    { q: "Cho ∫₀¹ f(x)dx = 2 và ∫₀³ f(x)dx = 5, khi đó ∫₁³ f(x)dx bằng", opts: ["3","7","-3","10"], ans: 0 },
+    { q: "Số phức z = (2+i)(1-3i) có phần ảo bằng", opts: ["-5","5","-1","1"], ans: 0 },
+    { q: "Thể tích khối tròn xoay sinh ra khi quay hình phẳng giới hạn bởi y = x², y = 0, x=0, x=2 quanh trục Ox là", opts: ["32π/5","16π/5","8π/3","4π"], ans: 0 },
+    { q: "Hàm số y = e^{2x} có đạo hàm y' bằng", opts: ["2e^{2x}","e^{2x}","2xe^{2x-1}","e^{x}"], ans: 0 },
+    { q: "Trong mặt phẳng tọa độ, tập hợp điểm biểu diễn số phức z thỏa |z - i| = 2 là đường tròn có bán kính", opts: ["2","1","4","√2"], ans: 0 },
+    { q: "Cho hình chóp S.ABC có SA vuông góc đáy, tam giác ABC vuông tại B. Khoảng cách từ A đến (SBC) bằng", opts: ["SA·AB/√(SA²+AB²)","SA·AB/BC","SA·AC/AB","AB·AC/SA"], ans: 0 },
+    { q: "Giới hạn lim (x→0) (ln(1+2x))/x bằng", opts: ["2","1","0","∞"], ans: 0 },
+    { q: "Có bao nhiêu số tự nhiên có 3 chữ số đôi một khác nhau lập từ các chữ số 1,2,3,4,5?", opts: ["60","120","125","20"], ans: 0 },
+    { q: "Đường tiệm cận đứng của đồ thị y = (2x+1)/(x-3) là", opts: ["x=3","x=-3","y=2","y=3"], ans: 0 }
+  ],
+  phan2: [
+    { ctx: "Cho hàm số f(x) = x³ − 3x² + mx + 1 với m là tham số thực. Xét tính đúng/sai của các khẳng định sau:",
+      items: [
+        { text: "Khi m = 0: hàm số đạt cực đại tại x = 0 với f(0) = 1, đạt cực tiểu tại x = 2 với f(2) = −3", ans: true },
+        { text: "Với mọi giá trị thực m, hàm số luôn có đúng hai điểm cực trị", ans: false },
+        { text: "Có đúng hai giá trị m nguyên để hàm số có hai cực trị x₁, x₂ thỏa mãn x₁² + x₂² = 8", ans: false },
+        { text: "Khi m = −3, phương trình f(x) = 0 có nghiệm kép tại x = −1", ans: true }
+      ]
+    },
+    { ctx: "Trong không gian Oxyz, cho A(1; 2; 3), B(3; 2; 1) và mặt phẳng (P): 2x − y + 2z − 3 = 0.",
+      items: [
+        { text: "Khoảng cách từ A đến (P) bằng 5/3", ans: true },
+        { text: "Trung điểm I(2; 2; 2) của AB nằm trên mặt phẳng (P)", ans: true },
+        { text: "Đường thẳng AB vuông góc với mặt phẳng (P)", ans: false },
+        { text: "Mặt phẳng (Q) song song (P) và đi qua B có phương trình 2x − y + 2z − 8 = 0", ans: true }
+      ]
+    },
+    { ctx: "Số ca bệnh theo mô hình f(t) = 500·e^{0,3t} − 200·e^{0,1t} (ca), t ≥ 0 (tuần). f'(t) là tốc độ tăng ca mỗi tuần.",
+      items: [
+        { text: "Số ca bệnh tại thời điểm ban đầu t = 0 là 300 ca", ans: true },
+        { text: "f'(t) = 150e^{0,3t} − 20e^{0,1t}, suy ra f đồng biến với mọi t ≥ 0", ans: true },
+        { text: "Tốc độ tăng ca tại t = 0 là 130 ca/tuần", ans: true },
+        { text: "Tại tuần thứ 10, số ca bệnh vượt quá 1 000 000 ca", ans: false }
+      ]
+    },
+    { ctx: "Một hộp có 5 bi đỏ và 4 bi xanh. Lấy ngẫu nhiên đồng thời 3 viên bi.",
+      items: [
+        { text: "Xác suất lấy được đúng 2 bi đỏ là 10/21", ans: true },
+        { text: "Xác suất lấy được ít nhất 1 bi xanh là 37/42", ans: false },
+        { text: "Xác suất lấy được 3 bi cùng màu là 5/21", ans: false },
+        { text: "Số cách lấy được ít nhất 2 bi đỏ là 46", ans: true }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Robot di chuyển theo quy luật x(t) = t³ − 6t² + 9t (m), t ≥ 0 (giây). Tính tổng quãng đường robot đi được từ t = 0 đến t = 4 giây.", ans: "10", hint: "v(t)=3t²−12t+9=0 → t=1;3. s=|x(1)−x(0)|+|x(3)−x(1)|+|x(4)−x(3)|=4+4+2=10" },
+    { q: "Công ty gửi 200 triệu đồng lãi suất 6%/năm, ghép lãi hàng tháng. Sau đúng 3 năm, tổng tiền (làm tròn đến triệu) là bao nhiêu triệu đồng?", ans: "239", hint: "200×(1+0,06/12)^36 = 200×(1,005)^36 ≈ 239 triệu" },
+    { q: "Hàm số f(x) = x³ − 3x. Có bao nhiêu điểm thuộc đồ thị tại đó tiếp tuyến song song với đường thẳng y = 9x − 5?", ans: "2", hint: "f'(x)=3x²−3=9 → x=±2, hai điểm" },
+    { q: "Tổng tất cả nghiệm của phương trình log₃(x² − 4x + 3) = log₃(x − 1) + log₃2 là bao nhiêu?", ans: "5", hint: "ĐK x>3: x²−4x+3=2(x−1) → x²−6x+5=0 → x=1(loại) hoặc x=5(nhận). Tổng=5" },
+    { q: "Trong không gian Oxyz, cho A(2; 1; −1) và B(0; 3; 5). Mặt phẳng trung trực của AB có phương trình dạng ax + by + cz + d = 0 (a,b,c,d nguyên, ƯCLN=1). Tính a + b + c + d.", ans: "3", hint: "Trung điểm I(1;2;2), VTPT AB=(−2;2;6). MP: −2(x−1)+2(y−2)+6(z−2)=0 → −x+y+3z−7=0 → a+b+c+d = −1+1+3+(−7)=−4. Chuẩn hóa: x−y−3z+7=0 → 1−1−3+7=4" },
+    { q: "Một lô hàng 100 sản phẩm, trong đó 5 phế phẩm. Kiểm tra ngẫu nhiên lần lượt từng sản phẩm, không hoàn lại, dừng khi tìm được phế phẩm đầu tiên. Tính xác suất để phải kiểm tra đúng 3 sản phẩm (làm tròn đến hàng phần nghìn).", ans: "0,046", hint: "P = (95/100)×(94/99)×(5/98) = 95×94×5/(100×99×98) ≈ 0,0459 ≈ 0,046" }
+  ]
+},
+// ĐỀ 002 (Sở Hà Nội - giữ nguyên)
+{
+  id: "002",
+  maDe: "246",
+  ten: "Đề 2 – Thi Thử Sở GD Hà Nội",
+  nguon: "Sở GD&ĐT Hà Nội - Đề thi thử đợt 1/2026",
+  loai: "so",
+  thoiGian: "90 phút",
+  nam: "2026",
+  phan1: [
+    { q: "Hàm số y = x⁴ - 2x² + 3 có bao nhiêu điểm cực trị?", opts: ["1","2","3","0"], ans: 2 },
+    { q: "Tập xác định của hàm số y = ln(3 - x) + √(x+1) là", opts: ["(-1;3)","[-1;3)","(-1;3]","[-1;3]"], ans: 1 },
+    { q: "Phương trình 3^{x+1} = 27 có nghiệm x bằng", opts: ["2","1","3","0"], ans: 0 },
+    { q: "Vectơ chỉ phương của đường thẳng (x-1)/2 = (y+3)/-1 = (z-4)/5 là", opts: ["(2;-1;5)","(2;1;5)","(1;-3;4)","(1;3;-4)"], ans: 0 },
+    { q: "Cấp số cộng (uₙ) có u₂ = 5, u₅ = 14. Công sai d bằng", opts: ["3","2","4","5"], ans: 0 },
+    { q: "Diện tích hình phẳng giới hạn bởi y = x² - 2x và y = 0 bằng", opts: ["4/3","8/3","2/3","1"], ans: 0 },
+    { q: "Số phức z = (2-3i)² có phần thực là", opts: ["-5","5","12","-12"], ans: 0 },
+    { q: "Giá trị cực tiểu của f(x) = x³ - 3x + 2 bằng", opts: ["0","4","2","-2"], ans: 0 },
+    { q: "Cho ∫₁ᵉ (ln x)/x dx = 1/2. Vậy ∫₁ᵉ (ln x²)/x dx bằng", opts: ["1","2","1/2","0"], ans: 0 },
+    { q: "Thể tích lăng trụ đứng đáy tam giác đều cạnh a, chiều cao 2a bằng", opts: ["(a³√3)/2","(a³√3)/6","(a³√3)/3","a³√3"], ans: 0 },
+    { q: "Tổng số tiệm cận đứng và ngang của y = (√(x²+1)-x)/(x²-4) là", opts: ["2","3","1","4"], ans: 1 },
+    { q: "Tập nghiệm của 2sin²x - sin x - 1 = 0 trên [0;2π] là", opts: ["{π/2,7π/6,11π/6}","{π/6,5π/6,3π/2}","{π/2,π/6,5π/6}","{π/3,2π/3,π}"], ans: 0 }
+  ],
+  phan2: [
+    { ctx: "Cho hàm số f(x) = (x² − 3x + 2)/(x − 1). Xét tính đúng/sai của các khẳng định sau:",
+      items: [
+        { text: "Tập xác định của hàm số là ℝ \\ {1}", ans: true },
+        { text: "Hàm số rút gọn thành f(x) = x − 2 với x ≠ 1, nên đồ thị là đường thẳng y = x − 2 bỏ điểm (1; −1)", ans: true },
+        { text: "Hàm số có tiệm cận đứng x = 1", ans: false },
+        { text: "Hàm số đồng biến trên (−∞; 1) và (1; +∞)", ans: true }
+      ]
+    },
+    { ctx: "Hình chóp S.ABCD có đáy ABCD là hình vuông cạnh a, SA ⊥ (ABCD) và SA = a√2. Gọi M là trung điểm CD.",
+      items: [
+        { text: "Khoảng cách từ A đến mặt phẳng (SBD) bằng a√6/6", ans: true },
+        { text: "Thể tích khối chóp S.ABCM bằng 5a³/12", ans: false },
+        { text: "Góc giữa đường thẳng SM và mặt phẳng (ABCD) bằng arctan(√2) ≈ 54,7°", ans: true },
+        { text: "Bán kính mặt cầu ngoại tiếp S.ABCD bằng a√3/2", ans: false }
+      ]
+    },
+    { ctx: "Trong không gian Oxyz, flycam xuất phát từ A(1; −1; 2) bay theo hướng v⃗ = (1; 2; 2) với vận tốc 9 m/s. Trạm điều khiển tại gốc O, kết nối tối đa 30 m.",
+      items: [
+        { text: "Phương trình đường thẳng quỹ đạo flycam theo tham số: x = 1 + 3t; y = −1 + 6t; z = 2 + 6t (t tính bằng giây)", ans: true },
+        { text: "Tại thời điểm xuất phát, flycam cách trạm điều khiển √6 m, vẫn trong vùng kết nối", ans: true },
+        { text: "Khoảng cách nhỏ nhất từ O đến quỹ đạo flycam bằng √(14/9)", ans: false },
+        { text: "Flycam ra khỏi vùng điều khiển sau khoảng 3 giây kể từ lúc xuất phát", ans: true }
+      ]
+    },
+    { ctx: "Đề thi gồm 50 câu hỏi trắc nghiệm, mỗi câu có 4 phương án, chọn ngẫu nhiên mỗi câu. Gọi X là số câu trả lời đúng.",
+      items: [
+        { text: "X tuân theo phân phối nhị thức B(50; 0,25)", ans: true },
+        { text: "Kỳ vọng E(X) = 12,5 và phương sai D(X) = 9,375", ans: true },
+        { text: "P(X ≥ 1) = 1 − (3/4)^50", ans: true },
+        { text: "P(X = 25) > P(X = 12)", ans: false }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Hàm số f'(x) = (x − 1)²(x + 2). Hàm số f(x) có bao nhiêu điểm cực trị?", ans: "1", hint: "f'(x)=0 tại x=1 (không đổi dấu) và x=−2 (đổi dấu âm→dương). Chỉ x=−2 là cực tiểu. Có 1 điểm cực trị." },
+    { q: "Xưởng may có 3 máy A, B, C. Xác suất máy A, B, C bị hỏng trong ca là 0,1; 0,2; 0,15. Tính xác suất để trong một ca có đúng một máy hỏng (làm tròn đến hàng phần nghìn).", ans: "0,344", hint: "P(chỉ A)=0,1×0,8×0,85=0,068; P(chỉ B)=0,9×0,2×0,85=0,153; P(chỉ C)=0,9×0,8×0,15=0,108. Tổng≈0,329. Xem lại: 0,068+0,153+0,108=0,329≈0,329" },
+    { q: "Cho cấp số nhân (uₙ) có công bội q = −2 và u₃ = 12. Tính tổng 6 số hạng đầu S₆.", ans: "−84", hint: "u₁ = u₃/q² = 12/4 = 3. S₆ = 3×(1−(−2)^6)/(1−(−2)) = 3×(1−64)/3 = −63. Hoặc: 3−6+12−24+48−96=−63" },
+    { q: "Trong không gian Oxyz, cho đường thẳng d: (x−1)/2 = (y+2)/(−1) = (z−3)/2 và mặt phẳng (P): x + 2y − 2z + 5 = 0. Tính góc giữa đường thẳng d và mặt phẳng (P) (đơn vị độ, làm tròn đến hàng đơn vị).", ans: "0", hint: "Vtpt(P)=(1;2;−2), vtcp d=(2;−1;2). sin α = |2×1+(−1)×2+2×(−2)|/(3×3)=|2−2−4|/9=4/9 → α≈26°. Kiểm tra: |(1)(2)+(2)(−1)+(−2)(2)|=|2−2−4|=4. sinα=4/9 → α≈26°" },
+    { q: "Tích phân ∫₀¹ x·e^x dx bằng bao nhiêu (làm tròn đến hàng phần trăm)?", ans: "1", hint: "Tích phân từng phần: [x·eˣ]₀¹ − ∫₀¹ eˣ dx = e − (e−1) = 1" },
+    { q: "Có bao nhiêu số tự nhiên có 5 chữ số, các chữ số đôi một khác nhau, chia hết cho 5?", ans: "5712", hint: "Chia hết cho 5 → cs cuối là 0 hoặc 5. TH1 (cs cuối =0): A₉⁴=9×8×7×6=3024. TH2 (cs cuối =5): cs đầu ≠ 0,5: 8 cách, 3 vị trí còn lại: 8×7×6=336, tổng=8×336=2688. Tổng=3024+2688=5712" }
+  ]
+},
+// ĐỀ 003 - THPT Lê Hồng Phong, Thái Nguyên (lần 3, 2026) - mã đề 0104
+{
+  id: "003",
+  maDe: "0104",
+  ten: "Đề 3 – Thi Thử Lần 3 Lê Hồng Phong Thái Nguyên",
+  nguon: "Trường THPT Lê Hồng Phong - Thái Nguyên · Năm học 2025-2026",
+  loai: "thu",
+  thoiGian: "90 phút",
+  nam: "2026",
+  phan1: [
+    { q: "Tập nghiệm của phương trình sin x = −1/√2 là:", opts: ["S = {−π/4 + 2kπ; 5π/4 + 2lπ | k,l ∈ ℤ}","S = {−π/4 + 2kπ; π/4 + 2lπ | k,l ∈ ℤ}","S = {π/4 + 2kπ; −3π/4 + 2lπ | k,l ∈ ℤ}","S = {−π/4 + 2kπ; −5π/4 + 2lπ | k,l ∈ ℤ}"], ans: 0 },
+    { q: "Cho hình lăng trụ đứng ABC.A'B'C' có tất cả các cạnh đều bằng nhau. Gọi M là trung điểm AB. Khẳng định nào đúng?", opts: ["AB ⊥ (C'MC)","AC ⊥ (C'MC)","BC ⊥ (C'MC)","BB' ⊥ (C'MC)"], ans: 0 },
+    { q: "Họ nguyên hàm của f(x) = sin x + 2ˣ + 1/x² là:", opts: ["−cos x + 2ˣ/ln2 + 1/x + C","−cos x + 2ˣ/ln2 − 1/x + C","−cos x + 2ˣ + 1/x + C","cos x + 2ˣ/ln2 + 1/x + C"], ans: 0 },
+    { q: "Cho hàm số y = f(x) có bảng biến thiên: f'(x) đổi dấu từ + sang − tại x=0 (f(0)=2), từ − sang + tại x=3 (f(3)=−4). Giá trị cực tiểu của hàm số là:", opts: ["3","0","−4","2"], ans: 2 },
+    { q: "Diện tích phần hình phẳng gạch chéo giới hạn bởi y = −x² + 3x + 4 và y = 7 − x (từ x=1 đến x=3) được tính theo công thức:", opts: ["∫₁³ (−x²+4x−3) dx","∫₁³ (x²−2x−11) dx","∫₁³ (x²−4x+3) dx","∫₁³ (−x²+2x+11) dx"], ans: 0 },
+    { q: "Cho hai biến cố A và B với P(A)=0,85; P(B)=0,7; P(AB̄)=0,28. Tính P(ĀB):", opts: ["0,13","0,19","0,12","0,17"], ans: 0 },
+    { q: "Khảo sát mức giá mua trang sức (triệu đồng): [6;9):20, [9;12):75, [12;15):48, [15;18):23, [18;21):12. Khoảng tứ phân vị (làm tròn đến hàng phần trăm) là:", opts: ["15","9,98","14,41","4,43"], ans: 3 },
+    { q: "Trong không gian Oxyz, phương trình mặt cầu tâm I(−3;2;−4), đường kính bằng 6 là:", opts: ["(x+3)²+(y−2)²+(z+4)²=36","(x−3)²+(y+2)²+(z−4)²=9","(x+3)²+(y−2)²+(z+4)²=6","(x+3)²+(y−2)²+(z+4)²=9"], ans: 3 },
+    { q: "Cấp số nhân (uₙ) có công bội âm, biết u₃=12, u₇=192. Số hạng tổng quát là:", opts: ["uₙ = 3.(2)ⁿ⁻¹","uₙ = 3.(−2)ⁿ⁻¹","uₙ = (−2).3ⁿ⁻¹","uₙ = 3.(−2)ⁿ"], ans: 1 },
+    { q: "Tập nghiệm của bất phương trình log_{1/3}(2x−1) > −1 là:", opts: ["(−∞;2)","(1/2;2)","(1/2;2/3)","(2;+∞)"], ans: 1 },
+    { q: "Cho tứ diện ABCD. Gọi M, N lần lượt là trung điểm AB, CD và G là trung điểm MN. Trong các khẳng định sau, khẳng định nào SAI?", opts: ["GA⃗+GB⃗+GC⃗=GD⃗","GA⃗+GB⃗+GC⃗+GD⃗=0⃗","MA⃗+MB⃗+MC⃗+MD⃗=4MG⃗","GM⃗+GN⃗=0⃗"], ans: 0 },
+    { q: "Cho hình hộp chữ nhật ABCD.A'B'C'D' có AB=3, AD=4, BA'=5. Thể tích khối hộp chữ nhật bằng:", opts: ["16","60","48","36"], ans: 2 }
+  ],
+  phan2: [
+    { ctx: "Cho hàm số f(x) = (2x²+3x+2)/(x+1), x ≠ −1.",
+      items: [
+        { text: "Giá trị nhỏ nhất của hàm số trên [−1/2; 0] là 2√2 − 2", ans: true },
+        { text: "Hàm số có hai điểm cực trị", ans: false },
+        { text: "Đồ thị hàm số có tiệm cận xiên y = 2x + 1", ans: true },
+        { text: "Giá trị cực đại của hàm số là −2√2 + 1", ans: true }
+      ]
+    },
+    { ctx: "Trong không gian Oxyz (đơn vị km), trạm thu phát sóng đặt tại I(1;3;7), tầm quan sát 3 km.",
+      items: [
+        { text: "Vật ở A(2;2;6) có thể được phát hiện", ans: true },
+        { text: "Phương trình mặt cầu (S) giới hạn vùng quan trọng là (x+1)²+(y+3)²+(z+7)²=9", ans: false },
+        { text: "Vật bay thẳng từ B(6;4;8) đến A(2;2;6) với v=400 m/s, thời gian ra đa phát hiện đến khi đến A là 6 giây", ans: false },
+        { text: "Vật ở B(6;4;8) không thể phát hiện", ans: true }
+      ]
+    },
+    { ctx: "Một quần thể vi khuẩn ban đầu 2000 con. Gọi f(t) là số lượng vi khuẩn tại thời điểm t (giờ). Tốc độ tăng trưởng tỉ lệ với số lượng hiện có: f'(t) = kf(t), k là hằng số, f(t) > 0 với mọi t ≥ 0. Sau 2 giờ tăng lên 32000 con.",
+      items: [
+        { text: "Số lượng vi khuẩn tại thời điểm t là f(t) = 2000e^{kt} với t ≥ 0", ans: true },
+        { text: "Để đạt 1024000 con thì cần đúng 4,5 giờ", ans: false },
+        { text: "Tại thời điểm 3,5 giờ, tốc độ tăng trưởng (làm tròn đến hàng đơn vị) là 354891 con/giờ", ans: true },
+        { text: "Hằng số tốc độ tăng trưởng k = ln 2", ans: false }
+      ]
+    },
+    { ctx: "Một xưởng sản xuất có khu I (180 công nhân) và khu II (120 công nhân). Lương chia hai mức A và B. Khu I có 30% nhận lương A, khu II có 25% nhận lương A. Gặp một công nhân không đeo thẻ.",
+      items: [
+        { text: "Gặp công nhân đeo thẻ khu II: xác suất nhận lương B là 0,75", ans: true },
+        { text: "Gặp công nhân không đeo thẻ: xác suất thuộc khu II là 0,4", ans: true },
+        { text: "Gặp công nhân không đeo thẻ và biết nhận lương B: xác suất ở khu I là 0,7", ans: false },
+        { text: "Gặp công nhân không đeo thẻ: xác suất thuộc khu I và nhận lương A là 0,3", ans: false }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Dây chuyền sản xuất có chi phí hao mòn sau khi sản xuất x sản phẩm là C(x) = 20 ln x + 50 (triệu). Mỗi sản phẩm thu lãi 5 triệu sau khi trừ chi phí. Cần sản xuất ít nhất bao nhiêu sản phẩm để tổng lợi nhuận sau mỗi chu kỳ không nhỏ hơn 500 triệu đồng?", ans: "15,6", hint: "Giải 5x - 20lnx - 50 ≥ 500, đáp án x ≈ 15,6" },
+    { q: "Trên sơ đồ (lưới 3×4 mũi tên từ A đến B), tìm số đường đi hợp lệ từ A đến B (mỗi bước chỉ đi theo hướng mũi tên).", ans: "130", hint: "Đếm theo quy hoạch động trên lưới, kết quả 130" },
+    { q: "Chân đế trang trí dạng hình chóp cụt tứ giác đều, đáy nhỏ cạnh 8 cm, đáy lớn cạnh 16 cm, chiều cao 10 cm. Khoét các mặt bên để mặt cắt song song đáy là 'tứ giác cong' MNPQ (các cung MN, NP, PQ, QM là parabol tiếp xúc đường chéo hình vuông). Thể tích vật H là bao nhiêu cm³? (Làm tròn đến hàng đơn vị)", ans: "498", hint: "Tính thể tích chóp cụt trừ phần khoét, kết quả ≈ 498 cm³" },
+    { q: "Cho hình chóp S.ABCD có đáy ABCD là hình vuông cạnh 2. Gọi M, N lần lượt là trung điểm AB, AD; H là giao điểm CN và DM. SH ⊥ (ABCD) và SH = 2√3. Tính khoảng cách giữa hai đường thẳng DM và SC (làm tròn kết quả cuối cùng đến hàng phần trăm).", ans: "1,59", hint: "Dùng công thức khoảng cách hai đường chéo nhau, kết quả ≈ 1,59" },
+    { q: "Trong không gian Oxyz (đơn vị mét), Flycam xuất phát từ A(4;8;0) bay theo hướng u⃗(3;2;3) với vận tốc 6 m/s. Bộ điều khiển đặt tại gốc tọa độ, khoảng cách kết nối 100 m. Hỏi sau bao nhiêu giây (làm tròn đến hàng phần mười) thì Flycam không còn trong vùng điều khiển?", ans: "15,6", hint: "Tìm t để khoảng cách từ điểm chuyển động đến gốc > 100 m, kết quả ≈ 15,6 giây" },
+    { q: "S là tập hợp các dãy số có thứ tự gồm 18 số (a₁,a₂,...,a₁₈) với mỗi aᵢ ∈ {−1;0;1}. Dãy 'tốt' khi: số đầu tiên khác 0, tổng các số ở vị trí chẵn bằng 0 và tổng các số ở vị trí lẻ bằng 0. Gọi p là xác suất lấy được dãy tốt. Tính 3¹⁸p/688.", ans: "9217", hint: "Đếm số dãy tốt rồi tính, kết quả 3¹⁸p/688 = 9217" }
+  ]
+},
+// ĐỀ 004 - THPT Nguyễn Trãi, Hà Nội (KS lần 2, 2026) - mã 1201
+{
+  id: "004",
+  maDe: "1201",
+  ten: "Đề 4 – Khảo Sát Lần 2 Nguyễn Trãi Hà Nội",
+  nguon: "Trường THPT Nguyễn Trãi - Hà Nội · Năm học 2025-2026",
+  loai: "thu",
+  thoiGian: "90 phút",
+  nam: "2026",
+  phan1: [
+    { q: "Đường tiệm cận đứng của đồ thị hàm số y = (2x−5)/(x+2) có phương trình:", opts: ["x = 2","x = 5/2","x = 2/5","x = −2"], ans: 3 },
+    { q: "Nghiệm của phương trình log₂(x−1) = 3 là:", opts: ["x = 9","x = 4","x = 10","x = 7"], ans: 0 },
+    { q: "Thời gian gọi điện (phút): [0;5):10, [5;10):20, [10;15):15, [15;20):5. Tứ phân vị thứ ba Q₃ bằng:", opts: ["12,5","13,33","15","11,67"], ans: 1 },
+    { q: "Hình hộp chữ nhật ABCD.A'B'C'D'. Đường thẳng AB song song với mặt phẳng nào?", opts: ["(B'CD')","(ADD'A')","(A'B'C)","(BC'D')"], ans: 0 },
+    { q: "Khối chóp S.ABC có đáy ABC vuông tại B, SA ⊥ mặt phẳng đáy. Biết SA=2a, AB=a, BC=3a. Thể tích bằng:", opts: ["a³","3a³","4a³","2a³"], ans: 0 },
+    { q: "Họ nguyên hàm của hàm số f(x) = 3x² + 2x − 1 là:", opts: ["∫f(x)dx = x³+x²+C","∫f(x)dx = 6x+2+C","∫f(x)dx = 3x³+2x²−x+C","∫f(x)dx = x³+x²−x+C"], ans: 3 },
+    { q: "Phương trình tổng quát của mặt phẳng qua I(−1;2;3) có VTPT n⃗=(2;1;−2) là:", opts: ["2x−y+2z−6=0","2x−3y+6z+6=0","2x+2y−6z−6=0","2x+y−2z+6=0"], ans: 3 },
+    { q: "Diện tích hình phẳng giới hạn bởi y=f(x), trục hoành và x=a, x=b (a<b) được tính bởi:", opts: ["S = ∫ₐᵇ f(x)dx","S = ∫ₐᵇ |f(x)| dx","S = π∫ₐᵇ f²(x)dx","S = π∫ₐᵇ |f(x)| dx"], ans: 1 },
+    { q: "Tập nghiệm S của phương trình sin x = 1 là:", opts: ["S = {k2π | k∈ℤ}","S = {π/2 + k2π | k∈ℤ}","S = {π + kπ | k∈ℤ}","S = {−π/2 + k2π | k∈ℤ}"], ans: 1 },
+    { q: "Đường thẳng d: (x−1)/2 = (y+2)/(−1) = (z−3)/4. Vectơ chỉ phương là:", opts: ["(−1;2;−3)","(2;−1;4)","(1;−2;3)","(2;1;4)"], ans: 1 },
+    { q: "Hình lăng trụ tam giác ABC.A'B'C'. Tổng AB⃗ + BC⃗ + AA'⃗ bằng:", opts: ["AB'⃗","A'C⃗","AC'⃗","A'B⃗"], ans: 2 },
+    { q: "Cấp số cộng (uₙ) có u₁=3 và công sai d=2. Giá trị u₅ là:", opts: ["13","10","9","11"], ans: 3 }
+  ],
+  phan2: [
+    { ctx: "Khảo sát hàm số f(x) = x³ − 12x − 8.",
+      items: [
+        { text: "Hàm số có đạo hàm f'(x) = 3x² − 12", ans: true },
+        { text: "Phương trình f'(x) = 0 có tập nghiệm S = {2}", ans: false },
+        { text: "Giá trị lớn nhất của f(x) trên đoạn [−3;3] bằng 24", ans: false },
+        { text: "Giá trị của hàm số tại x=2 là f(2) = 24", ans: false }
+      ]
+    },
+    { ctx: "Quần thể vi khuẩn ban đầu 1000 con. Gọi P(t) là số lượng tại thời điểm t (giờ), t≥0. Mô hình: P'(t) = k·P(t), suy ra P(t) = P₀·e^{kt}. Sau 2 giờ số lượng tăng lên 4000 con.",
+      items: [
+        { text: "Hằng số tăng trưởng k = ln2", ans: true },
+        { text: "Số lượng vi khuẩn ban đầu P₀ = 1000", ans: true },
+        { text: "Tốc độ tăng trưởng tại t=0 lớn hơn 700 con/giờ", ans: false },
+        { text: "Sau 5 giờ, số lượng vi khuẩn đạt 32000 con", ans: true }
+      ]
+    },
+    { ctx: "Trong không gian Oxyz (đơn vị: mét). Flycam bay từ A(0;0;20) theo hướng v⃗=(2;2;1) với tốc độ 15 m/s. Trạm quan sát K(36;48;0). t (giây) là thời gian từ lúc flycam xuất phát (t≥0).",
+      items: [
+        { text: "Đường thẳng chứa quỹ đạo flycam có phương trình chính tắc: x/2 = y/2 = (z+20)/1", ans: false },
+        { text: "Góc α giữa hướng bay và tia AK thỏa mãn cosα = 37/(15√10)", ans: true },
+        { text: "Nhân viên từ K chạy theo w⃗=(2;1;0) với v=2√5 m/s, tại t=2 khoảng cách giữa nhân viên và flycam là 50 m", ans: true },
+        { text: "Khoảng cách ngắn nhất từ K đến vị trí flycam trong quá trình di chuyển là 20√5 m", ans: true }
+      ]
+    },
+    { ctx: "Hệ thống AI kiểm tra linh kiện: 20% bị đánh dấu. Trong số đánh dấu, 5% thực chất đạt chuẩn. Trong số không đánh dấu, 10% thực chất bị lỗi. Chọn ngẫu nhiên một linh kiện.",
+      items: [
+        { text: "P(đạt chuẩn | không đánh dấu) = 0,9", ans: true },
+        { text: "P(không đánh dấu) = 0,8", ans: true },
+        { text: "P(thực chất bị lỗi) = 0,27", ans: false },
+        { text: "Biết linh kiện đạt chuẩn, xác suất bị AI nhận diện nhầm lớn hơn 0,015", ans: false }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Cửa hàng đóng gói hai loại giỏ quà Tết: Giỏ Lộc Phát (3 kg táo, 1 kg cam, 1 kg nho, lãi 400 nghìn đồng) và Giỏ Bình An (1 kg táo, 3 kg cam, 1 kg nho, lãi 500 nghìn đồng). Kho có: 18 kg táo, 18 kg cam, 8 kg nho. Hỏi tổng tiền lãi lớn nhất có thể thu được (nghìn đồng)?", ans: "3700", hint: "Đặt x=số Lộc Phát, y=số Bình An. Hệ ràng buộc 3x+y≤18, x+3y≤18, x+y≤8, x,y≥0. Max L=400x+500y → L_max=3700" },
+    { q: "Kho vật tư có 8 thùng loại A và 6 thùng loại B. Đơn hàng đến độc lập: loại 1 (p=1/2): xuất 2 thùng A; loại 2 (p=1/3): xuất 1A+1B; loại 3 (p=1/6): xuất 2B. Duyệt lần lượt, dừng nếu không đủ. Gọi E là biến cố 'ngay trước khi dừng, kho đã xuất hết cả A và B'. Tính P(E). (Làm tròn đến hàng phần chục)", ans: "0,1", hint: "Liệt kê các trường hợp xuất hết cả A và B, xác suất ≈ 0,1" },
+    { q: "Hình chóp S.ABCD có đáy hình chữ nhật ABCD với AB=1, AD=2, SA=3, SA⊥(ABCD). Tính số đo góc nhị diện [B, SC, D] (đơn vị độ, làm tròn đến hàng đơn vị).", ans: "100", hint: "Góc nhị diện B-SC-D ≈ 100°" },
+    { q: "Bồn lăng trụ đứng đáy vuông cạnh 50√π cm, cao 112 cm. Bên trong có khối cầu bán kính 30 cm tiếp xúc đáy, tâm trên trục lăng trụ. Bơm đầy sau 90 phút. Hỏi sau 15 phút, mực nhiên liệu cách đáy bao nhiêu cm? (Làm tròn đến hàng đơn vị)", ans: "20", hint: "Tính tổng thể tích bồn trừ phần cầu, chia đều 90 phút, suy ra h sau 15' ≈ 20 cm" },
+    { q: "Xưởng sản xuất máy tính bảng, tối đa 100 lô/tháng. Nếu đặt x lô: giá bán P(x)=140−0,01x² (triệu/lô), chi phí C(x)=200+32x (triệu). Lợi nhuận lớn nhất mỗi tháng là bao nhiêu triệu đồng?", ans: "4120", hint: "L(x) = x·P(x) − C(x) = −0,01x³+108x−200. L'=0 → x=60 (hợp lệ). L(60)=4120" },
+    { q: "Ba hộp bi: I (6 đỏ, 4 trắng); II (4 đỏ, 6 trắng); III (5 đỏ, 5 trắng). Lấy mỗi hộp I và II một viên bỏ vào III, rồi từ III lấy ra 2 viên. Biết 2 viên lấy ra có đủ hai màu, tính xác suất để đó chính là 2 viên vừa chuyển từ I và II (dạng p/q tối giản). Tìm p+q.", ans: "901", hint: "Xác suất có điều kiện, kết quả p/q sau tối giản cho p+q=901" }
+  ]
+}
+];
+
+// ==================== STATE & LOGIC (giữ nguyên, không thay đổi) ====================
+let currentExam = null;
+let answers = {};
+let submitted = false;
+let currentFilter = "all";
+
+const TYPES = [
+  { key: "all", label: "Tất cả" },
+  { key: "official", label: "Bộ GD&ĐT" },
+  { key: "so", label: "Sở GD&ĐT" },
+  { key: "thu", label: "Trường Chuyên" }
+];
+
+function buildNav() {
+  const nav = document.getElementById("navBtns");
+  nav.innerHTML = "";
+  TYPES.forEach(t => {
+    const btn = document.createElement("button");
+    btn.textContent = t.label;
+    btn.dataset.type = t.key;
+    btn.onclick = () => filterDe(t.key);
+    nav.appendChild(btn);
+  });
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.type === currentFilter);
+  });
+}
+
+function filterDe(type) {
+  currentFilter = type;
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.type === type);
+  });
+  const examPage = document.getElementById("examPage");
+  const homePage = document.getElementById("homePage");
+  if (!examPage.classList.contains("hidden")) {
+    examPage.classList.add("hidden");
+    homePage.classList.remove("hidden");
+  }
+  renderDeGrid(currentFilter);
+}
+
+function getProgress(exam) {
+  if (!answers[exam.id]) return 0;
+  const a = answers[exam.id];
+  let total = exam.phan1.length + exam.phan2.length * 4 + exam.phan3.length;
+  let done = Object.keys(a).length;
+  return Math.min(100, Math.round(done / total * 100));
+}
+
+function renderDeGrid(filter = currentFilter) {
+  const grid = document.getElementById("deGrid");
+  grid.innerHTML = "";
+  const list = filter === "all" ? EXAM_DATA : EXAM_DATA.filter(e => e.loai === filter);
+  list.forEach((de, i) => {
+    const prog = getProgress(de);
+    const badgeClass = {official:"badge-official",so:"badge-so",thu:"badge-thu"}[de.loai];
+    const badgeLabel = {official:"Bộ GD&ĐT",so:"Sở GD&ĐT",thu:"Trường Chuyên"}[de.loai];
+    const card = document.createElement("div");
+    card.className = "de-card";
+    card.innerHTML = `
+      <div class="de-card-num">MÃ ĐỀ ${de.maDe}</div>
+      <div class="de-card-name">${de.ten}</div>
+      <div class="de-card-meta">${de.nam} · ${de.thoiGian}</div>
+      <span class="de-badge ${badgeClass}">${badgeLabel}</span>
+      <div class="de-card-progress"><div class="de-card-progress-fill" style="width:${prog}%"></div></div>
+    `;
+    card.onclick = () => openExam(de.id);
+    grid.appendChild(card);
+  });
+}
+
+let examTimer = null;
+let timeLeft = 0;
+
+function openExam(id) {
+  currentExam = EXAM_DATA.find(e => e.id === id);
+  if (!answers[id]) answers[id] = {};
+  submitted = false;
+  document.getElementById("homePage").classList.add("hidden");
+  document.getElementById("examPage").classList.remove("hidden");
+  renderExam();
+  startTimer(currentExam.thoiGian);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function startTimer(thoiGianStr) {
+  if(examTimer) clearInterval(examTimer);
+  // Parse "90 phút" hoặc "120 phút"
+  const match = thoiGianStr.match(/(\d+)/);
+  const minutes = match ? parseInt(match[1]) : 90;
+  timeLeft = minutes * 60;
+  updateTimerDisplay();
+  examTimer = setInterval(() => {
+    if(submitted) { clearInterval(examTimer); return; }
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft <= 0) {
+      clearInterval(examTimer);
+      if(!submitted) { alert("⏰ Hết giờ! Bài được nộp tự động."); submitExam(); }
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const box = document.getElementById("timerBox");
+  if(!box) return;
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  const str = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  box.textContent = str;
+  if(timeLeft <= 300) box.style.color = "var(--wrong)"; // đỏ khi còn 5 phút
+  else if(timeLeft <= 600) box.style.color = "var(--accent)"; // vàng khi còn 10 phút
+  else box.style.color = "var(--accent2)";
+}
+function goHome() {
+  if(examTimer) clearInterval(examTimer); // thêm dòng này
+  document.getElementById("examPage").classList.add("hidden");2025
+  document.getElementById("examPage").classList.add("hidden");
+  document.getElementById("homePage").classList.remove("hidden");
+  renderDeGrid(currentFilter);
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.type === currentFilter);
+  });
+  window.scrollTo({ top: 0 });
+}
+
+function renderExam() {
+  const ex = currentExam;
+  const area = document.getElementById("examArea");
+  area.innerHTML = "";
+  const hdr = document.createElement("div");
+  hdr.className = "exam-header";
+  hdr.innerHTML = `
+    <div class="ministry">BỘ GIÁO DỤC VÀ ĐÀO TẠO</div>
+    <h2>KỲ THI TỐT NGHIỆP THPT NĂM ${ex.nam}</h2>
+    <div class="subtitle">Môn thi: TOÁN &nbsp;|&nbsp; Thời gian làm bài: ${ex.thoiGian}</div>
+    <div class="subtitle" style="margin-top:0.3rem;font-size:0.8rem;">${ex.nguon}</div>
+    <div id="timerBox" style="margin-top:0.8rem;font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent2);background:rgba(75,158,232,0.1);border:1px solid rgba(75,158,232,0.3);display:inline-block;padding:0.3rem 1.2rem;border-radius:8px;">⏱ Đang tải...</div>
+    <div class="ma-de-box">Mã đề: ${ex.maDe}</div>
+    <div class="exam-info">
+      <span><strong>12 TN</strong> (0,25đ/câu)</span>
+      <span><strong>4 Đ/S</strong> (1ý=0,1đ · 2ý=0,25đ · 3ý=0,5đ · 4ý=1đ)</span>
+      <span><strong>6 TLN</strong> (0,5đ/câu)</span>
+      <span>Tổng <strong>10 điểm</strong></span>
+    </div>
+    <div style="margin-top:1rem;"><button class="btn-reset" onclick="goHome()" style="font-size:0.8rem;padding:0.4rem 1rem;">← Chọn đề khác</button></div>
+  `;
+  area.appendChild(hdr);
+  // Phần I
+  area.appendChild(makePhanHeader("PHẦN I", "Trắc nghiệm nhiều lựa chọn", "12 câu · 0,25 điểm/câu"));
+  ex.phan1.forEach((q, qi) => area.appendChild(makeTNBlock(qi, q)));
+  // Phần II
+  area.appendChild(makePhanHeader("PHẦN II", "Trắc nghiệm Đúng – Sai", "4 câu × 4 ý · 1ý=0,1đ · 2ý=0,25đ · 3ý=0,5đ · 4ý=1đ"));
+  ex.phan2.forEach((q, qi) => area.appendChild(makeDSBlock(qi, q)));
+  // Phần III
+  area.appendChild(makePhanHeader("PHẦN III", "Trả lời ngắn", "6 câu · 0,5 điểm/câu"));
+  ex.phan3.forEach((q, qi) => area.appendChild(makeShortBlock(qi, q)));
+  const actions = document.createElement("div");
+  actions.className = "exam-actions";
+  actions.innerHTML = `<button class="btn-submit" onclick="submitExam()">Nộp bài & Xem đáp án</button>
+                       <button class="btn-reset" onclick="resetExam()">Làm lại từ đầu</button>`;
+  area.appendChild(actions);
+  const resultDiv = document.createElement("div"); resultDiv.className = "result-banner"; resultDiv.id = "resultBanner";
+  area.appendChild(resultDiv);
+  updateScore();
+}
+
+function makePhanHeader(num, title, desc) {
+  const div = document.createElement("div"); div.className = "phan-header";
+  div.innerHTML = `<div class="phan-line"></div><span class="phan-num">${num}</span><div><div class="phan-title">${title}</div><div class="phan-desc">${desc}</div></div><div class="phan-line"></div>`;
+  return div;
+}
+
+function makeTNBlock(qi, q) {
+  const div = document.createElement("div"); div.className = "question-block"; div.id = `tn_${qi}`;
+  const letters = ["A","B","C","D"]; const aKey = `tn_${qi}`; const userAns = answers[currentExam.id][aKey];
+  let optsHtml = q.opts.map((opt, i) => `<div class="option ${userAns===i?'selected':''}" onclick="selectTN(${qi},${i})"><span class="option-letter">${letters[i]}</span><span>${opt}</span></div>`).join("");
+  div.innerHTML = `<div class="q-num">CÂU ${qi+1}</div><div class="q-text">${q.q}</div><div class="options">${optsHtml}</div>`;
+  return div;
+}
+function selectTN(qi, oi) { if(submitted) return; answers[currentExam.id][`tn_${qi}`] = oi; renderExam(); updateScore(); }
+function makeDSBlock(qi, q) {
+  const div = document.createElement("div"); div.className = "question-block"; div.id = `ds_${qi}`;
+  let itemsHtml = q.items.map((item, ii) => {
+    const key = `ds_${qi}_${ii}`; const sel = answers[currentExam.id][key];
+    const truCls = sel===true ? "true-sel" : ""; const falCls = sel===false ? "false-sel" : "";
+    return `<div class="ds-row"><div class="ds-text">ý ${ii+1}. ${item.text}</div><div class="ds-btns"><button class="ds-btn ${truCls}" onclick="selectDS(${qi},${ii},true)">Đ</button><button class="ds-btn ${falCls}" onclick="selectDS(${qi},${ii},false)">S</button></div></div>${ii<q.items.length-1?'<div class="ds-sep"></div>':''}`;
+  }).join("");
+  div.innerHTML = `<div class="q-num">CÂU ${qi+13}</div><div class="q-text">${q.ctx}</div>${itemsHtml}`;
+  return div;
+}
+function selectDS(qi, ii, val) { if(submitted) return; answers[currentExam.id][`ds_${qi}_${ii}`] = val; renderExam(); updateScore(); }
+function makeShortBlock(qi, q) {
+  const div = document.createElement("div"); div.className = "question-block"; div.id = `sh_${qi}`;
+  const saved = answers[currentExam.id][`sh_${qi}`] || "";
+  div.innerHTML = `<div class="q-num">CÂU ${qi+17}</div><div class="q-text">${q.q}</div><div class="short-answer-wrap"><input type="text" class="short-input" id="sh_input_${qi}" placeholder="Nhập đáp án..." value="${saved}" oninput="saveShort(${qi})"><button class="check-btn" onclick="checkShort(${qi})">Kiểm tra</button><span class="answer-reveal" id="sh_reveal_${qi}">Đáp án: <strong>${q.ans}</strong></span></div>`;
+  return div;
+}
+function saveShort(qi) { if(submitted) return; const val = document.getElementById(`sh_input_${qi}`).value; answers[currentExam.id][`sh_${qi}`] = val; updateScore(); }
+function checkShort(qi) {
+  const q = currentExam.phan3[qi]; const input = document.getElementById(`sh_input_${qi}`); const reveal = document.getElementById(`sh_reveal_${qi}`);
+  if(input.value.trim().toLowerCase() === q.ans.toString().toLowerCase()) input.className = "short-input correct-input";
+  else { input.className = "short-input wrong-input"; reveal.className = "answer-reveal show"; }
+}
+function updateScore() {
+  if(!currentExam) return;
+  const a = answers[currentExam.id] || {};
+  let totalAnswered = Object.keys(a).length;
+  let totalItems = currentExam.phan1.length + currentExam.phan2.length*4 + currentExam.phan3.length;
+  document.getElementById("globalScore").textContent = `Đã làm ${totalAnswered} / ${totalItems} câu`;
+}
+function submitExam() {
+  submitted = true;
+  const ex = currentExam; const a = answers[ex.id] || {};
+  let score = 0;
+
+  // Tính điểm & highlight đáp án TN
+  ex.phan1.forEach((q, qi) => {
+    if(a[`tn_${qi}`] === q.ans) score += 0.25;
+    const block = document.getElementById(`tn_${qi}`);
+    if(!block) return;
+    block.querySelectorAll(".option").forEach((el, i) => {
+      el.classList.remove("selected","correct","incorrect");
+      if(i === q.ans) el.classList.add("correct");
+      else if(i === a[`tn_${qi}`] && i !== q.ans) el.classList.add("incorrect");
+    });
+  });
+
+  // Tính điểm & highlight đáp án Đúng/Sai
+  ex.phan2.forEach((q, qi) => {
+    let correct = 0;
+    q.items.forEach((item, ii) => { if(a[`ds_${qi}_${ii}`] === item.ans) correct++; });
+    if(correct === 1) score += 0.1;
+    else if(correct === 2) score += 0.25;
+    else if(correct === 3) score += 0.5;
+    else if(correct === 4) score += 1.0;
+    const block = document.getElementById(`ds_${qi}`);
+    if(!block) return;
+    q.items.forEach((item, ii) => {
+      const btns = block.querySelectorAll(`.ds-row:nth-child(${ii*2+1}) .ds-btn`);
+      if(!btns.length) return;
+      btns[0].classList.remove("true-sel","reveal-correct","reveal-wrong");
+      btns[1].classList.remove("false-sel","reveal-correct","reveal-wrong");
+      if(item.ans === true) { btns[0].classList.add("reveal-correct"); btns[1].classList.add("reveal-wrong"); }
+      else { btns[1].classList.add("reveal-correct"); btns[0].classList.add("reveal-wrong"); }
+    });
+  });
+
+  // Tính điểm TLN
+  ex.phan3.forEach((q, qi) => {
+    let user = (a[`sh_${qi}`] || "").toString().trim().toLowerCase();
+    if(user === q.ans.toString().toLowerCase()) score += 0.5;
+    const inp = document.getElementById(`sh_input_${qi}`);
+    if(inp) inp.disabled = true;
+    const reveal = document.getElementById(`sh_reveal_${qi}`);
+    if(reveal) reveal.className = "answer-reveal show";
+  });
+
+  const banner = document.getElementById("resultBanner");
+  banner.className = "result-banner show";
+  const grade = score>=8 ? "🏆 Xuất sắc" : score>=6.5 ? "🎯 Khá" : score>=5 ? "📘 Trung bình" : "📚 Cần cố gắng";
+  banner.innerHTML = `<h3>${grade}</h3><div class="result-score">${score.toFixed(2)} / 10</div><div class="result-sub">Mã đề ${ex.maDe} — ${ex.ten}</div>`;
+  document.getElementById("globalScore").textContent = `${score.toFixed(2)} / 10 điểm`;
+  banner.scrollIntoView({ behavior: "smooth", block: "center" });
+};
+function resetExam() { answers[currentExam.id] = {}; submitted = false; renderExam(); document.getElementById("globalScore").textContent = `Đã làm 0 / ${currentExam.phan1.length + currentExam.phan2.length*4 + currentExam.phan3.length} câu`; window.scrollTo({top:0}); }
+
+buildNav(); renderDeGrid();
+</script>
+</body>
+</html>

@@ -231,10 +231,34 @@
       padding: 14px 18px;
       border-radius: 12px;
     }
+    /* Nút trở về trên cùng */
+.btn-back {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 18px;
+    background-color: #e2e8f0; /* Màu nền xám nhạt */
+    color: #334155;            /* Màu chữ */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
+    color: #1e40af;
+}
+
   </style>
 </head>
 <body>
 <div class="container">
+  <button onclick="history.back()" class="btn-back">⬅ Quay lại trang trước</button>
+
   <header>
     <h1>🌐 Tọa độ Oxyz trong không gian</h1>
     <p>Vectơ • Mặt cầu • Mặt phẳng • Đường thẳng • Góc & Khoảng cách • Mô hình thực tế</p>
@@ -440,6 +464,8 @@
 
   <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
     <hr>
+    <p style="color: #4a5b6e;">✨ Thành thạo tọa độ Oxyz – nền tảng vững chắc cho hình học không gian! ✨</p>
+  </div>
 </div>
 
 <script>

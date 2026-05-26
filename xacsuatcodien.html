@@ -243,10 +243,32 @@
       margin-left: 10px;
       vertical-align: middle;
     }
+    /* Nút trở về trên cùng */
+.btn-back {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 18px;
+    background-color: #e2e8f0; /* Màu nền xám nhạt */
+    color: #334155;            /* Màu chữ */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
+    color: #1e40af;
+}
   </style>
 </head>
 <body>
 <div class="container">
+  <button onclick="history.back()" class="btn-back">⬅ Quay lại trang trước</button>
   <header>
     <h1>🧮 Đại số Tổ hợp & Xác suất cổ điển</h1>
     <p>Quy tắc đếm • Hoán vị - Chỉnh hợp - Tổ hợp • Nhị thức Newton • Xác suất cổ điển</p>
@@ -493,6 +515,7 @@
 
   <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
     <hr>
+    <p style="color: #3a4f66;">✨ Nắm vững kiến thức tổ hợp – xác suất để giải quyết mọi bài toán đếm và tính xác suất! ✨</p>
   </div>
 </div>
 

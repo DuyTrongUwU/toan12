@@ -18,6 +18,28 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
   <style>
+  /* Nút trở về trên cùng */
+.btn-back {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 18px;
+    background-color: #e2e8f0; /* Màu nền xám nhạt */
+    color: #334155;            /* Màu chữ */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
+    color: #1e40af;
+}
+
     * {
       margin: 0;
       padding: 0;
@@ -262,6 +284,8 @@
 </head>
 <body>
 <div class="container">
+  <button onclick="history.back()" class="btn-back">⬅ Quay lại trang trước</button>
+
   <header>
     <h1>📐 Ứng dụng đạo hàm khảo sát hàm số</h1>
     <p>Tính đơn điệu • Cực trị • GTLN / GTNN • Tiệm cận • Bài toán tối ưu thực tế</p>
@@ -489,6 +513,7 @@
 
   <div style="text-align: center; margin-top: 25px; padding: 0 30px;">
     <hr>
+    <p style="color: #4a5b6e;">✨ Học kỹ lý thuyết, làm nhiều bài tập để thành thạo ứng dụng đạo hàm ✨</p>
   </div>
 </div>
 
