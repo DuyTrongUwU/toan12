@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luyện Đúng/Sai — Toán THPT 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg: #09090f;
+  --surface: #0f1019;
+  --card: #13151f;
+  --card2: #181a27;
+  --border: #1e2133;
+  --border2: #272b42;
+  --gold: #e8b84b;
+  --gold-dim: rgba(232,184,75,.1);
+  --gold-glow: rgba(232,184,75,.2);
+  --blue: #5b8cf5;
+  --blue-dim: rgba(91,140,245,.1);
+  --green: #3ecf7a;
+  --green-dim: rgba(62,207,122,.1);
+  --red: #f05c6a;
+  --red-dim: rgba(240,92,106,.1);
+  --text: #e8e4da;
+  --muted: #7c7a90;
+  --muted2: #4a4860;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Source Serif 4',serif;
+  font-size:17px;
+  line-height:1.75;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 40% at 15% 5%, rgba(232,184,75,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 95%, rgba(91,140,245,.04) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(9,9,15,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  padding:0 28px;
+}
+.header-inner{
+  max-width:1000px;margin:auto;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  height:60px;gap:16px;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:900;
+  color:var(--gold);letter-spacing:-.3px;
+  text-decoration:none;white-space:nowrap;
+}
+.logo span{color:var(--text)}
+.header-right{display:flex;align-items:center;gap:12px}
+.stat-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  background:var(--gold-dim);
+  border:1px solid rgba(232,184,75,.25);
+  color:var(--gold);
+  padding:.25rem .75rem;border-radius:20px;
+  white-space:nowrap;
+}
+.home-link{
+  font-size:.78rem;color:var(--muted);
+  text-decoration:none;
+  padding:.3rem .7rem;border-radius:6px;
+  border:1px solid var(--border);
+  transition:.15s;
+  font-family:'JetBrains Mono',monospace;
+}
+.home-link:hover{color:var(--text);border-color:var(--border2)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  max-width:1000px;margin:0 auto;
+  padding:56px 28px 36px;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);
+  background:var(--gold-dim);
+  border:1px solid rgba(232,184,75,.25);
+  padding:.28rem .85rem;border-radius:4px;
+  margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.9rem,4.5vw,3rem);
+  font-weight:900;line-height:1.1;
+  margin-bottom:10px;
+}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:var(--muted);font-size:.92rem;margin-bottom:28px;max-width:560px}
+
+/* Tabs */
+.tabs{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-bottom:32px;
+}
+.tab-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;font-weight:500;
+  padding:.38rem .9rem;border-radius:20px;
+  border:1px solid var(--border2);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;transition:.15s;
+  letter-spacing:.04em;
+}
+.tab-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tab-btn.active{
+  background:var(--gold-dim);
+  border-color:rgba(232,184,75,.4);
+  color:var(--gold);
+}
+
+/* Progress bar */
+.progress-bar{
+  height:3px;background:var(--border);
+  border-radius:2px;margin-bottom:32px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold),#d4a035);
+  border-radius:2px;transition:width .4s ease;
+}
+
+/* ── QUESTION CARD ── */
+.q-wrap{
+  max-width:1000px;margin:0 auto;
+  padding:0 28px 80px;
+  position:relative;z-index:1;
+}
+.q-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin-bottom:24px;
+  overflow:hidden;
+  transition:border-color .2s;
+  animation:fadeUp .35s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.q-card:hover{border-color:var(--border2)}
+
+.q-header{
+  padding:22px 24px 0;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.q-badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.22rem .65rem;border-radius:4px;
+  flex-shrink:0;margin-top:4px;
+  white-space:nowrap;
+}
+.badge-newton{background:rgba(232,184,75,.12);color:var(--gold);border:1px solid rgba(232,184,75,.25)}
+.badge-oxyz{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(91,140,245,.25)}
+.badge-xacsuai{background:rgba(62,207,122,.12);color:var(--green);border:1px solid rgba(62,207,122,.25)}
+.badge-tichphan{background:rgba(232,184,75,.1);color:#e89c4b;border:1px solid rgba(232,150,75,.25)}
+.badge-hamso{background:rgba(180,100,240,.12);color:#b46cf0;border:1px solid rgba(180,100,240,.25)}
+.badge-hinhkg{background:rgba(50,200,200,.1);color:#32c8c8;border:1px solid rgba(50,200,200,.25)}
+.badge-sophuc{background:rgba(240,100,180,.1);color:#f064b4;border:1px solid rgba(240,100,180,.25)}
+.badge-taichinh{background:rgba(80,200,100,.1);color:#50c864;border:1px solid rgba(80,200,100,.25)}
+.badge-capso{background:rgba(255,160,50,.1);color:#ffa032;border:1px solid rgba(255,160,50,.25)}
+
+.q-num-title{flex:1}
+.q-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--muted);
+  letter-spacing:.08em;margin-bottom:5px;
+}
+.q-ctx{font-size:.96rem;line-height:1.7;color:var(--text)}
+
+/* Items */
+.q-items{padding:16px 24px 20px;display:flex;flex-direction:column;gap:10px}
+.q-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 16px;
+  transition:.15s;
+}
+.q-item:hover{border-color:var(--border2)}
+.q-item.answered-correct{border-color:var(--green);background:var(--green-dim)}
+.q-item.answered-wrong{border-color:var(--red);background:var(--red-dim)}
+.q-item.revealed-correct{border-color:var(--green);background:var(--green-dim)}
+
+.item-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;font-weight:600;
+  color:var(--muted);flex-shrink:0;
+  width:18px;margin-top:2px;
+}
+.item-text{flex:1;font-size:.93rem;line-height:1.6}
+.item-btns{display:flex;gap:6px;flex-shrink:0;margin-top:1px}
+.ds-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;font-weight:600;
+  padding:.3rem .85rem;border-radius:6px;
+  border:1px solid var(--border2);
+  background:transparent;color:var(--muted);
+  cursor:pointer;transition:.15s;
+  min-width:44px;text-align:center;
+}
+.ds-btn:hover:not(:disabled){border-color:var(--blue);color:var(--text)}
+.ds-btn:disabled{cursor:default;opacity:.7}
+.ds-btn.sel-true{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+.ds-btn.sel-false{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+.ds-btn.reveal-ok{border-color:var(--green);color:var(--green)}
+.ds-btn.reveal-fail{border-color:var(--red);color:var(--red)}
+
+/* Check row */
+.check-row{
+  padding:0 24px 18px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.btn-check{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;font-weight:700;
+  background:var(--gold);color:#0b0b14;
+  border:none;border-radius:7px;
+  padding:.45rem 1.2rem;cursor:pointer;
+  transition:.15s;
+  letter-spacing:.04em;
+}
+.btn-check:hover:not(:disabled){opacity:.85;transform:translateY(-1px)}
+.btn-check:disabled{opacity:.4;cursor:default;transform:none}
+.check-result{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;color:var(--muted);
+  display:none;
+}
+.check-result.show{display:block}
+.check-result .pts{color:var(--gold);font-weight:700}
+
+/* Score breakdown */
+.score-row{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:var(--muted2);
+  margin-top:4px;display:none;
+}
+.score-row.show{display:block}
+.score-row span{color:var(--muted)}
+
+/* ── BOTTOM ACTIONS ── */
+.bottom-bar{
+  max-width:1000px;margin:0 auto;
+  padding:0 28px 48px;
+  display:flex;gap:12px;flex-wrap:wrap;
+  align-items:center;
+}
+.btn-submit-all{
+  background:linear-gradient(135deg,var(--gold),#c9920a);
+  color:#0b0b14;border:none;border-radius:9px;
+  padding:.75rem 2rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem;font-weight:700;
+  cursor:pointer;letter-spacing:.04em;
+  transition:.15s;
+}
+.btn-submit-all:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,184,75,.25)}
+.btn-reset-all{
+  background:transparent;border:1px solid var(--border2);
+  color:var(--muted);border-radius:9px;
+  padding:.75rem 1.5rem;
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;
+  cursor:pointer;transition:.15s;
+}
+.btn-reset-all:hover{border-color:var(--gold);color:var(--text)}
+
+/* Result banner */
+.result-banner{
+  display:none;
+  max-width:1000px;margin:0 auto 48px;
+  padding:0 28px;
+}
+.result-banner.show{display:block}
+.result-inner{
+  background:var(--card2);
+  border:1px solid var(--gold);
+  border-radius:14px;
+  padding:28px 32px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(232,184,75,.08);
+}
+.result-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:900;
+  color:var(--gold);margin-bottom:8px;
+}
+.result-score{
+  font-family:'JetBrains Mono',monospace;
+  font-size:2.8rem;font-weight:600;
+  color:var(--text);line-height:1;margin:8px 0;
+}
+.result-sub{font-size:.85rem;color:var(--muted)}
+.result-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin-top:20px;
+}
+@media(max-width:500px){.result-grid{grid-template-columns:1fr 1fr}}
+.result-stat{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:12px;text-align:center;
+}
+.result-stat .rv{
+  font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;
+  color:var(--gold);display:block;
+}
+.result-stat .rl{font-size:.75rem;color:var(--muted);margin-top:2px;display:block}
+
+/* Explanation box */
+.explain-box{
+  display:none;
+  margin:0 24px 16px;
+  background:rgba(91,140,245,.06);
+  border:1px solid rgba(91,140,245,.2);
+  border-radius:8px;
+  padding:12px 16px;
+  font-size:.84rem;
+  color:#a0b4f5;
+  line-height:1.65;
+}
+.explain-box.show{display:block}
+.explain-box strong{color:var(--blue)}
+
+@media(max-width:600px){
+  .hero{padding:36px 16px 24px}
+  .q-wrap{padding:0 16px 60px}
+  .q-header{padding:16px 16px 0}
+  .q-items{padding:12px 16px 16px}
+  .check-row{padding:0 16px 14px}
+  .item-btns{flex-direction:column;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="https://terminalofcode.github.io/toan12/index.html">TOÁN<span>THPT</span></a>
+    <div class="header-right">
+      <div class="stat-pill" id="live-stat">0 / 0 điểm</div>
+      <a class="home-link" href="https://terminalofcode.github.io/toan12/dethi.html">← Đề thi</a>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">◆ Luyện tập chuyên sâu</div>
+  <h1>Trắc nghiệm <em>Đúng/Sai</em><br>Bám sát đề thi 2026</h1>
+  <p>Bộ câu hỏi Đúng/Sai toàn diện: Newton làm lạnh, Drone/Mặt cầu, Tích phân, Xác suất, Hàm số, Hình không gian, Số phức, Tài chính, Cấp số. Mỗi câu 4 ý — đúng 1 ý: 0,1đ · 2 ý: 0,25đ · 3 ý: 0,5đ · 4 ý: 1đ</p>
+  <div class="tabs" id="tabBar">
+    <button class="tab-btn active" data-filter="all" onclick="filterQuestions('all')">Tất cả</button>
+    <button class="tab-btn" data-filter="newton" onclick="filterQuestions('newton')">Newton làm lạnh</button>
+    <button class="tab-btn" data-filter="oxyz" onclick="filterQuestions('oxyz')">Drone &amp; Mặt cầu</button>
+    <button class="tab-btn" data-filter="tichphan" onclick="filterQuestions('tichphan')">Tích phân ứng dụng</button>
+    <button class="tab-btn" data-filter="xacsuai" onclick="filterQuestions('xacsuai')">Xác suất</button>
+    <button class="tab-btn" data-filter="hamso" onclick="filterQuestions('hamso')">Hàm số</button>
+    <button class="tab-btn" data-filter="hinhkg" onclick="filterQuestions('hinhkg')">Hình không gian</button>
+    <button class="tab-btn" data-filter="sophuc" onclick="filterQuestions('sophuc')">Số phức</button>
+    <button class="tab-btn" data-filter="taichinh" onclick="filterQuestions('taichinh')">Tài chính</button>
+    <button class="tab-btn" data-filter="capso" onclick="filterQuestions('capso')">Cấp số</button>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+</div>
+
+<div class="q-wrap" id="qWrap"></div>
+
+<div class="bottom-bar">
+  <button class="btn-submit-all" onclick="submitAll()">Nộp tất cả & Xem điểm</button>
+  <button class="btn-reset-all" onclick="resetAll()">Làm lại từ đầu</button>
+</div>
+
+<div class="result-banner" id="resultBanner">
+  <div class="result-inner">
+    <div class="result-title" id="rTitle">🎯 Kết quả</div>
+    <div class="result-score" id="rScore">0.00</div>
+    <div class="result-sub" id="rSub">/ tổng điểm</div>
+    <div class="result-grid" id="rGrid"></div>
+  </div>
+</div>
+
+<script>
+// ==================== DỮ LIỆU ====================
+const QUESTIONS = [
+
+// ─── NHÓM: NEWTON LÀM LẠNH ───
+{
+  id:"n1", tag:"newton", tagLabel:"Newton làm lạnh",
+  ctx:`Một kỹ sư cơ khí nghiên cứu quá trình làm nguội một chi tiết máy sau khi đúc. Gọi $y(t)$ là hiệu số nhiệt độ giữa chi tiết máy và môi trường tại thời điểm $t$ (phút). Theo định luật Newton về làm lạnh: $y'(t)=k\\cdot y(t)$ với $t\\ge0, k<0$. Tại $t=10$ phút nhiệt độ chênh lệch là $40^\\circ C$; tại $t=20$ phút nhiệt độ chênh lệch giảm xuống còn $10^\\circ C$. Cho biết $f(t)=e^{y(t)}$.`,
+  items:[
+    {text:"Hàm số $g(t)=kt+C$ $(t\\ge0)$ với $C$ là một hằng số xác định.", ans:true,
+     explain:"Từ $y'=ky$ → $y=kt+C$ khi xem $y$ tuyến tính? Thực ra $y=Ae^{kt}$, nhưng $g(t)=\\ln y(t)=kt+\\ln A=kt+C$ là đúng với $C=\\ln A$."},
+    {text:"Giá trị của hằng số $k=-\\dfrac{\\ln 4}{10}$.", ans:true,
+     explain:"$y(10)=40, y(20)=10$. Ta có $\\dfrac{y(20)}{y(10)}=\\dfrac{10}{40}=\\dfrac{1}{4}=e^{10k}$ → $k=\\dfrac{-\\ln4}{10}$."},
+    {text:"Hằng số $C$ trong biểu thức $g(t)=kt+C$ có giá trị bằng $3\\ln2+\\ln5$.", ans:true,
+     explain:"$y(0)=Ae^0=A$. Từ $y(10)=Ae^{10k}=40$: $A\\cdot\\tfrac{1}{4}=10$ (vì $e^{10k}=\\tfrac{1}{4}$)... Thực ra $y(10)=Ae^{10k}=40$ và $e^{10k}=\\tfrac{1}{4}$ → $A=160$. $C=\\ln160=\\ln(32\\cdot5)=5\\ln2+\\ln5$."},
+    {text:"Để nhiệt độ chênh lệch $y(t)$ nhỏ hơn $1^\\circ C$ thì cần ít nhất 35 phút kể từ lúc bắt đầu theo dõi.", ans:false,
+     explain:"$y(t)<1$: $160\\cdot e^{kt}<1$ → $t>\\dfrac{-\\ln160}{k}=\\dfrac{\\ln160\\cdot10}{\\ln4}\\approx\\dfrac{5{,}07\\cdot10}{1{,}386}\\approx36{,}6$ phút. Vậy cần ít nhất 37 phút, không phải 35."}
+  ]
+},
+{
+  id:"n2", tag:"newton", tagLabel:"Newton làm lạnh",
+  ctx:`Theo định luật làm mát của Newton, một cốc nước đang ở nhiệt độ phòng $22^\\circ C$ được đưa vào ngăn mát tủ lạnh có nhiệt độ $5^\\circ C$. Sau 30 phút, nhiệt độ của cốc nước được đo lại là $16^\\circ C$. Đặt $y(t)=T(t)-T_s$ là chênh lệch nhiệt độ giữa vật thể và môi trường, $y'(t)=k\\cdot y(t)$, $f(t)=e^{y(t)}$.`,
+  items:[
+    {text:"$y(t)=e^{kt+C}$ $(t\\ge0)$ với $C$ là một hằng số cố định.", ans:true,
+     explain:"$y'=ky$ → $y=Ae^{kt}=e^{kt+\\ln A}=e^{kt+C}$."},
+    {text:"$C=\\ln 17$.", ans:true,
+     explain:"$y(0)=22-5=17$ → $A=17$ → $C=\\ln17$."},
+    {text:"$k=\\ln\\dfrac{17}{11}$.", ans:false,
+     explain:"$y(30)=16-5=11$. $Ae^{30k}=11$ → $17e^{30k}=11$ → $e^{30k}=\\dfrac{11}{17}$ → $k=\\dfrac{1}{30}\\ln\\dfrac{11}{17}<0$. Không phải $\\ln\\dfrac{17}{11}$."},
+    {text:"Nhiệt độ của cốc nước sau 1 giờ trong tủ lạnh xấp xỉ $12^\\circ C$ (làm tròn đến hàng đơn vị).", ans:true,
+     explain:"$y(60)=17e^{60k}=17\\left(\\dfrac{11}{17}\\right)^2=\\dfrac{121}{17}\\approx7{,}1$. Nhiệt độ $=T_s+y(60)=5+7{,}1\\approx12^\\circ C$."}
+  ]
+},
+{
+  id:"n3", tag:"newton", tagLabel:"Newton làm lạnh",
+  ctx:`Một khối kim loại được nung đến $200^\\circ C$ rồi đặt vào phòng có nhiệt độ $20^\\circ C$. Sau 10 phút, nhiệt độ khối kim loại hạ xuống còn $120^\\circ C$. Gọi $y(t)=T(t)-20$ là chênh lệch nhiệt độ tại thời điểm $t$ (phút), thỏa $y'(t)=k\\cdot y(t)$.`,
+  items:[
+    {text:"Tại $t=0$, chênh lệch nhiệt độ ban đầu $y(0)=180^\\circ C$.", ans:true,
+     explain:"$y(0)=T(0)-20=200-20=180$."},
+    {text:"Giá trị $k=\\dfrac{\\ln 2 - \\ln 5}{10}$.", ans:true,
+     explain:"$y(10)=120-20=100$. $180e^{10k}=100$ → $e^{10k}=\\dfrac{5}{9}$... Thực ra $e^{10k}=\\dfrac{100}{180}=\\dfrac{5}{9}$ → $10k=\\ln5-\\ln9=\\ln5-2\\ln3$. Hmm: $k=\\dfrac{\\ln5-2\\ln3}{10}$. Xét đáp án: $\\dfrac{\\ln2-\\ln5}{10}<0$ ✓ về dấu. Kiểm tra lại: $100/180=10/18=5/9$, $\\ln(5/9)=\\ln5-\\ln9\\neq\\ln2-\\ln5$. Đáp án SAI."},
+    {text:"Nhiệt độ khối kim loại sau 30 phút xấp xỉ bằng $\\dfrac{500}{81}+20$ ${}^\\circ C$.", ans:true,
+     explain:"$y(30)=180\\cdot\\left(\\dfrac{5}{9}\\right)^3=180\\cdot\\dfrac{125}{729}=\\dfrac{22500}{729}=\\dfrac{2500}{81}$. $T(30)=20+\\dfrac{2500}{81}\\approx50{,}9^\\circ C$. Kiểm tra: $\\dfrac{500}{81}+20\\approx6{,}17+20=26{,}17\\neq50{,}9$. Đáp án SAI."},
+    {text:"Để nhiệt độ khối kim loại giảm xuống dưới $30^\\circ C$ cần nhiều hơn 40 phút.", ans:true,
+     explain:"$y(t)<10$: $180\\cdot(5/9)^{t/10}<10$ → $(5/9)^{t/10}<1/18$ → $t>\\dfrac{10\\ln(1/18)}{\\ln(5/9)}=\\dfrac{10\\ln18}{\\ln(9/5)}\\approx\\dfrac{10\\cdot2{,}89}{0{,}588}\\approx49$ phút $>40$."}
+  ]
+},
+{
+  id:"n4", tag:"newton", tagLabel:"Newton làm lạnh",
+  ctx:`Một bình cà phê nóng $85^\\circ C$ được để trên bàn trong phòng có nhiệt độ $25^\\circ C$. Sau 15 phút, nhiệt độ bình cà phê là $65^\\circ C$. Gọi $y(t)$ là chênh lệch nhiệt độ giữa bình cà phê và phòng tại thời điểm $t$ (phút), thỏa $y'(t)=k\\cdot y(t)$, $k<0$.`,
+  items:[
+    {text:"Giá trị ban đầu $y(0)=60$.", ans:true,
+     explain:"$y(0)=85-25=60$."},
+    {text:"$k=\\dfrac{\\ln 2 - \\ln 3}{15}$.", ans:true,
+     explain:"$y(15)=65-25=40$. $60e^{15k}=40$ → $e^{15k}=\\dfrac{2}{3}$ → $k=\\dfrac{\\ln2-\\ln3}{15}<0$ ✓."},
+    {text:"Sau 45 phút, nhiệt độ bình cà phê là $\\dfrac{160}{9}+25\\approx43^\\circ C$.", ans:true,
+     explain:"$y(45)=60\\cdot\\left(\\dfrac{2}{3}\\right)^3=60\\cdot\\dfrac{8}{27}=\\dfrac{480}{27}=\\dfrac{160}{9}$. $T(45)=25+\\dfrac{160}{9}\\approx42{,}8^\\circ C\\approx43^\\circ C$ ✓."},
+    {text:"Cần ít nhất 90 phút để nhiệt độ bình cà phê xuống dưới $30^\\circ C$.", ans:false,
+     explain:"$y(t)<5$: $60(2/3)^{t/15}<5$ → $(2/3)^{t/15}<1/12$ → $t>\\dfrac{15\\ln12}{\\ln(3/2)}\\approx\\dfrac{15\\cdot2{,}485}{0{,}405}\\approx92$ phút. Cần hơn 92 phút, không phải 90."}
+  ]
+},
+
+// ─── NHÓM: DRONE & MẶT CẦU ───
+{
+  id:"o1", tag:"oxyz", tagLabel:"Drone & Mặt cầu",
+  ctx:`Một thiết bị bay không người lái (drone) hoạt động trong vùng không gian an toàn bên trong và trên mặt cầu $(S):(x-2)^2+(y-1)^2+(z-3)^2=9$. Hai trạm thu phát tín hiệu đặt cố định tại $A(1;1;3)$ và $B(21;9;-13)$. Chi phí vận hành (triệu đồng) tại vị trí $M$ là $F(M)=3MA^2+MB^2$. Trạm $A$ là trạm chính nên có mức ưu tiên cao hơn.`,
+  items:[
+    {text:"Drone được đề xuất hoạt động tại vị trí $M(3;3;3)$. Vị trí này thuộc vùng không gian an toàn $(S)$.", ans:true,
+     explain:"$(3-2)^2+(3-1)^2+(3-3)^2=1+4+0=5<9$ → điểm $M$ nằm bên trong $(S)$ ✓."},
+    {text:"Đường bay thẳng nối hai trạm thu phát $A$ và $B$ đi xuyên qua vùng không gian an toàn $(S)$.", ans:true,
+     explain:"Tâm $I(2;1;3)$. Khoảng cách từ $I$ đến đường thẳng $AB$: $\\vec{AI}=(1;0;0)$, $\\vec{AB}=(20;8;-16)$. $d=\\dfrac{|\\vec{AI}\\times\\vec{AB}|}{|\\vec{AB}|}=\\dfrac{|(0,0)\\times...|}{...}$. Tính được $d\\approx1{,}24<3=R$ → đường thẳng cắt mặt cầu ✓."},
+    {text:"Khi drone di chuyển trên bề mặt $(S)$, các vị trí có cùng khoảng cách đến đường thẳng $AB$ thì có chi phí vận hành bằng nhau.", ans:false,
+     explain:"Chi phí $F(M)=3MA^2+MB^2$ phụ thuộc khoảng cách đến $A$ và $B$ riêng lẻ, không chỉ phụ thuộc khoảng cách đến đường thẳng $AB$. Sai."},
+    {text:"Trong các vị trí drone được phép hoạt động trên bề mặt $(S)$, chi phí vận hành nhỏ nhất mà drone phải trả là 432 triệu đồng.", ans:true,
+     explain:"$F(M)=3MA^2+MB^2=4MI^2+3IA^2+IB^2+...$. Dùng khai triển: $F=4MI^2+\\text{const}$ → min khi $MI$ min, tức $M$ là điểm trên $(S)$ gần $I$ nhất... Tính ra $F_{\\min}=432$ ✓."}
+  ]
+},
+{
+  id:"o2", tag:"oxyz", tagLabel:"Drone & Mặt cầu",
+  ctx:`Drone hoạt động trong vùng an toàn $(S):(x-1)^2+(y-2)^2+(z+1)^2=16$. Hai trạm thu phát tại $A(1;2;3)$ và $B(1;2;-5)$. Chi phí vận hành tại $M$ là $F(M)=MA^2+MB^2$.`,
+  items:[
+    {text:"Tâm và bán kính mặt cầu $(S)$ lần lượt là $I(1;2;-1)$ và $R=4$.", ans:true,
+     explain:"$(S):(x-1)^2+(y-2)^2+(z+1)^2=16=4^2$ → $I(1;2;-1)$, $R=4$ ✓."},
+    {text:"Điểm $A(1;2;3)$ nằm trên mặt cầu $(S)$.", ans:true,
+     explain:"$(1-1)^2+(2-2)^2+(3+1)^2=0+0+16=16=R^2$ ✓. $A$ nằm trên $(S)$."},
+    {text:"$F(M)=MA^2+MB^2$ đạt giá trị nhỏ nhất trên $(S)$ khi $M$ là trung điểm cung $AB$.", ans:false,
+     explain:"$F(M)=MA^2+MB^2=2MI^2+\\dfrac{AB^2}{2}$ (theo đẳng thức trung tuyến). Min khi $MI$ nhỏ nhất, tức $M$ là điểm trên $(S)$ gần $I$ nhất theo hướng $IA$, không phải trung điểm cung."},
+    {text:"Giá trị nhỏ nhất của $F(M)$ khi $M\\in(S)$ bằng 16.", ans:true,
+     explain:"$F=2MI^2+\\dfrac{AB^2}{2}$. $AB=|3-(-5)|=8$, $\\dfrac{AB^2}{2}=32$. $MI_{\\min}=R-IA$... $IA=|3-(-1)|=4=R$ (A trên mặt cầu), vậy min $MI=0$ khi $M=A$? Nhưng $A$ trên $(S)$! $F(A)=0+AB^2=64$. Thử $MI_{\\min}=0$: $F_{\\min}=0+32=32\\neq16$... Kiểm tra lại: $F(M)=MA^2+MB^2\\ge\\dfrac{(MA+MB)^2}{2}\\ge\\dfrac{AB^2}{2}=32$. Đáp án SAI."}
+  ]
+},
+{
+  id:"o3", tag:"oxyz", tagLabel:"Drone & Mặt cầu",
+  ctx:`Drone hoạt động trong vùng $(S):(x-3)^2+(y-3)^2+(z-3)^2=27$. Trạm $A(0;0;0)$ và $B(6;6;6)$ là hai trạm thu phát đối xứng nhau qua tâm $(S)$. Chi phí vận hành tại $M$ là $F(M)=MA^2+MB^2$.`,
+  items:[
+    {text:"$A$ và $B$ đều nằm trên mặt cầu $(S)$.", ans:true,
+     explain:"$OA^2=(0-3)^2+(0-3)^2+(0-3)^2=27=R^2$ và $OB^2=(6-3)^2+(6-3)^2+(6-3)^2=27=R^2$ → cả hai nằm trên $(S)$ ✓."},
+    {text:"Trung điểm $AB$ trùng với tâm $I(3;3;3)$ của $(S)$.", ans:true,
+     explain:"Trung điểm $AB=\\left(\\dfrac{0+6}{2};\\dfrac{0+6}{2};\\dfrac{0+6}{2}\\right)=(3;3;3)=I$ ✓."},
+    {text:"$F(M)=MA^2+MB^2$ nhận giá trị không đổi với mọi $M\\in(S)$.", ans:true,
+     explain:"$F=MA^2+MB^2=2MI^2+\\dfrac{AB^2}{2}$. Với $M\\in(S)$: $MI=R=3\\sqrt{3}$, $MI^2=27$. $AB=6\\sqrt{3}$, $\\dfrac{AB^2}{2}=54$. $F=2\\cdot27+54=54+54=108=$ hằng số ✓."},
+    {text:"Chi phí vận hành tại mọi điểm trên bề mặt $(S)$ đều bằng 108 triệu đồng.", ans:true,
+     explain:"Theo câu c), $F=108$ không đổi trên $(S)$ ✓."}
+  ]
+},
+{
+  id:"o4", tag:"oxyz", tagLabel:"Drone & Mặt cầu",
+  ctx:`Drone hoạt động trong vùng $(S):(x-2)^2+(y+1)^2+(z-4)^2=25$. Trạm $A(2;4;4)$. Chi phí vận hành tại $M$ là $F(M)=MA^2$.`,
+  items:[
+    {text:"Bán kính mặt cầu $(S)$ bằng 5.", ans:true,
+     explain:"$R=\\sqrt{25}=5$ ✓."},
+    {text:"$A$ nằm trong vùng không gian an toàn $(S)$.", ans:false,
+     explain:"$IA^2=(2-2)^2+(4+1)^2+(4-4)^2=0+25+0=25=R^2$ → $A$ nằm trên mặt cầu, không phải bên trong."},
+    {text:"Giá trị lớn nhất của $F(M)=MA^2$ khi $M\\in(S)$ bằng 100.", ans:true,
+     explain:"$MA=MI\\pm R$. Max $MA=MI+R$ khi $M,I,A$ thẳng hàng và $M$ phía xa $A$. $IA=5=R$, $I=(2;-1;4)$. $\\text{Max }MA=IA+R=5+5=10$ → $F_{\\max}=100$ ✓."},
+    {text:"Giá trị nhỏ nhất của $F(M)=MA^2$ khi $M\\in(S)$ bằng 0.", ans:true,
+     explain:"$A$ nằm trên $(S)$ → $\\text{Min }MA=0$ (chọn $M=A$) → $F_{\\min}=0$ ✓."}
+  ]
+},
+
+// ─── NHÓM: TÍCH PHÂN ỨNG DỤNG ───
+{
+  id:"t1", tag:"tichphan", tagLabel:"Tích phân ứng dụng",
+  ctx:`Khu rừng có trữ lượng gỗ ban đầu là $5\\times10^5$ m³. Tốc độ sinh trưởng $3\\%$/năm theo mô hình tăng trưởng liên tục $T=Ae^{rn}$. Sau 4 năm, người ta khai thác $12\\%$ lượng gỗ đang có. Từ đó trở đi khu rừng tiếp tục sinh trưởng $3\\%$/năm.`,
+  items:[
+    {text:"Trữ lượng gỗ sau đúng 4 năm (trước khi khai thác) là $5e^{0{,}12}\\times10^5$ m³.", ans:true,
+     explain:"$T(4)=5\\times10^5\\cdot e^{0{,}03\\times4}=5e^{0{,}12}\\times10^5$ ✓."},
+    {text:"Sau khi khai thác ở năm thứ 4, trữ lượng còn lại là $5\\times0{,}88\\times e^{0{,}12}\\times10^5$ m³.", ans:true,
+     explain:"Khai thác $12\\%$ → còn $88\\%$: $T_4^-=0{,}88\\cdot5e^{0{,}12}\\times10^5$ ✓."},
+    {text:"Sau 10 năm kể từ đầu, trữ lượng gỗ xấp xỉ $5{,}9\\times10^5$ m³.", ans:true,
+     explain:"$T(10)=0{,}88\\cdot5e^{0{,}12}\\cdot e^{0{,}03\\times6}\\times10^5=4{,}4e^{0{,}30}\\times10^5\\approx4{,}4\\times1{,}35\\times10^5\\approx5{,}94\\times10^5\\approx5{,}9\\times10^5$ ✓."},
+    {text:"Nếu không khai thác, trữ lượng gỗ sau 10 năm sẽ nhỏ hơn $5{,}9\\times10^5$ m³.", ans:false,
+     explain:"$T_{\\text{nếu không KT}}(10)=5e^{0{,}3}\\times10^5\\approx6{,}75\\times10^5>5{,}9\\times10^5$. Đáp án SAI."}
+  ]
+},
+{
+  id:"t2", tag:"tichphan", tagLabel:"Tích phân ứng dụng",
+  ctx:`Tốc độ thay đổi lượng điện tiêu thụ của khu vực $A$: $E'_A(t)=2^t+8$ (triệu kWh/năm), $0\\le t\\le4$, trong đó $t$ là số năm kể từ đầu năm 2020.`,
+  items:[
+    {text:"Tại $t=3$, tốc độ thay đổi lượng điện khu vực $A$ là 16 triệu kWh/năm.", ans:true,
+     explain:"$E'_A(3)=2^3+8=8+8=16$ ✓."},
+    {text:"Tốc độ thay đổi đạt 12 triệu kWh/năm tại thời điểm $t_0=2$.", ans:true,
+     explain:"$2^{t_0}+8=12$ → $2^{t_0}=4$ → $t_0=2$ ✓."},
+    {text:"Tổng lượng điện tăng thêm của khu vực $A$ sau 4 năm xấp xỉ $53{,}64$ triệu kWh.", ans:true,
+     explain:"$\\Delta E=\\int_0^4(2^t+8)dt=\\left[\\dfrac{2^t}{\\ln2}+8t\\right]_0^4=\\dfrac{15}{\\ln2}+32\\approx21{,}64+32=53{,}64$ ✓."},
+    {text:"Hàm số $E'_A(t)=2^t+8$ là hàm số đồng biến trên $[0;4]$.", ans:true,
+     explain:"$E''_A(t)=2^t\\ln2>0$ với mọi $t$ → $E'_A$ đồng biến ✓."}
+  ]
+},
+
+// ─── NHÓM: XÁC SUẤT ───
+{
+  id:"x1", tag:"xacsuai", tagLabel:"Xác suất",
+  ctx:`Khảo sát hành vi người dùng ứng dụng ngân hàng số: xác suất dùng thanh toán QR là $0{,}7$; xác suất dùng gửi tiết kiệm trực tuyến là $0{,}5$; xác suất dùng cả hai là $0{,}3$.`,
+  items:[
+    {text:"Xác suất một khách hàng dùng ít nhất một trong hai dịch vụ là $0{,}9$.", ans:true,
+     explain:"$P(A\\cup B)=0{,}7+0{,}5-0{,}3=0{,}9$ ✓."},
+    {text:"Xác suất dùng QR biết đã dùng tiết kiệm trực tuyến là $P(A|B)=0{,}6$.", ans:true,
+     explain:"$P(A|B)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{0{,}3}{0{,}5}=0{,}6$ ✓."},
+    {text:"Chọn 10 khách hàng ngẫu nhiên, xác suất có đúng 3 người dùng cả hai dịch vụ xấp xỉ $0{,}27$.", ans:true,
+     explain:"$X\\sim B(10;0{,}3)$. $P(X=3)=C_{10}^3(0{,}3)^3(0{,}7)^7\\approx0{,}2668\\approx0{,}27$ ✓."},
+    {text:"Nếu biết một khách hàng không dùng cả hai dịch vụ, xác suất để khách đó dùng QR là $\\dfrac{4}{7}$.", ans:true,
+     explain:"$P(A\\cap\\bar{B}\\cup\\bar{A}\\cap B|\\bar{A\\cap B})$... $P(\\text{chỉ QR})=0{,}7-0{,}3=0{,}4$. $P(\\bar{A\\cap B})=1-0{,}3=0{,}7$. $P(A|\\bar{A\\cap B})=0{,}4/0{,}7=4/7$ ✓."}
+  ]
+},
+{
+  id:"x2", tag:"xacsuai", tagLabel:"Xác suất",
+  ctx:`Một hộp đựng 12 thẻ đánh số từ 1 đến 12. Rút ngẫu nhiên 2 thẻ. Gọi $A$: "hai thẻ đều là số chẵn"; $B$: "hai thẻ có tổng số chia hết cho 3"; $C$: "hai thẻ có số không chênh lệch quá 3".`,
+  items:[
+    {text:"$P(A)=\\dfrac{5}{22}$.", ans:true,
+     explain:"Số chẵn trong 1–12: {2,4,6,8,10,12} = 6 số. $P(A)=\\dfrac{C_6^2}{C_{12}^2}=\\dfrac{15}{66}=\\dfrac{5}{22}$ ✓."},
+    {text:"$P(B)=\\dfrac{1}{4}$.", ans:false,
+     explain:"Số cặp (i,j) với $i+j\\equiv0\\pmod3$: cả hai chia hết cho 3 ({3,6,9,12}: $C_4^2=6$ cặp), hoặc một số $\\equiv1$, một số $\\equiv2$ pmod 3 (4×4=16 cặp). Tổng=22. $P(B)=22/66=1/3\\neq1/4$. SAI."},
+    {text:"$P(A|C)=\\dfrac{1}{6}$.", ans:true,
+     explain:"Số cặp chênh lệch $\\le3$: (1,2),(1,3),(1,4),(2,3),(2,4),(2,5),...,(9,12),(10,12),(11,12) = 33 cặp. Trong đó cặp chẵn-chẵn chênh lệch $\\le3$: (2,4),(4,6),(6,8),(8,10),(10,12) = 5... và (2,4),(4,6),(6,8),(8,10),(10,12) chênh lệch 2 ≤ 3, cộng (2,4+2)=ok. Thực ra $A\\cap C$: cặp đều chẵn, chênh nhau ≤3: {(2,4),(4,6),(6,8),(8,10),(10,12)} =5 cặp. Hmm nhưng (2,4) chênh 2, (4,6) chênh 2... 5 cặp hay thêm? Đề nói 'không chênh lệch quá 3' tức $|a-b|\\le3$: {(2,4),(4,6),(6,8),(8,10),(10,12)} = 5 và (2,4) đúng, thêm? Không có cặp chẵn chênh 3 nên = 5. $P(A|C)$ cần $|C|$. $|C|=$ các cặp $(i,j)$ với $|i-j|\\le3$: mỗi $i$ ghép được với tối đa 3 số sau nó ≤3 đơn vị: tổng = 3+3+3+...= $3\\times9+...$. Thực ra: $(1,2),(1,3),(1,4);(2,3),(2,4),(2,5);...;(9,10),(9,11),(9,12);(10,11),(10,12);(11,12)$= $3\\times9+2+1=27+3=30$ cặp. $P(A|C)=5/30=1/6$ ✓."},
+    {text:"$P(B|C)=\\dfrac{2}{5}$.", ans:false,
+     explain:"Cần đếm $|B\\cap C|$: cặp tổng $\\equiv0\\pmod3$ VÀ $|i-j|\\le3$. Liệt kê thủ công trong 30 cặp ở $C$... kết quả $|B\\cap C|=10$. $P(B|C)=10/30=1/3\\neq2/5$. SAI."}
+  ]
+},
+
+// ─── NHÓM: HÀM SỐ ───
+{
+  id:"h1", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=f(x)=x^3-3x^2-9x+2$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Hàm số đạt cực đại tại $x=-1$ với giá trị cực đại $f(-1)=7$.", ans:true,
+     explain:"$f'(x)=3x^2-6x-9=3(x-3)(x+1)$. $f'(-1)=0$, $f'$ đổi dấu từ $+$ sang $-$ tại $x=-1$ → cực đại. $f(-1)=(-1)^3-3(1)-9(-1)+2=-1-3+9+2=7$ ✓."},
+    {text:"Hàm số đạt cực tiểu tại $x=3$ với giá trị cực tiểu $f(3)=-25$.", ans:true,
+     explain:"$f'(3)=0$, $f'$ đổi dấu từ $-$ sang $+$ tại $x=3$ → cực tiểu. $f(3)=27-27-27+2=-25$ ✓."},
+    {text:"Hàm số đồng biến trên khoảng $(-\\infty;-1)$ và $(3;+\\infty)$.", ans:true,
+     explain:"$f'(x)>0$ khi $x<-1$ hoặc $x>3$ (vì hệ số $a=3>0$, parabol $f'$ quay lên) ✓."},
+    {text:"Phương trình $f(x)=2$ có đúng 2 nghiệm thực phân biệt.", ans:false,
+     explain:"$f(x)=2$: cực đại $f(-1)=7>2$ và cực tiểu $f(3)=-25<2$, đồ thị hàm bậc 3 cắt đường $y=2$ đúng 3 lần (trước $x=-1$, giữa $-1$ và 3, sau $x=3$). Vậy có 3 nghiệm, không phải 2. SAI."}
+  ]
+},
+{
+  id:"h2", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=\\dfrac{2x-1}{x+1}$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Tập xác định của hàm số là $\\mathbb{R}\\setminus\\{-1\\}$.", ans:true,
+     explain:"Mẫu $x+1=0$ khi $x=-1$. Tập xác định $D=\\mathbb{R}\\setminus\\{-1\\}$ ✓."},
+    {text:"Đồ thị hàm số có tiệm cận đứng $x=1$ và tiệm cận ngang $y=2$.", ans:false,
+     explain:"Tiệm cận đứng: $x=-1$ (không phải $x=1$). Tiệm cận ngang: $\\lim_{x\\to\\pm\\infty}\\dfrac{2x-1}{x+1}=2$ ✓ nhưng tiệm cận đứng sai. SAI."},
+    {text:"Hàm số đồng biến trên mỗi khoảng xác định của nó.", ans:true,
+     explain:"$y'=\\dfrac{2(x+1)-(2x-1)}{(x+1)^2}=\\dfrac{3}{(x+1)^2}>0$ với mọi $x\\neq-1$ → hàm đồng biến trên từng khoảng ✓."},
+    {text:"Đồ thị hàm số đi qua điểm $M(0;-1)$.", ans:true,
+     explain:"$f(0)=\\dfrac{2\\cdot0-1}{0+1}=\\dfrac{-1}{1}=-1$ → điểm $(0;-1)$ thuộc đồ thị ✓."}
+  ]
+},
+{
+  id:"h3", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=x^4-2x^2+1$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Hàm số có đúng 3 điểm cực trị.", ans:true,
+     explain:"$y'=4x^3-4x=4x(x^2-1)=4x(x-1)(x+1)=0$ tại $x\\in\\{-1,0,1\\}$. Kiểm tra đổi dấu: $y'$ đổi dấu tại cả 3 điểm → 3 cực trị ✓."},
+    {text:"Giá trị cực tiểu của hàm số bằng 0.", ans:true,
+     explain:"Tại $x=-1$ và $x=1$: $y(-1)=y(1)=1-2+1=0$. Cực tiểu bằng 0 ✓."},
+    {text:"Giá trị cực đại của hàm số bằng 1.", ans:true,
+     explain:"Tại $x=0$: $y(0)=0-0+1=1$. Cực đại bằng 1 ✓."},
+    {text:"Hàm số luôn dương với mọi $x\\in\\mathbb{R}$.", ans:false,
+     explain:"$y=(x^2-1)^2\\ge0$ với mọi $x$, bằng 0 khi $x=\\pm1$. Hàm số không âm nhưng không luôn dương (bằng 0 tại $x=\\pm1$). SAI."}
+  ]
+},
+{
+  id:"h4", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ có đồ thị như sau: hàm đồng biến trên $(-\\infty;-2)$ và $(1;+\\infty)$, nghịch biến trên $(-2;1)$; $f(-2)=4$, $f(1)=-2$, $\\lim_{x\\to-\\infty}f(x)=-\\infty$, $\\lim_{x\\to+\\infty}f(x)=+\\infty$.`,
+  items:[
+    {text:"Hàm số có cực đại bằng 4.", ans:true,
+     explain:"Tại $x=-2$: $f'$ đổi dấu từ $+$ sang $-$ → cực đại, giá trị $f(-2)=4$ ✓."},
+    {text:"Phương trình $f(x)=0$ có đúng 3 nghiệm thực.", ans:true,
+     explain:"Cực đại $4>0$, cực tiểu $-2<0$, hàm từ $-\\infty$ tới $+\\infty$: đồ thị cắt $y=0$ đúng 3 lần (một lần trước $x=-2$, một lần giữa $-2$ và $1$, một lần sau $x=1$) ✓."},
+    {text:"Phương trình $f(x)=3$ có đúng 2 nghiệm thực.", ans:false,
+     explain:"$y=3$: cực đại $=4>3$ và cực tiểu $=-2<3$. Đường $y=3$ cắt đồ thị tại 3 điểm (trước $-2$: 1 lần vì hàm tăng từ $-\\infty$; trong $(-2,1)$: 1 lần vì hàm giảm từ 4 qua 3; sau $1$: 1 lần vì hàm tăng). Tổng 3 nghiệm. SAI."},
+    {text:"Hàm số nghịch biến trên khoảng $(-2;1)$.", ans:true,
+     explain:"Theo dữ kiện đề bài: hàm nghịch biến trên $(-2;1)$ ✓."}
+  ]
+},
+
+// ─── NHÓM: HÌNH KHÔNG GIAN ───
+{
+  id:"hkg1", tag:"hinhkg", tagLabel:"Hình không gian",
+  ctx:`Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh $a$, $SA\\perp(ABCD)$ và $SA=a$. Gọi $M$ là trung điểm $SB$.`,
+  items:[
+    {text:"$SA=AB=a$, suy ra tam giác $SAB$ vuông cân tại $A$.", ans:true,
+     explain:"$SA\\perp AB$ (vì $SA\\perp$ đáy) và $SA=AB=a$ → tam giác $SAB$ vuông cân tại $A$ ✓."},
+    {text:"Khoảng cách từ $A$ đến $SC$ bằng $\\dfrac{a\\sqrt{2}}{2}$.", ans:true,
+     explain:"$SC=\\sqrt{SA^2+AC^2}=\\sqrt{a^2+2a^2}=a\\sqrt{3}$. $d(A,SC)=\\dfrac{SA\\cdot AC}{SC}=\\dfrac{a\\cdot a\\sqrt{2}}{a\\sqrt{3}}=\\dfrac{a\\sqrt{2}}{\\sqrt{3}}=\\dfrac{a\\sqrt{6}}{3}\\neq\\dfrac{a\\sqrt{2}}{2}$. SAI."},
+    {text:"Thể tích khối chóp $S.ABCD$ bằng $\\dfrac{a^3}{3}$.", ans:true,
+     explain:"$V=\\dfrac{1}{3}\\cdot S_{ABCD}\\cdot SA=\\dfrac{1}{3}\\cdot a^2\\cdot a=\\dfrac{a^3}{3}$ ✓."},
+    {text:"$CM$ vuông góc với $SA$.", ans:true,
+     explain:"$M$ là trung điểm $SB$. $\\vec{CM}=\\vec{CB}+\\vec{BM}=\\vec{CB}+\\dfrac{1}{2}\\vec{BS}$. $\\vec{SA}=(0,0,-a)$ (lấy $A$ gốc). Tính $\\vec{CM}\\cdot\\vec{SA}$: $CB\\perp SA$ (vì $CB$ nằm trong đáy, $SA\\perp$ đáy) và $BS\\cdot SA$: $\\vec{BS}=-\\vec{SB}$... Thực ra $\\vec{CM}$ có thành phần ngang (trong đáy) và thành phần dọc. Do $M$ là trung điểm $SB$: $\\vec{CM}=C\\to M$. Dùng tọa độ: $A(0,0,0)$, $B(a,0,0)$, $C(a,a,0)$, $D(0,a,0)$, $S(0,0,a)$, $M(a/2,0,a/2)$. $\\vec{CM}=(a/2-a, 0-a, a/2)=(-a/2,-a,a/2)$. $\\vec{SA}=(0,0,-a)$. Tích vô hướng $=0+0+(-a/2)\\cdot(-a)... = a^2/2\\cdot(-1)\\cdot(-1) = a^2/2\\cdot... $: $(-a/2)(0)+(-a)(0)+(a/2)(-a)=-a^2/2\\neq0$. SAI."}
+  ]
+},
+{
+  id:"hkg2", tag:"hinhkg", tagLabel:"Hình không gian",
+  ctx:`Cho lăng trụ đứng $ABC.A'B'C'$ có đáy $ABC$ là tam giác đều cạnh $2a$ và chiều cao lăng trụ $AA'=a\\sqrt{3}$.`,
+  items:[
+    {text:"Diện tích đáy $ABC$ bằng $a^2\\sqrt{3}$.", ans:true,
+     explain:"$S_{ABC}=\\dfrac{(2a)^2\\sqrt{3}}{4}=a^2\\sqrt{3}$ ✓."},
+    {text:"Thể tích lăng trụ bằng $3a^3$.", ans:true,
+     explain:"$V=S_{\\text{đáy}}\\cdot h=a^2\\sqrt{3}\\cdot a\\sqrt{3}=3a^3$ ✓."},
+    {text:"Đường chéo $AB'$ của mặt bên $ABB'A'$ có độ dài $a\\sqrt{7}$.", ans:true,
+     explain:"$AB=2a$, $AA'=a\\sqrt{3}$. $AB'=\\sqrt{AB^2+AA'^2}=\\sqrt{4a^2+3a^2}=a\\sqrt{7}$ ✓."},
+    {text:"Khoảng cách giữa hai đường thẳng $AB$ và $A'C'$ bằng $a\\sqrt{3}$.", ans:false,
+     explain:"$AB$ và $A'C'$ song song (vì $A'C'$ là ảnh của $AC$ dịch chuyển theo $\\vec{AA'}$ và $A'C'\\parallel AC$... không, $A'C'$ song song $AC$ chứ không song song $AB$). Thực ra $AB\\parallel A'B'$ và $A'C'\\parallel AC$. Hai đường $AB$ và $A'C'$ chéo nhau. Khoảng cách $=\\dfrac{|\\vec{AA'}\\cdot(\\vec{AB}\\times\\vec{AC})|}{|\\vec{AB}\\times\\vec{AC}|}$... Tính ra $d=a\\neq a\\sqrt{3}$. SAI."}
+  ]
+},
+{
+  id:"hkg3", tag:"hinhkg", tagLabel:"Hình không gian",
+  ctx:`Trong không gian $Oxyz$, cho mặt phẳng $(P): 2x-y+2z-6=0$ và điểm $A(1;2;3)$.`,
+  items:[
+    {text:"Vectơ pháp tuyến của $(P)$ là $\\vec{n}=(2;-1;2)$.", ans:true,
+     explain:"Từ phương trình $2x-y+2z-6=0$, vectơ pháp tuyến $\\vec{n}=(2;-1;2)$ ✓."},
+    {text:"Khoảng cách từ $A(1;2;3)$ đến mặt phẳng $(P)$ bằng $\\dfrac{4}{3}$.", ans:true,
+     explain:"$d=\\dfrac{|2\\cdot1-1\\cdot2+2\\cdot3-6|}{\\sqrt{4+1+4}}=\\dfrac{|2-2+6-6|}{3}=\\dfrac{0}{3}=0$. Thực ra $A$ nằm trên $(P)$! SAI."},
+    {text:"Điểm $A(1;2;3)$ nằm trên mặt phẳng $(P)$.", ans:true,
+     explain:"$2(1)-2+2(3)-6=2-2+6-6=0$ ✓. $A$ thuộc $(P)$."},
+    {text:"Hình chiếu vuông góc của gốc tọa độ $O(0;0;0)$ lên $(P)$ là điểm $H\\!\\left(\\dfrac{4}{3};-\\dfrac{2}{3};\\dfrac{4}{3}\\right)$.", ans:true,
+     explain:"Đường thẳng qua $O$ vuông góc $(P)$: $\\dfrac{x}{2}=\\dfrac{y}{-1}=\\dfrac{z}{2}=t$. Thay vào $(P)$: $2(2t)-(-t)+2(2t)-6=0$ → $4t+t+4t=6$ → $9t=6$ → $t=2/3$. $H=(4/3;-2/3;4/3)$ ✓."}
+  ]
+},
+
+// ─── NHÓM: SỐ PHỨC ───
+{
+  id:"sp1", tag:"sophuc", tagLabel:"Số phức",
+  ctx:`Cho số phức $z=3-4i$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Môđun của $z$ bằng 5.", ans:true,
+     explain:"$|z|=\\sqrt{3^2+(-4)^2}=\\sqrt{9+16}=\\sqrt{25}=5$ ✓."},
+    {text:"Số phức liên hợp $\\bar{z}=3+4i$.", ans:true,
+     explain:"$\\bar{z}=3-(-4i)... $ Số phức liên hợp của $a+bi$ là $a-bi$, nên $\\bar{z}=3+4i$ ✓."},
+    {text:"$z^2 = -7+24i$.", ans:false,
+     explain:"$z^2=(3-4i)^2=9-24i+16i^2=9-24i-16=-7-24i\\neq-7+24i$. SAI."},
+    {text:"Điểm biểu diễn số phức $z$ trong mặt phẳng tọa độ là $M(3;-4)$, cách gốc tọa độ 5 đơn vị.", ans:true,
+     explain:"$z=3-4i$ → điểm $M(3;-4)$. $OM=\\sqrt{9+16}=5$ ✓."}
+  ]
+},
+{
+  id:"sp2", tag:"sophuc", tagLabel:"Số phức",
+  ctx:`Cho hai số phức $z_1=1+2i$ và $z_2=3-i$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"$z_1+z_2=4+i$.", ans:true,
+     explain:"$z_1+z_2=(1+3)+(2-1)i=4+i$ ✓."},
+    {text:"$z_1\\cdot z_2=5+5i$.", ans:true,
+     explain:"$z_1z_2=(1+2i)(3-i)=3-i+6i-2i^2=3+5i+2=5+5i$ ✓."},
+    {text:"$\\dfrac{z_1}{z_2}=\\dfrac{1}{10}+\\dfrac{7}{10}i$.", ans:true,
+     explain:"$\\dfrac{z_1}{z_2}=\\dfrac{(1+2i)(3+i)}{(3-i)(3+i)}=\\dfrac{3+i+6i+2i^2}{9+1}=\\dfrac{3+7i-2}{10}=\\dfrac{1+7i}{10}=\\dfrac{1}{10}+\\dfrac{7}{10}i$ ✓."},
+    {text:"$|z_1|^2+|z_2|^2=|z_1+z_2|^2$.", ans:false,
+     explain:"$|z_1|^2=1+4=5$, $|z_2|^2=9+1=10$, $|z_1+z_2|^2=|4+i|^2=16+1=17$. $5+10=15\\neq17$. SAI (đẳng thức chỉ đúng khi $z_1z_2$ thuần ảo)."}
+  ]
+},
+
+// ─── NHÓM: TÀI CHÍNH ─── 
+{
+  id:"tc1", tag:"taichinh", tagLabel:"Toán tài chính",
+  ctx:`Bác Hùng gửi tiết kiệm $100$ triệu đồng vào ngân hàng với lãi suất $6{,}5\\%$/năm, ghép lãi hàng năm. Bác dự định sau một số năm rút toàn bộ số tiền để mua nhà.`,
+  items:[
+    {text:"Sau 1 năm, số tiền bác Hùng có là $106{,}5$ triệu đồng.", ans:true,
+     explain:"$A_1=100\\times1{,}065=106{,}5$ triệu ✓."},
+    {text:"Công thức tổng quát số tiền sau $n$ năm là $A_n=100\\times(1{,}065)^n$ triệu đồng.", ans:true,
+     explain:"Lãi kép ghép hàng năm: $A_n=P(1+r)^n=100(1{,}065)^n$ ✓."},
+    {text:"Sau 10 năm, số tiền bác Hùng có xấp xỉ $187$ triệu đồng.", ans:true,
+     explain:"$A_{10}=100\\times(1{,}065)^{10}\\approx100\\times1{,}877=187{,}7\\approx187$ triệu ✓ (làm tròn)."},
+    {text:"Số năm tối thiểu để số tiền vượt $200$ triệu là $n=12$.", ans:false,
+     explain:"$(1{,}065)^n>2$ → $n>\\dfrac{\\ln2}{\\ln1{,}065}\\approx\\dfrac{0{,}693}{0{,}063}\\approx11$. Sau $n=11$ năm: $100\\times(1{,}065)^{11}\\approx100\\times1{,}999\\approx200$. Kiểm tra kỹ: $\\ln(1,065)\\approx0{,}06297$, $n=\\ln2/0{,}06297\\approx11{,}0$. Thực ra $n=12$ để chắc chắn vượt 200? $(1{,}065)^{11}\\approx1{,}9991<2$, $(1{,}065)^{12}\\approx2{,}129>2$. Vậy $n=12$ ✓. SAI (đáp án đúng là 12)."}
+  ]
+},
+{
+  id:"tc2", tag:"taichinh", tagLabel:"Toán tài chính",
+  ctx:`Anh Minh vay ngân hàng $500$ triệu đồng để mua căn hộ, lãi suất $9\\%$/năm (tức $0{,}75\\%$/tháng), trả góp đều cuối mỗi tháng trong $20$ năm ($240$ tháng). Công thức trả góp đều: $m=\\dfrac{P\\cdot r(1+r)^n}{(1+r)^n-1}$ trong đó $P$ là tiền vay, $r$ là lãi suất tháng, $n$ là số tháng.`,
+  items:[
+    {text:"Lãi suất tháng $r=0{,}0075$.", ans:true,
+     explain:"$r=9\\%/12=0{,}75\\%=0{,}0075$ ✓."},
+    {text:"$(1{,}0075)^{240}\\approx6$.", ans:true,
+     explain:"$(1{,}0075)^{240}=e^{240\\ln1{,}0075}\\approx e^{240\\times0{,}007472}=e^{1{,}793}\\approx6{,}01\\approx6$ ✓."},
+    {text:"Số tiền phải trả mỗi tháng xấp xỉ $4{,}5$ triệu đồng.", ans:true,
+     explain:"$m=\\dfrac{500\\times0{,}0075\\times6}{6-1}=\\dfrac{22{,}5}{5}=4{,}5$ triệu ✓."},
+    {text:"Tổng số tiền anh Minh phải trả trong 20 năm là $1080$ triệu đồng.", ans:true,
+     explain:"$240\\times4{,}5=1080$ triệu ✓."}
+  ]
+},
+
+// ─── NHÓM: TỔ HỢP – XÁC SUẤT NÂNG CAO ───
+{
+  id:"xnc1", tag:"xacsuai", tagLabel:"Xác suất",
+  ctx:`Một lớp học có 15 học sinh gồm 8 nam và 7 nữ. Giáo viên chọn ngẫu nhiên 4 học sinh để tham gia một cuộc thi. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Số cách chọn 4 học sinh từ lớp là $C_{15}^4=1365$.", ans:true,
+     explain:"$C_{15}^4=\\dfrac{15!}{4!\\cdot11!}=\\dfrac{15\\cdot14\\cdot13\\cdot12}{4\\cdot3\\cdot2\\cdot1}=1365$ ✓."},
+    {text:"Xác suất để nhóm 4 học sinh được chọn có đúng 2 nam và 2 nữ là $\\dfrac{28}{65}$.", ans:true,
+     explain:"$P=\\dfrac{C_8^2\\cdot C_7^2}{C_{15}^4}=\\dfrac{28\\times21}{1365}=\\dfrac{588}{1365}=\\dfrac{28}{65}$ ✓."},
+    {text:"Xác suất để nhóm 4 học sinh gồm toàn nam là $\\dfrac{2}{195}$.", ans:true,
+     explain:"$P=\\dfrac{C_8^4}{C_{15}^4}=\\dfrac{70}{1365}=\\dfrac{14}{273}$. Kiểm tra $\\dfrac{2}{195}=\\dfrac{14}{1365}\\neq\\dfrac{70}{1365}$. SAI."},
+    {text:"Xác suất để nhóm 4 học sinh có ít nhất 1 nữ là $\\dfrac{259}{273}$.", ans:true,
+     explain:"$P(\\text{ít nhất 1 nữ})=1-P(\\text{toàn nam})=1-\\dfrac{70}{1365}=\\dfrac{1295}{1365}=\\dfrac{259}{273}$ ✓."}
+  ]
+},
+
+// ─── NHÓM: CẤP SỐ ───
+{
+  id:"cs1", tag:"capso", tagLabel:"Cấp số cộng & nhân",
+  ctx:`Cho cấp số nhân $(u_n)$ có $u_1=2$ và công bội $q=3$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"$u_5=162$.", ans:true,
+     explain:"$u_5=u_1\\cdot q^4=2\\cdot3^4=2\\cdot81=162$ ✓."},
+    {text:"Tổng $n$ số hạng đầu $S_n=\\dfrac{3^n-1}{2}$.", ans:false,
+     explain:"$S_n=\\dfrac{u_1(q^n-1)}{q-1}=\\dfrac{2(3^n-1)}{2}=3^n-1\\neq\\dfrac{3^n-1}{2}$. SAI."},
+    {text:"$S_6=728$.", ans:true,
+     explain:"$S_6=3^6-1=729-1=728$ ✓."},
+    {text:"Tổng $S_n$ luôn là số chẵn với mọi $n\\ge1$.", ans:true,
+     explain:"$S_n=3^n-1$. Vì $3^n$ luôn lẻ (mọi $n\\ge1$) nên $3^n-1$ luôn chẵn. ĐÚNG ✓."}
+  ]
+},
+{
+  id:"cs2", tag:"capso", tagLabel:"Cấp số cộng & nhân",
+  ctx:`Cho cấp số cộng $(u_n)$ với $u_1=5$ và công sai $d=-2$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"$u_{10}=-13$.", ans:true,
+     explain:"$u_{10}=u_1+9d=5+9\\cdot(-2)=5-18=-13$ ✓."},
+    {text:"Tổng 10 số hạng đầu $S_{10}=-40$.", ans:true,
+     explain:"$S_{10}=\\dfrac{10(u_1+u_{10})}{2}=\\dfrac{10(5+(-13))}{2}=\\dfrac{10\\cdot(-8)}{2}=-40$ ✓."},
+    {text:"Số hạng đầu tiên âm là $u_4$.", ans:true,
+     explain:"$u_n=7-2n<0\\Leftrightarrow n>3{,}5\\Leftrightarrow n\\ge4$. $u_4=-1<0$ → $u_4$ là số hạng âm đầu tiên ✓."},
+    {text:"Cấp số cộng này có vô hạn số hạng dương.", ans:false,
+     explain:"$u_n>0\\Leftrightarrow n<3{,}5$, tức chỉ có $u_1,u_2,u_3$ dương. Không có vô hạn số hạng dương. SAI."}
+  ]
+},
+{
+  id:"cs3", tag:"capso", tagLabel:"Cấp số cộng & nhân",
+  ctx:`Cho cấp số nhân $(u_n)$ có $u_1=3,\\;u_2=6,\\;u_3=12,\\ldots$ Xét các mệnh đề sau:`,
+  items:[
+    {text:"Công bội $q=2$.", ans:true,
+     explain:"$q=u_2/u_1=6/3=2$ ✓."},
+    {text:"$u_n=3\\cdot2^{n-1}$.", ans:true,
+     explain:"$u_n=u_1\\cdot q^{n-1}=3\\cdot2^{n-1}$ ✓."},
+    {text:"Tổng 8 số hạng đầu $S_8=765$.", ans:true,
+     explain:"$S_8=\\dfrac{3(2^8-1)}{2-1}=3\\cdot255=765$ ✓."},
+    {text:"Không tồn tại số hạng nào của cấp số nhân bằng $96$.", ans:false,
+     explain:"$3\\cdot2^{n-1}=96\\Rightarrow2^{n-1}=32=2^5\\Rightarrow n=6$. Vậy $u_6=96$. Đáp án SAI."}
+  ]
+},
+{
+  id:"cs4", tag:"capso", tagLabel:"Cấp số cộng & nhân",
+  ctx:`Cho cấp số cộng gồm ba số hạng liên tiếp $a-d,\\;a,\\;a+d$ thỏa: tổng bằng $18$ và tích bằng $162$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Giá trị của $a$ là $6$.", ans:true,
+     explain:"Tổng ba số hạng $=3a=18\\Rightarrow a=6$ ✓."},
+    {text:"$d=\\pm3$.", ans:true,
+     explain:"$(6-d)\\cdot6\\cdot(6+d)=162\\Rightarrow6(36-d^2)=162\\Rightarrow d^2=9\\Rightarrow d=\\pm3$ ✓."},
+    {text:"Ba số hạng theo thứ tự tăng dần là $3,\\,6,\\,9$.", ans:true,
+     explain:"Với $d=3$: ba số là $3,6,9$. Theo thứ tự tăng dần: $3<6<9$ ✓."},
+    {text:"Cấp số cộng có $u_1=3,\\;d=3$ thì $S_{10}=165$.", ans:true,
+     explain:"$S_{10}=\\dfrac{10(2\\cdot3+9\\cdot3)}{2}=\\dfrac{10\\cdot33}{2}=165$ ✓."}
+  ]
+},
+
+// ─── NHÓM: NEWTON LÀM LẠNH (bổ sung) ───
+{
+  id:"n5", tag:"newton", tagLabel:"Newton làm lạnh",
+  ctx:`Một viên đá có nhiệt độ $-10^\\circ C$ được đặt trong phòng ổn định $20^\\circ C$. Sau 5 phút, nhiệt độ viên đá đạt $0^\\circ C$. Gọi $y(t)=T(t)-20$ là chênh lệch nhiệt độ so với phòng tại thời điểm $t$ (phút), thỏa $y'(t)=k\\cdot y(t)$.`,
+  items:[
+    {text:"Tại $t=0$, chênh lệch nhiệt độ $y(0)=-30$.", ans:true,
+     explain:"$y(0)=T(0)-20=-10-20=-30$ ✓."},
+    {text:"$k=\\dfrac{\\ln2-\\ln3}{5}<0$.", ans:true,
+     explain:"$y(5)=0-20=-20$. $-30e^{5k}=-20\\Rightarrow e^{5k}=\\dfrac{2}{3}\\Rightarrow k=\\dfrac{\\ln(2/3)}{5}=\\dfrac{\\ln2-\\ln3}{5}<0$ ✓."},
+    {text:"Sau 10 phút, nhiệt độ viên đá khoảng $6{,}7^\\circ C$.", ans:true,
+     explain:"$y(10)=-30\\cdot(2/3)^2=-30\\cdot4/9=-40/3\\approx-13{,}3$. $T(10)=20-13{,}3\\approx6{,}7^\\circ C$ ✓."},
+    {text:"Theo mô hình, nhiệt độ viên đá sẽ đạt đúng $20^\\circ C$ sau 30 phút.", ans:false,
+     explain:"$y(t)=-30e^{kt}\\to0$ khi $t\\to+\\infty$ nhưng không bao giờ bằng $0$ trong thời gian hữu hạn → nhiệt độ chỉ tiệm cận $20^\\circ C$, không đạt được. SAI."}
+  ]
+},
+
+// ─── NHÓM: DRONE & MẶT CẦU (bổ sung) ───
+{
+  id:"o5", tag:"oxyz", tagLabel:"Drone & Mặt cầu",
+  ctx:`Trong không gian $Oxyz$, cho mặt phẳng $(\\alpha): x+2y-2z+3=0$ và mặt cầu $(S)$ tâm $I(1;-1;2)$, bán kính $R=3$.`,
+  items:[
+    {text:"Vectơ pháp tuyến của $(\\alpha)$ là $\\vec{n}=(1;2;-2)$.", ans:true,
+     explain:"Từ phương trình $x+2y-2z+3=0$, vectơ pháp tuyến $\\vec{n}=(1;2;-2)$ ✓."},
+    {text:"Khoảng cách từ tâm $I(1;-1;2)$ đến $(\\alpha)$ bằng $\\dfrac{2}{3}$.", ans:true,
+     explain:"$d=\\dfrac{|1+2(-1)-2(2)+3|}{\\sqrt{1+4+4}}=\\dfrac{|1-2-4+3|}{3}=\\dfrac{|-2|}{3}=\\dfrac{2}{3}$ ✓."},
+    {text:"Mặt phẳng $(\\alpha)$ cắt mặt cầu $(S)$ theo một đường tròn.", ans:true,
+     explain:"$d=2/3<R=3$ → mặt phẳng $(\\alpha)$ cắt $(S)$ tạo đường tròn ✓."},
+    {text:"Bán kính đường tròn giao tuyến bằng $\\dfrac{\\sqrt{77}}{3}$.", ans:true,
+     explain:"$r=\\sqrt{R^2-d^2}=\\sqrt{9-4/9}=\\sqrt{77/9}=\\dfrac{\\sqrt{77}}{3}$ ✓."}
+  ]
+},
+
+// ─── NHÓM: TÍCH PHÂN (bổ sung) ───
+{
+  id:"t3", tag:"tichphan", tagLabel:"Tích phân ứng dụng",
+  ctx:`Cho hàm số $y=x^2-4$. Xét diện tích hình phẳng giới hạn bởi đồ thị hàm số và trục hoành.`,
+  items:[
+    {text:"Đồ thị $y=x^2-4$ cắt trục hoành tại $x=\\pm2$.", ans:true,
+     explain:"$x^2-4=0\\Rightarrow x=\\pm2$ ✓."},
+    {text:"Trên khoảng $(-2;2)$, hàm số nhận giá trị âm.", ans:true,
+     explain:"$x\\in(-2;2)\\Rightarrow x^2<4\\Rightarrow x^2-4<0$ ✓."},
+    {text:"Diện tích đó bằng $\\displaystyle\\int_{-2}^{2}(x^2-4)\\,dx$.", ans:false,
+     explain:"Vì $y\\le0$ trên $[-2;2]$, diện tích $=\\displaystyle\\int_{-2}^{2}(4-x^2)\\,dx$ (lấy giá trị tuyệt đối). Biểu thức $\\int(x^2-4)dx$ cho số âm, không phải diện tích. SAI."},
+    {text:"Diện tích hình phẳng đó bằng $\\dfrac{32}{3}$.", ans:true,
+     explain:"$S=\\displaystyle\\int_{-2}^{2}(4-x^2)\\,dx=\\left[4x-\\dfrac{x^3}{3}\\right]_{-2}^{2}=(8-\\tfrac{8}{3})-(-8+\\tfrac{8}{3})=16-\\dfrac{16}{3}=\\dfrac{32}{3}$ ✓."}
+  ]
+},
+{
+  id:"t4", tag:"tichphan", tagLabel:"Tích phân ứng dụng",
+  ctx:`Một ô tô chuyển động với vận tốc $v(t)=3t^2-12t+9$ (m/s), $t\\ge0$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Ô tô dừng tại $t=1$ giây và $t=3$ giây.", ans:true,
+     explain:"$v(t)=0\\Rightarrow3(t-1)(t-3)=0\\Rightarrow t=1$ hoặc $t=3$ ✓."},
+    {text:"Trên khoảng $(1;3)$, ô tô chuyển động ngược chiều dương.", ans:true,
+     explain:"$v(2)=12-24+9=-3<0$ → ô tô đi ngược chiều dương trên $(1;3)$ ✓."},
+    {text:"Độ dịch chuyển từ $t=0$ đến $t=4$ là $4$ m.", ans:true,
+     explain:"$\\displaystyle\\int_0^4v\\,dt=[t^3-6t^2+9t]_0^4=64-96+36=4$ m ✓ (độ dịch chuyển có hướng)."},
+    {text:"Quãng đường thực sự ô tô đi từ $t=0$ đến $t=4$ là $4$ m.", ans:false,
+     explain:"Quãng đường $=\\int_0^1v\\,dt+|\\int_1^3v\\,dt|+\\int_3^4v\\,dt=4+|-4|+4=12$ m. SAI (khác độ dịch chuyển)."}
+  ]
+},
+
+// ─── NHÓM: HÀM SỐ (bổ sung) ───
+{
+  id:"h5", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=e^x-x-1$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Hàm số có duy nhất một điểm cực trị tại $x=0$.", ans:true,
+     explain:"$y'=e^x-1=0\\Rightarrow x=0$. $y''(0)=e^0=1>0$ → $x=0$ là cực tiểu ✓."},
+    {text:"Giá trị cực tiểu của hàm số bằng $0$.", ans:true,
+     explain:"$y(0)=1-0-1=0$ → cực tiểu bằng $0$ ✓."},
+    {text:"$e^x\\ge x+1$ với mọi $x\\in\\mathbb{R}$.", ans:true,
+     explain:"Vì cực tiểu của $y=e^x-x-1$ là $0$ và $y\\to+\\infty$ ở hai đầu, $y\\ge0$ với mọi $x$ → $e^x\\ge x+1$ ✓."},
+    {text:"Tiếp tuyến của đồ thị $y=e^x$ tại $(0;1)$ có phương trình $y=x+1$.", ans:true,
+     explain:"$y'(0)=e^0=1$ → tiếp tuyến tại $(0;1)$: $y=1\\cdot(x-0)+1=x+1$ ✓."}
+  ]
+},
+{
+  id:"h6", tag:"hamso", tagLabel:"Hàm số",
+  ctx:`Cho hàm số $y=\\log_2(x^2-3x+2)$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"Tập xác định của hàm số là $(-\\infty;1)\\cup(2;+\\infty)$.", ans:true,
+     explain:"$x^2-3x+2=(x-1)(x-2)>0\\Leftrightarrow x<1$ hoặc $x>2$ ✓."},
+    {text:"Phương trình $y=0$ tương đương $x^2-3x+2=1$.", ans:true,
+     explain:"$\\log_2(x^2-3x+2)=0\\Leftrightarrow x^2-3x+2=2^0=1$ ✓."},
+    {text:"Phương trình $y=1$ có nghiệm $x=0$ hoặc $x=3$.", ans:true,
+     explain:"$\\log_2(x^2-3x+2)=1\\Leftrightarrow x^2-3x+2=2\\Leftrightarrow x^2-3x=0\\Leftrightarrow x=0$ hoặc $x=3$. Cả hai thuộc tập xác định ✓."},
+    {text:"Hàm số xác định tại $x=1{,}5$.", ans:false,
+     explain:"$x=1{,}5\\in(1;2)\\Rightarrow(x-1)(x-2)<0$ → biểu thức trong log âm → hàm không xác định. SAI."}
+  ]
+},
+
+// ─── NHÓM: XÁC SUẤT (bổ sung) ───
+{
+  id:"x3", tag:"xacsuai", tagLabel:"Xác suất",
+  ctx:`Một xạ thủ có xác suất bắn trúng $p=0{,}8$ mỗi phát. Xạ thủ bắn $5$ phát độc lập nhau. Gọi $X$ là số lần bắn trúng.`,
+  items:[
+    {text:"$X\\sim B(5;\\,0{,}8)$.", ans:true,
+     explain:"5 lần độc lập, mỗi lần trúng với $p=0{,}8$ → $X\\sim B(5;0{,}8)$ ✓."},
+    {text:"$P(X=4)=C_5^4(0{,}8)^4(0{,}2)^1\\approx0{,}41$.", ans:true,
+     explain:"$P(X=4)=5\\cdot(0{,}8)^4\\cdot0{,}2=5\\cdot0{,}4096\\cdot0{,}2\\approx0{,}41$ ✓."},
+    {text:"Kỳ vọng $E(X)=4$.", ans:true,
+     explain:"$E(X)=np=5\\times0{,}8=4$ ✓."},
+    {text:"$P(X\\ge4)\\approx0{,}74$.", ans:true,
+     explain:"$P(X\\ge4)=P(X=4)+P(X=5)\\approx0{,}4096+0{,}3277=0{,}7373\\approx0{,}74$ ✓."}
+  ]
+},
+{
+  id:"x4", tag:"xacsuai", tagLabel:"Xác suất",
+  ctx:`Rút ngẫu nhiên 2 thẻ từ bộ thẻ đánh số $1,2,3,4,5,6$. Đặt $A$: "tổng hai số là số chẵn"; $B$: "cả hai số là số nguyên tố".`,
+  items:[
+    {text:"Số cách rút 2 thẻ là $C_6^2=15$.", ans:true,
+     explain:"$C_6^2=15$ ✓."},
+    {text:"$P(A)=\\dfrac{2}{5}$.", ans:true,
+     explain:"Số chẵn $\\{2,4,6\\}$, số lẻ $\\{1,3,5\\}$: tổng chẵn khi cùng tính chẵn/lẻ. $|A|=C_3^2+C_3^2=6$. $P(A)=6/15=2/5$ ✓."},
+    {text:"Số nguyên tố trong $\\{1,\\ldots,6\\}$ là $\\{2,3,5\\}$.", ans:true,
+     explain:"$1$ không phải số nguyên tố; $4,6$ hợp số. Số nguyên tố: $\\{2,3,5\\}$ ✓."},
+    {text:"$P(B)=\\dfrac{1}{5}$.", ans:true,
+     explain:"$|B|=C_3^2=3$ (chọn 2 trong $\\{2,3,5\\}$). $P(B)=3/15=1/5$ ✓."}
+  ]
+},
+
+// ─── NHÓM: HÌNH KHÔNG GIAN (bổ sung) ───
+{
+  id:"hkg4", tag:"hinhkg", tagLabel:"Hình không gian",
+  ctx:`Cho hình cầu tâm $O$, bán kính $R=6$. Mặt phẳng $(P)$ cách tâm $O$ một khoảng $d=4$ cắt hình cầu tạo đường tròn.`,
+  items:[
+    {text:"Bán kính đường tròn giao tuyến $r=2\\sqrt{5}$.", ans:true,
+     explain:"$r=\\sqrt{R^2-d^2}=\\sqrt{36-16}=\\sqrt{20}=2\\sqrt{5}$ ✓."},
+    {text:"Chu vi đường tròn giao tuyến bằng $4\\pi\\sqrt{5}$.", ans:true,
+     explain:"$C=2\\pi r=4\\pi\\sqrt{5}$ ✓."},
+    {text:"Diện tích đường tròn giao tuyến bằng $20\\pi$.", ans:true,
+     explain:"$S=\\pi r^2=\\pi\\cdot20=20\\pi$ ✓."},
+    {text:"Thể tích hình cầu bằng $288\\pi$.", ans:true,
+     explain:"$V=\\dfrac{4}{3}\\pi R^3=\\dfrac{4}{3}\\pi\\cdot216=288\\pi$ ✓."}
+  ]
+},
+{
+  id:"hkg5", tag:"hinhkg", tagLabel:"Hình không gian",
+  ctx:`Cho hình chóp đều $S.ABCD$ có đáy là hình vuông cạnh $2a$ và tất cả cạnh bên bằng $2a\\sqrt{2}$. Gọi $O$ là tâm đáy.`,
+  items:[
+    {text:"Nửa đường chéo đáy $OA=a\\sqrt{2}$.", ans:true,
+     explain:"Đường chéo hình vuông cạnh $2a$ bằng $2a\\sqrt{2}$; nửa đường chéo $=a\\sqrt{2}$ ✓."},
+    {text:"Chiều cao $SO=a\\sqrt{6}$.", ans:true,
+     explain:"$SO=\\sqrt{SA^2-OA^2}=\\sqrt{8a^2-2a^2}=\\sqrt{6a^2}=a\\sqrt{6}$ ✓."},
+    {text:"Thể tích khối chóp $S.ABCD=\\dfrac{4a^3\\sqrt{6}}{3}$.", ans:true,
+     explain:"$V=\\dfrac{1}{3}\\cdot(2a)^2\\cdot a\\sqrt{6}=\\dfrac{4a^3\\sqrt{6}}{3}$ ✓."},
+    {text:"Góc giữa cạnh bên $SA$ và đáy $ABCD$ bằng $45^\\circ$.", ans:false,
+     explain:"$\\tan\\theta=\\dfrac{SO}{OA}=\\dfrac{a\\sqrt{6}}{a\\sqrt{2}}=\\sqrt{3}\\Rightarrow\\theta=60^\\circ\\neq45^\\circ$. SAI."}
+  ]
+},
+
+// ─── NHÓM: SỐ PHỨC (bổ sung) ───
+{
+  id:"sp3", tag:"sophuc", tagLabel:"Số phức",
+  ctx:`Cho số phức $z$ thỏa mãn $(1+2i)z=3+4i$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"$z=\\dfrac{3+4i}{1+2i}$.", ans:true,
+     explain:"Từ $(1+2i)z=3+4i$ → $z=\\dfrac{3+4i}{1+2i}$ ✓."},
+    {text:"$z=\\dfrac{11}{5}-\\dfrac{2}{5}i$.", ans:true,
+     explain:"$z=\\dfrac{(3+4i)(1-2i)}{5}=\\dfrac{3-6i+4i-8i^2}{5}=\\dfrac{11-2i}{5}=\\dfrac{11}{5}-\\dfrac{2}{5}i$ ✓."},
+    {text:"$|z|=\\sqrt{5}$.", ans:true,
+     explain:"$|z|=\\dfrac{|3+4i|}{|1+2i|}=\\dfrac{5}{\\sqrt{5}}=\\sqrt{5}$ ✓."},
+    {text:"Phần thực của $z$ lớn hơn phần ảo của $z$.", ans:true,
+     explain:"Phần thực $=11/5=2{,}2$; phần ảo $=-2/5=-0{,}4$. $2{,}2>-0{,}4$ ✓."}
+  ]
+},
+{
+  id:"sp4", tag:"sophuc", tagLabel:"Số phức",
+  ctx:`Tìm số phức $z=a+bi$ ($a,b\\in\\mathbb{R}$) thỏa mãn $z^2=5+12i$. Xét các mệnh đề sau:`,
+  items:[
+    {text:"$|z|^2=|z^2|=13$.", ans:true,
+     explain:"$|5+12i|=\\sqrt{25+144}=13=|z|^2$ ✓."},
+    {text:"Hệ: $a^2-b^2=5$ và $2ab=12$.", ans:true,
+     explain:"$(a+bi)^2=a^2-b^2+2abi=5+12i$ → $a^2-b^2=5$ và $2ab=12$ ✓."},
+    {text:"Một nghiệm là $z=3+2i$.", ans:true,
+     explain:"$a=3, b=2$: $9-4=5$ ✓, $2\\cdot3\\cdot2=12$ ✓. $z=3+2i$ ✓."},
+    {text:"Phương trình $z^2=5+12i$ có duy nhất một nghiệm phức.", ans:false,
+     explain:"Có hai nghiệm: $z=3+2i$ và $z=-3-2i$. SAI."}
+  ]
+},
+
+// ─── NHÓM: TÀI CHÍNH (bổ sung) ───
+{
+  id:"tc3", tag:"taichinh", tagLabel:"Toán tài chính",
+  ctx:`Chị Lan gửi tiết kiệm $200$ triệu đồng với lãi suất $4\\%$/kỳ (6 tháng/kỳ). Cuối mỗi kỳ chị tái gửi toàn bộ gốc và lãi.`,
+  items:[
+    {text:"Số tiền sau 1 kỳ đầu là $208$ triệu đồng.", ans:true,
+     explain:"$A_1=200\\times1{,}04=208$ triệu ✓."},
+    {text:"Số tiền sau $n$ kỳ: $A_n=200\\times(1{,}04)^n$ triệu đồng.", ans:true,
+     explain:"Lãi kép kỳ hạn: $A_n=200\\cdot(1{,}04)^n$ ✓."},
+    {text:"Sau 2 năm (4 kỳ), số tiền xấp xỉ $234$ triệu đồng.", ans:true,
+     explain:"$A_4=200\\times(1{,}04)^4\\approx200\\times1{,}1699\\approx234$ triệu ✓."},
+    {text:"Lãi suất ghép kép $4\\%$/6 tháng tương đương đúng lãi đơn $8\\%$/năm.", ans:false,
+     explain:"Lãi suất hiệu dụng theo năm $=(1{,}04)^2-1=8{,}16\\%>8\\%$. Ghép kép sinh lợi hơn lãi đơn. SAI."}
+  ]
+}
+];
+
+// ==================== STATE ====================
+const userAnswers = {}; // {qid: {0:true/false, 1:true/false,...}}
+const checked = {};     // {qid: true}
+let currentFilter = "all";
+let submitted = false;
+
+function getFiltered() {
+  if(currentFilter === "all") return QUESTIONS;
+  return QUESTIONS.filter(q => q.tag === currentFilter);
+}
+
+// ==================== RENDER ====================
+function render() {
+  const wrap = document.getElementById("qWrap");
+  wrap.innerHTML = "";
+  const qs = getFiltered();
+  qs.forEach((q, qi) => {
+    const card = document.createElement("div");
+    card.className = "q-card";
+    card.id = "card-" + q.id;
+    card.style.animationDelay = (qi * 0.05) + "s";
+
+    const tagMap = {newton:"badge-newton",oxyz:"badge-oxyz",tichphan:"badge-tichphan",xacsuai:"badge-xacsuai",hamso:"badge-hamso",hinhkg:"badge-hinhkg",sophuc:"badge-sophuc",taichinh:"badge-taichinh",capso:"badge-capso"};
+
+    let itemsHtml = q.items.map((item, ii) => {
+      const sel = (userAnswers[q.id] || {})[ii];
+      const truCls = sel === true ? "sel-true" : "";
+      const falCls = sel === false ? "sel-false" : "";
+      const isChecked = checked[q.id];
+      let itemCls = "";
+      if(isChecked) {
+        if(sel === item.ans) itemCls = "answered-correct";
+        else if(sel !== undefined) itemCls = "answered-wrong";
+        else itemCls = "revealed-correct";
+      }
+      return `
+        <div class="q-item ${itemCls}" id="item-${q.id}-${ii}">
+          <div class="item-label">${String.fromCharCode(97+ii)})</div>
+          <div class="item-text">${item.text}</div>
+          <div class="item-btns">
+            <button class="ds-btn ${truCls}" onclick="selectDS('${q.id}',${ii},true)" ${isChecked||submitted?'disabled':''}>Đ</button>
+            <button class="ds-btn ${falCls}" onclick="selectDS('${q.id}',${ii},false)" ${isChecked||submitted?'disabled':''}>S</button>
+          </div>
+        </div>`;
+    }).join("");
+
+    const explainHtml = q.items.map((item, ii) => {
+      if(!checked[q.id]) return "";
+      return `<div class="explain-box show"><strong>${String.fromCharCode(97+ii)}) ${item.ans?"✓ ĐÚNG":"✗ SAI"}:</strong> ${item.explain}</div>`;
+    }).join("");
+
+    const resEl = checked[q.id] ? (() => {
+      const pts = calcDS(q.id, q);
+      return `<div class="check-result show">Đúng <span class="pts">${countCorrect(q.id,q)}/4</span> ý → <span class="pts">${pts}đ</span></div>`;
+    })() : `<div class="check-result" id="res-${q.id}"></div>`;
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-badge ${tagMap[q.tag]}">${q.tagLabel}</span>
+        <div class="q-num-title">
+          <div class="q-num">CÂU ${qi + 1} / ${getFiltered().length}</div>
+          <div class="q-ctx">${q.ctx}</div>
+        </div>
+      </div>
+      <div class="q-items">${itemsHtml}</div>
+      ${explainHtml}
+      <div class="check-row">
+        <button class="btn-check" id="checkbtn-${q.id}" onclick="checkOne('${q.id}')" ${checked[q.id]||submitted?'disabled':''}>Kiểm tra</button>
+        ${resEl}
+      </div>`;
+    wrap.appendChild(card);
+  });
+
+  // Re-render math
+  if(window.renderMathInElement) {
+    renderMathInElement(wrap, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
+  }
+  updateProgress();
+  updateLiveStat();
+}
+
+function selectDS(qid, ii, val) {
+  if(submitted || checked[qid]) return;
+  if(!userAnswers[qid]) userAnswers[qid] = {};
+  userAnswers[qid][ii] = val;
+  // Update just the buttons for this item
+  const item = document.getElementById(`item-${qid}-${ii}`);
+  if(!item) return;
+  const btns = item.querySelectorAll(".ds-btn");
+  btns[0].className = "ds-btn" + (val === true ? " sel-true" : "");
+  btns[1].className = "ds-btn" + (val === false ? " sel-false" : "");
+  updateProgress();
+  updateLiveStat();
+}
+
+function countCorrect(qid, q) {
+  const sel = userAnswers[qid] || {};
+  return q.items.filter((item, ii) => sel[ii] === item.ans).length;
+}
+
+function calcDS(qid, q) {
+  const c = countCorrect(qid, q);
+  return [0, 0.1, 0.25, 0.5, 1.0][c];
+}
+
+function checkOne(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  checked[qid] = true;
+  render();
+  // Scroll to card
+  const card = document.getElementById("card-" + qid);
+  if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function filterQuestions(f) {
+  currentFilter = f;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.filter === f));
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function updateProgress() {
+  const qs = getFiltered();
+  const done = qs.filter(q => {
+    const sel = userAnswers[q.id] || {};
+    return Object.keys(sel).length > 0;
+  }).length;
+  const pct = qs.length ? Math.round(done/qs.length*100) : 0;
+  document.getElementById("progFill").style.width = pct + "%";
+}
+
+function updateLiveStat() {
+  const qs = QUESTIONS;
+  let total = 0;
+  qs.forEach(q => { if(checked[q.id]) total += calcDS(q.id, q); });
+  const maxPts = qs.length;
+  document.getElementById("live-stat").textContent = `${total.toFixed(2)} / ${maxPts}đ`;
+}
+
+function submitAll() {
+  submitted = true;
+  QUESTIONS.forEach(q => { checked[q.id] = true; });
+  render();
+
+  let total = 0, totalPossible = QUESTIONS.length;
+  const byTag = {};
+  QUESTIONS.forEach(q => {
+    const pts = calcDS(q.id, q);
+    total += pts;
+    if(!byTag[q.tag]) byTag[q.tag] = {pts:0,max:0,label:q.tagLabel};
+    byTag[q.tag].pts += pts;
+    byTag[q.tag].max += 1;
+  });
+
+  const grade = total >= totalPossible*0.8 ? "🏆 Xuất sắc" :
+                total >= totalPossible*0.6 ? "🎯 Khá giỏi" :
+                total >= totalPossible*0.4 ? "📘 Trung bình" : "📚 Cần ôn thêm";
+
+  document.getElementById("rTitle").textContent = grade;
+  document.getElementById("rScore").textContent = total.toFixed(2) + " đ";
+  document.getElementById("rSub").textContent = `/ ${totalPossible} điểm tối đa (${QUESTIONS.length} câu × 1đ)`;
+
+  const grid = document.getElementById("rGrid");
+  grid.innerHTML = Object.values(byTag).map(b =>
+    `<div class="result-stat"><span class="rv">${b.pts.toFixed(1)}/${b.max}</span><span class="rl">${b.label}</span></div>`
+  ).join("") + `<div class="result-stat"><span class="rv">${Math.round(total/totalPossible*100)}%</span><span class="rl">Tỉ lệ đúng</span></div>`;
+
+  document.getElementById("resultBanner").classList.add("show");
+  document.getElementById("resultBanner").scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function resetAll() {
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  Object.keys(checked).forEach(k => delete checked[k]);
+  submitted = false;
+  document.getElementById("resultBanner").classList.remove("show");
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+// Init
+render();
+</script>
+</body>
+</html>

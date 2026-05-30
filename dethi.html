@@ -446,16 +446,7 @@ nav button:hover, nav button.active {
     background-color: #cbd5e1; /* Đổi màu khi chạm/di chuột vào */
     color: #1e40af;
 }
-#timerBox {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  color: var(--accent2);
-  background: rgba(75,158,232,0.1);
-  border: 1px solid rgba(75,158,232,0.3);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  white-space: nowrap;
-}
+
 </style>
 </head>
 <body>
@@ -465,8 +456,7 @@ nav button:hover, nav button.active {
   <div class="header-inner">
     <div class="logo">TOÁN<span>THPT</span> 2026</div>
     <nav id="navBtns"></nav>
-    <div class="score-badge" id="globalScore">Đã làm 0 / 0 câu</div>
-    <div id="timerBox" style="display:none;">⏱ --:--</div>
+    <div class="score-badge" id="globalScore">0 / 0 câu</div>
   </div>
 </header>
 
@@ -749,6 +739,141 @@ const EXAM_DATA = [
     { q: "Ba hộp bi: I (6 đỏ, 4 trắng); II (4 đỏ, 6 trắng); III (5 đỏ, 5 trắng). Lấy mỗi hộp I và II một viên bỏ vào III, rồi từ III lấy ra 2 viên. Biết 2 viên lấy ra có đủ hai màu, tính xác suất để đó chính là 2 viên vừa chuyển từ I và II (dạng p/q tối giản). Tìm p+q.", ans: "901", hint: "Xác suất có điều kiện, kết quả p/q sau tối giản cho p+q=901" }
   ]
 }
+,
+// ===== ĐỀ 005: NGUYỄN KHUYẾN TP.HCM – MÃ 629 =====
+{
+  id: "005",
+  maDe: "629",
+  ten: "Trường THCS-THPT Nguyễn Khuyến – TP.HCM",
+  nguon: "Sở GD&ĐT TP.HCM · 22/05/2026",
+  loai: "thu",
+  thoiGian: "90 phút",
+  nam: "2026",
+  pdfUrl: "de-nk-629.html",
+  phan1: [
+    { q: "Phương trình $2\\sin x - \\sqrt{3} = 0$ có tập nghiệm là", opts: ["{±π/6 + k2π, k∈ℤ}", "{±π/3 + k2π, k∈ℤ}", "{π/6 + k2π, 5π/6 + k2π, k∈ℤ}", "{π/3 + k2π, 2π/3 + k2π, k∈ℤ}"], ans: 3 },
+    { q: "Tập nghiệm của bất phương trình log₂(x−1) < 3 là", opts: ["(−∞; 10)", "(1; 9)", "(1; 10)", "(−∞; 9)"], ans: 1 },
+    { q: "Đường cong có tiệm cận đứng x=1, tiệm cận ngang y=1, đi qua vùng (0;2) và (2;2). Hàm số là", opts: ["y=(x−2)/(x−1)", "y=(x+2)/(x+1)", "y=(x+2)/(x−1)", "y=(x−2)/(x+1)"], ans: 0 },
+    { q: "Đường thẳng Δ: x/1 = (y+2)/(−1) = (z−1)/3 đi qua M(2; m; n). Giá trị m+n bằng", opts: ["7", "3", "−1", "1"], ans: 1 },
+    { q: "Hình hộp chữ nhật ABCD.A'B'C'D' có AB=1, AD=2, AA'=3. Thể tích khối chóp D.A'B'C'D' là", opts: ["V=2", "V=1", "V=6", "V=3"], ans: 0 },
+    { q: "Lợi nhuận 20 tháng: [10;20)→2, [20;30)→4, [30;40)→8, [40;50)→4, [50;60)→2 tháng. Lợi nhuận trung bình (triệu đồng)?", opts: ["33", "36", "35", "34"], ans: 2 },
+    { q: "Ba điểm A(1;1;3), B(−1;3;2), C(−1;2;3). Khoảng cách h từ O đến mặt phẳng (ABC) là", opts: ["h=3/2", "h=√3/2", "h=√3", "h=3"], ans: 3 },
+    { q: "Hàm f(x) có bảng biến thiên: f(0)=2 (cực đại), f(2)=−2 (cực tiểu). Số nghiệm của f(x)=f(2) là", opts: ["0", "2", "1", "3"], ans: 1 },
+    { q: "Đường tiệm cận xiên của y = 2x−1 + 1/x có phương trình", opts: ["y=1−2x", "y=2x", "y=2x−1", "y=−2x"], ans: 2 },
+    { q: "Tọa độ điểm cực tiểu của y = (1/3)x³ − 2x² + 3x − 1 là", opts: ["(4; 7/3)", "(3; −1)", "(1; 7/3)", "(0; −1)"], ans: 1 },
+    { q: "Hình lập phương ABCD.A'B'C'D' cạnh 1, A trùng gốc tọa độ. Vectơ A'C' có tọa độ", opts: ["(1;0;1)", "(0;1;1)", "(1;1;0)", "(1;1;1)"], ans: 2 },
+    { q: "Thời gian chơi thể thao 42 HS: [0;20)→5, [20;40)→9, [40;60)→12, [60;80)→10, [80;100)→6. Phương sai (làm tròn hàng đơn vị)?", opts: ["598", "597", "2477", "256"], ans: 0 }
+  ],
+  phan2: [
+    { ctx: "Cho hàm số y = f(x) = ln(x−1) + 2x. Xét tính đúng/sai:",
+      items: [
+        { text: "Tập xác định là D = [1; +∞)", ans: false },
+        { text: "Phương trình y' = 0 có tập nghiệm S = {1/2}", ans: false },
+        { text: "Giá trị nhỏ nhất trên [2;4] bằng ln2+6 khi x=3", ans: false },
+        { text: "Bất phương trình f(x) > 2x có tập nghiệm (2; +∞)", ans: true }
+      ]
+    },
+    { ctx: "Vật chuyển động từ A(12;−8;4) hướng B. Tốc độ v(t)=at+240 m/s, 0≤t≤8. Sau 3 giây đi 738 m. Vectơ đơn vị cùng hướng AB có cosine với i,j,k lần lượt là 2/7, 3/7, 6/7:",
+      items: [
+        { text: "c = 2/7", ans: true },
+        { text: "Phương trình AB: (x−12)/2 = (y+8)/3 = (z−4)/5", ans: false },
+        { text: "a = 5", ans: false },
+        { text: "Sau 6 giây, vật đến B(xB; yB; zB). Khi đó xB > 450", ans: false }
+      ]
+    },
+    { ctx: "Parabol (P) đỉnh S, AB nằm ngang; SO=AB=4m, O trung điểm AB. Tọa độ Oxy: B trên Ox, S trên Oy. Hình quạt tâm O bán kính 2m:",
+      items: [
+        { text: "Hình quạt chứa trong đường tròn x² + y² = 4", ans: true },
+        { text: "(P): y = x² − 4", ans: false },
+        { text: "Giao điểm hình quạt với parabol là (−√3; 1) và (√3; 1)", ans: true },
+        { text: "Tổng chi phí sơn 3 phần bằng 1,6 triệu đồng", ans: true }
+      ]
+    },
+    { ctx: "Hộp 12 thẻ (1–12), rút 2 thẻ. A: hai thẻ chẵn; B: tổng chia hết 3; C: chênh lệch không quá 3:",
+      items: [
+        { text: "P(A) = 5/22", ans: true },
+        { text: "P(B) = 1/4", ans: false },
+        { text: "P(A|C) = 1/6", ans: true },
+        { text: "P(B|C) = 2/5", ans: false }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Rừng 5×10⁵ m³, tăng trưởng 3%/năm liên tục. Sau 4 năm khai thác 12%. Sau 10 năm trữ lượng = a×10⁵ m³. Tính a (làm tròn hàng phần chục).", ans: "5.9" },
+    { q: "Hình chóp cụt ABCD.A'B'C'D', A'B'=(1/3)AB, khoảng cách B→(ACC'A')=3√2·a, diện tích thang ACC'A'=20√2·a². Thể tích = k·a³. Tính k (làm tròn hàng phần mười).", ans: "86.7" },
+    { q: "Mắt M(0;0;1,4). Đèn flycam xuất phát P₀(2;24;10,4), v(t)=0,6t+3 m/s theo chiều dương Ox. Tấm chắn hình tròn mặt phẳng y=8, tâm I(5;8;4,4), bán kính 2,1m. Mắt không nhìn thấy đèn trong bao nhiêu giây? (làm tròn hàng phần trăm)", ans: "2.57" },
+    { q: "Hình chóp S.ABCD, đáy vuông cạnh 2 dm, (SAB)⊥đáy, tam giác SAB đều. Thể tích hộp chữ nhật lớn nhất (dm³)? (làm tròn hàng phần trăm)", ans: "1.03" },
+    { q: "Hình vuông ABCD cạnh 8 cm, parabol (P) qua O,E (trung điểm AD) tiếp xúc CD. T chạy từ B→C với v(t)=0,2t+0,6 cm/s. Tại t=3s, S(t) đang giảm với tốc độ bao nhiêu cm²/s? (làm tròn hàng phần chục)", ans: "1.3" },
+    { q: "2026 bóng đèn, giây thứ k đổi màu các bóng chia hết cho k. Sau giây 2026, chọn ngẫu nhiên 1 bóng. XS bóng đỏ = m/n (tối giản). Tính m+n.", ans: "4007" }
+  ]
+},
+// ===== ĐỀ 006: SỞ GD&ĐT VĨNH LONG – MÃ 0101 =====
+{
+  id: "006",
+  maDe: "0101",
+  ten: "Sở GD&ĐT Vĩnh Long – Kỳ thi thử chính thức",
+  nguon: "Sở GD&ĐT Vĩnh Long · Kỳ thi thử TN THPT 2026",
+  loai: "so",
+  thoiGian: "90 phút",
+  nam: "2026",
+  pdfUrl: "de-vinh-long-0101.html",
+  phan1: [
+    { q: "Cho ∫₀² f(x)dx = 3. Tính I = ∫₀² [f(x)+1]·2 dx", opts: ["I=7", "I=4", "I=8", "I=6"], ans: 2 },
+    { q: "Hình chóp S.ABCD, đáy ABCD hình chữ nhật tâm I, SA⊥đáy. Khẳng định nào đúng?", opts: ["(SCD)⊥(SAD)", "(SBD)⊥(SAC)", "(SBC)⊥(SIA)", "(SDC)⊥(SAI)"], ans: 0 },
+    { q: "Đường thẳng d: x=5+t, y=7+2t, z=9+3t. Một vectơ chỉ phương là", opts: ["(5;7;9)", "(3;2;1)", "(1;2;3)", "(1;3;2)"], ans: 2 },
+    { q: "Mẫu số liệu: [1,5;2,5)→2, [2,5;3,5)→3, [3,5;4,5)→7, [4,5;5,5)→2, [5,5;6,5)→1. Khoảng biến thiên là", opts: ["2", "5", "3", "4"], ans: 1 },
+    { q: "Diện tích S hình phẳng giới hạn bởi y=f(x) trên [a;b], trục hoành, x=a, x=b (a<b) là", opts: ["S=∫[f(x)]²dx", "S=∫f(x)dx", "S=∫|f(x)|dx", "S=|∫f(x)dx|"], ans: 2 },
+    { q: "Cấp số cộng (uₙ) có u₁=2, d=5. Giá trị u₄ bằng", opts: ["22", "17", "12", "250"], ans: 1 },
+    { q: "Với mọi a>0, log_a27 − log_a(3·∛3) bằng", opts: ["3", "3−3·2log_a", "9", "log_a26−3"], ans: 0 },
+    { q: "Nghiệm của √(2x²+3x+1) = √(1−5x) là", opts: ["x=−1; x=2", "Vô nghiệm", "x=1; x=2", "x=−1; x=−2"], ans: 3 },
+    { q: "Mặt cầu (S): (x−1)²+(y−2)²+(z+3)²=9. Tọa độ tâm là", opts: ["(1;−2;3)", "(1;2;3)", "(1;−2;−3)", "(1;2;−3)"], ans: 3 },
+    { q: "Hàm số y=(ax+b)/(cx+d) có bảng biến thiên: tiệm cận đứng x=−2. Phương trình tiệm cận đứng là", opts: ["y=1", "x=1", "y=−2", "x=−2"], ans: 3 },
+    { q: "Hai vectơ a⃗=(−1;0;2), b⃗=(2;3;2). Giá trị a⃗·b⃗ bằng", opts: ["2", "6", "3", "4"], ans: 0 },
+    { q: "Hình chóp S.ABC đáy tam giác vuông cân tại B, SA⊥(ABC), AB=BC=a, SA=a√3. Thể tích V là", opts: ["V=a³/6", "V=a³√3/2", "V=a³√3/6", "V=a³√3"], ans: 2 }
+  ],
+  phan2: [
+    { ctx: "Tốc độ thay đổi điện tiêu thụ: E'_A(t)=2^t+8, E'_B(t)=3,75t+n, 0≤t≤4. Tại t=0 và t=4 hai khu vực bằng nhau:",
+      items: [
+        { text: "Tổng lượng điện tăng thêm của khu vực A sau 4 năm ≈ 53,64 triệu kWh", ans: true },
+        { text: "t₀ là mốc E'_A=12 triệu kWh/năm, khi đó t₀=2,5", ans: false },
+        { text: "Tại t=3, tốc độ thay đổi khu vực A là 16 triệu kWh/năm", ans: true },
+        { text: "Trong 4 năm đầu, khu vực B tăng nhiều hơn A khoảng 10,93 triệu kWh", ans: false }
+      ]
+    },
+    { ctx: "Khảo sát người dùng app ngân hàng: P(QR)=0,7; P(tiết kiệm)=0,5; P(cả hai)=0,3:",
+      items: [
+        { text: "Chọn 10 người, xác suất đúng 3 người dùng cả hai ≈ 0,27", ans: true },
+        { text: "P(dùng QR | đã dùng tiết kiệm) = 0,6", ans: true },
+        { text: "Biết khách được hoàn tiền (60% nếu dùng cả hai, 10% nếu không), XS thuộc nhóm dùng cả hai = 0,25", ans: false },
+        { text: "P(dùng ít nhất một dịch vụ) = 0,9", ans: true }
+      ]
+    },
+    { ctx: "Laser từ C(20;60;50) qua phao B(a;b;c) đến A(15;10;−50). Hệ trục Oxyz: Oxy là mặt nước, Oz hướng lên:",
+      items: [
+        { text: "Phương trình AC: (x−20)/1 = (y−60)/10 = (z−50)/20", ans: true },
+        { text: "Robot tại M gần nhất A trên thanh ray cách mặt nước 5m: a'+b'+c'=34", ans: false },
+        { text: "Tọa độ phao B thỏa a+b+c = 52,5", ans: true },
+        { text: "Quãng đường laser trong nước sau 10 ns (v(t)=0,22t+0,01) = 2,475 m", ans: false }
+      ]
+    },
+    { ctx: "Hàm số f(x) = x + 4/x với x≠0:",
+      items: [
+        { text: "f(−4) = 2", ans: false },
+        { text: "Đạo hàm f'(x) = (x²−4)/x² với x≠0", ans: true },
+        { text: "Trên [1;3]: giá trị lớn nhất M và nhỏ nhất m thỏa M−m=1", ans: true },
+        { text: "Tổng các nghiệm của f'(x)=0 bằng 4", ans: false }
+      ]
+    }
+  ],
+  phan3: [
+    { q: "Đèn lắp tại A trên giao tuyến mặt phẳng x+y−z+4=0 và mặt cầu (x−1)²+(y−1)²+(z−2)²=6. Đèn phát hình nón góc đỉnh 60°, trục ⊥ mặt sàn x−2y+2z−10=0. Diện tích vùng chiếu sáng nhỏ nhất trên sàn (làm tròn hàng phần mười, m²)?", ans: "26.2" },
+    { q: "Nghệ nhân sản xuất x bình hoa (1≤x≤18, x∈N). Chi phí C(x)=x³−3x²+40x+500 (nghìn đồng). Bán 280 nghìn/bình. Số bình để lợi nhuận cao nhất?", ans: "10" },
+    { q: "Dãy uₙ=C⁴ₙ₊₃ (n=1..80). Chọn 2 bộ A,B mỗi bộ 3 số hạng liên tiếp, không chỉ số chung. XS tổng mỗi cột đều lẻ = a/b (tối giản). Tính a+b.", ans: "1781" },
+    { q: "Lăng trụ tam giác đều ABC.A'B'C', cạnh đáy 2 dm, khoảng cách A' đến (AB'C') = √3/2 dm. Khoảng cách hai mặt đáy (dm)?", ans: "1" },
+    { q: "Vật phẩm chặn giấy: 2 elip bằng nhau, trục lớn 8 cm, trục nhỏ 8/√3 cm, trục lớn vuông góc nhau. Đường tròn qua giao điểm: phần lõi dát đồng 5000đ/cm², phần cánh hoa đính đá 15000đ/cm². Tổng chi phí (nghìn đồng, làm tròn hàng đơn vị)?", ans: "329" },
+    { q: "Bác Minh mua tivi 21,5 triệu, trả trước 10 triệu. Trả góp 12 tháng, lãi suất 3,5%/tháng lãi kép dư nợ giảm dần. Mỗi tháng trả m triệu (không đổi). Tính m (làm tròn hàng phần trăm)?", ans: "1.19" }
+  ]
+}
 ];
 
 // ==================== STATE & LOGIC (giữ nguyên, không thay đổi) ====================
@@ -819,6 +944,15 @@ function renderDeGrid(filter = currentFilter) {
       <div class="de-card-progress"><div class="de-card-progress-fill" style="width:${prog}%"></div></div>
     `;
     card.onclick = () => openExam(de.id);
+    if (de.pdfUrl) {
+      const linkBtn = document.createElement("a");
+      linkBtn.href = de.pdfUrl;
+      linkBtn.target = "_blank";
+      linkBtn.textContent = "📄 Mở đề đầy đủ →";
+      linkBtn.style.cssText = "display:block;margin-top:0.6rem;font-size:0.72rem;font-family:'JetBrains Mono',monospace;color:var(--accent2);text-decoration:none;opacity:0.8;";
+      linkBtn.onclick = e => e.stopPropagation();
+      card.appendChild(linkBtn);
+    }
     grid.appendChild(card);
   });
 }
@@ -838,8 +972,6 @@ function openExam(id) {
 }
 
 function startTimer(thoiGianStr) {
-  if(examTimer) clearInterval(examTimer);
-  document.getElementById("timerBox").style.display = "block"; // thêm dòng này
   if(examTimer) clearInterval(examTimer);
   // Parse "90 phút" hoặc "120 phút"
   const match = thoiGianStr.match(/(\d+)/);
@@ -869,8 +1001,6 @@ function updateTimerDisplay() {
   else box.style.color = "var(--accent2)";
 }
 function goHome() {
-  if(examTimer) clearInterval(examTimer);
-  document.getElementById("timerBox").style.display = "none"; // thêm dòng này
   if(examTimer) clearInterval(examTimer); // thêm dòng này
   document.getElementById("examPage").classList.add("hidden");2025
   document.getElementById("examPage").classList.add("hidden");
@@ -893,6 +1023,7 @@ function renderExam() {
     <h2>KỲ THI TỐT NGHIỆP THPT NĂM ${ex.nam}</h2>
     <div class="subtitle">Môn thi: TOÁN &nbsp;|&nbsp; Thời gian làm bài: ${ex.thoiGian}</div>
     <div class="subtitle" style="margin-top:0.3rem;font-size:0.8rem;">${ex.nguon}</div>
+    <div id="timerBox" style="margin-top:0.8rem;font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent2);background:rgba(75,158,232,0.1);border:1px solid rgba(75,158,232,0.3);display:inline-block;padding:0.3rem 1.2rem;border-radius:8px;">⏱ Đang tải...</div>
     <div class="ma-de-box">Mã đề: ${ex.maDe}</div>
     <div class="exam-info">
       <span><strong>12 TN</strong> (0,25đ/câu)</span>
@@ -900,7 +1031,10 @@ function renderExam() {
       <span><strong>6 TLN</strong> (0,5đ/câu)</span>
       <span>Tổng <strong>10 điểm</strong></span>
     </div>
-    <div style="margin-top:1rem;"><button class="btn-reset" onclick="goHome()" style="font-size:0.8rem;padding:0.4rem 1rem;">← Chọn đề khác</button></div>
+    <div style="margin-top:1rem;display:flex;gap:0.7rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-reset" onclick="goHome()" style="font-size:0.8rem;padding:0.4rem 1rem;">← Chọn đề khác</button>
+      ${ex.pdfUrl ? `<a href="${ex.pdfUrl}" target="_blank" style="display:inline-block;font-size:0.8rem;padding:0.4rem 1rem;border-radius:8px;border:1px solid rgba(75,158,232,0.4);color:var(--accent2);background:rgba(75,158,232,0.08);text-decoration:none;">📄 Mở đề đầy đủ</a>` : ""}
+    </div>
   `;
   area.appendChild(hdr);
   // Phần I
@@ -915,7 +1049,7 @@ function renderExam() {
   const actions = document.createElement("div");
   actions.className = "exam-actions";
   actions.innerHTML = `<button class="btn-submit" onclick="submitExam()">Nộp bài & Xem đáp án</button>
-                     <button class="btn-reset" onclick="goHome()">← Chọn đề khác</button>`;
+                       <button class="btn-reset" onclick="resetExam()">Làm lại từ đầu</button>`;
   area.appendChild(actions);
   const resultDiv = document.createElement("div"); resultDiv.className = "result-banner"; resultDiv.id = "resultBanner";
   area.appendChild(resultDiv);
